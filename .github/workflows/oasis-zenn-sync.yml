@@ -20,7 +20,8 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
-      TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY || 'Sunwood-ai-labs/Zenn-dev' }}
+      # TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY || 'Sunwood-ai-labs/Zenn-dev' }}
+      TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY || 'Sunwood-ai-labs/Zenn' }}
       TARGET_PATH: ${{ vars.ZENN_TARGET_PATH || './articles' }}
       TARGET_BRANCH: ${{ vars.ZENN_TARGET_BRANCH || 'main' }}
       SYNC_TOKEN: ${{ secrets.GH_PAT }}

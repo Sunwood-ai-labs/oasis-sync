@@ -20,7 +20,8 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
-      TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'Sunwood-ai-labs/Qiita-dev' }}
+      # TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'Sunwood-ai-labs/Qiita-dev' }}
+      TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'Sunwood-ai-labs/qiita-article' }}
       TARGET_PATH: ${{ vars.QIITA_TARGET_PATH || './public' }}
       TARGET_BRANCH: ${{ vars.QIITA_TARGET_BRANCH || 'main' }}
       SYNC_TOKEN: ${{ secrets.GH_PAT }}
