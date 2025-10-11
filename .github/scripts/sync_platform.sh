@@ -25,22 +25,9 @@ if [[ -z "${NORMALIZED_TARGET_REPOSITORY}" ]]; then
   exit 1
 fi
 
-BASE_SHA="${BEFORE_SHA:-}"
-if [[ -z "${BASE_SHA}" || "${BASE_SHA}" =~ ^0+$ ]]; then
-  if git rev-parse HEAD^ >/dev/null 2>&1; then
-    BASE_SHA="$(git rev-parse HEAD^)"
-  else
-    BASE_SHA="$(git hash-object -t tree /dev/null)"
-  fi
-fi
-
-mapfile -t FILES < <(
-  git diff --name-status "${BASE_SHA}" HEAD -- |
-    awk -v prefix="${SOURCE_PREFIX}/" '$1 == "A" && index($2, prefix) == 1 && $2 ~ /\.md$/ {print $2}'
-)
-
-if [[ "${#FILES[@]}" -eq 0 ]]; then
-  echo "No new ${PLATFORM} articles detected."
+SOURCE_DIR="${SOURCE_PREFIX%/}"
+if [[ ! -d "${SOURCE_DIR}" ]]; then
+  echo "Source directory '${SOURCE_DIR}' does not exist. Nothing to sync."
   exit 0
 fi
 
@@ -56,47 +43,30 @@ if [[ -n "${CLEAN_PATH}" ]]; then
   TARGET_ROOT="target/${CLEAN_PATH}"
 fi
 
-mkdir -p "${TARGET_ROOT}"
-MANIFEST="$(mktemp)"
-
-for SOURCE_PATH in "${FILES[@]}"; do
-  if [[ ! -f "${SOURCE_PATH}" ]]; then
-    echo "Skipping missing file ${SOURCE_PATH}"
-    continue
-  fi
-
-  REL_PATH="${SOURCE_PATH#"${SOURCE_PREFIX}/"}"
-  DEST_PATH="${TARGET_ROOT}/${REL_PATH}"
-  mkdir -p "$(dirname "${DEST_PATH}")"
-  cp "${SOURCE_PATH}" "${DEST_PATH}"
-
-  if [[ -n "${CLEAN_PATH}" ]]; then
-    echo "${CLEAN_PATH}/${REL_PATH}" >>"${MANIFEST}"
-  else
-    echo "${REL_PATH}" >>"${MANIFEST}"
-  fi
-
-  echo "Copied ${SOURCE_PATH} -> ${DEST_PATH}"
-done
-
-if [[ ! -s "${MANIFEST}" ]]; then
-  echo "No files copied; nothing to commit."
-  rm -f "${MANIFEST}"
-  exit 0
+if [[ -n "${CLEAN_PATH}" ]]; then
+  rm -rf "${TARGET_ROOT}"
+  mkdir -p "${TARGET_ROOT}"
+  cp -a "${SOURCE_DIR}/." "${TARGET_ROOT}/"
+else
+  find target -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
+  cp -a "${SOURCE_DIR}/." target/
 fi
+
+echo "Copied contents of '${SOURCE_DIR}' to '${TARGET_ROOT}'"
 
 (
   cd target
   git config user.name "oasis-sync[bot]"
   git config user.email "oasis-sync[bot]@users.noreply.github.com"
 
-  while IFS= read -r PATH_IN_REPO; do
-    git add "${PATH_IN_REPO}"
-  done <"${MANIFEST}"
+  if [[ -n "${CLEAN_PATH}" ]]; then
+    git add --all "${CLEAN_PATH}"
+  else
+    git add --all .
+  fi
 
   if git diff --cached --quiet; then
-    echo "No changes to commit."
-    rm -f "${MANIFEST}"
+    echo "No ${PLATFORM} article changes to commit."
     exit 0
   fi
 
@@ -104,5 +74,3 @@ fi
   git commit -m "${COMMIT_MESSAGE}"
   git push origin HEAD:"${TARGET_BRANCH}"
 )
-
-rm -f "${MANIFEST}"
