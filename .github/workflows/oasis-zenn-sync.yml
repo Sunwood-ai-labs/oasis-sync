@@ -1,0 +1,36 @@
+name: "🪄 Oasis Zenn Sync"
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "articles/zenn/**/*.md"
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY }}
+      TARGET_PATH: ${{ vars.ZENN_TARGET_PATH }}
+      TARGET_BRANCH: ${{ vars.ZENN_TARGET_BRANCH || 'main' }}
+      SYNC_TOKEN: ${{ secrets.ZENN_SYNC_TOKEN }}
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare sync script
+        run: chmod +x .github/scripts/sync_platform.sh
+
+      - name: Sync new Zenn articles
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          PLATFORM: "Zenn"
+          SOURCE_PREFIX: "articles/zenn"
+          COMMIT_MESSAGE: "Sync new Zenn articles from oasis-sync"
+        run: .github/scripts/sync_platform.sh
