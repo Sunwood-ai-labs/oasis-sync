@@ -200,12 +200,8 @@ def write_github_output(
     needs_value = needs_path.read_text(encoding="utf-8").strip() or "false"
 
     lines = [
-        "payload<<EOF",
-        payload_json,
-        "EOF",
-        "gemini_payload<<EOF",
-        gemini_json,
-        "EOF",
+        f"payload={payload_json}",
+        f"gemini_payload={gemini_json}",
         f"needs_gemini={needs_value}",
         "",
     ]
