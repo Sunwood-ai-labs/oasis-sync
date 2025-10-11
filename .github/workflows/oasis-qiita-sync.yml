@@ -14,10 +14,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     env:
-      TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY }}
-      TARGET_PATH: ${{ vars.QIITA_TARGET_PATH }}
+      TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'https://github.com/Sunwood-ai-labs/Qiita-dev' }}
+      TARGET_PATH: ${{ vars.QIITA_TARGET_PATH || './public' }}
       TARGET_BRANCH: ${{ vars.QIITA_TARGET_BRANCH || 'main' }}
-      SYNC_TOKEN: ${{ secrets.QIITA_SYNC_TOKEN }}
+      SYNC_TOKEN: ${{ secrets.GH_PAT }}
     steps:
       - name: Checkout source repository
         uses: actions/checkout@v4

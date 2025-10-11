@@ -14,10 +14,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     env:
-      TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY }}
-      TARGET_PATH: ${{ vars.ZENN_TARGET_PATH }}
+      TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY || 'https://github.com/Sunwood-ai-labs/Zenn-dev' }}
+      TARGET_PATH: ${{ vars.ZENN_TARGET_PATH || './articles' }}
       TARGET_BRANCH: ${{ vars.ZENN_TARGET_BRANCH || 'main' }}
-      SYNC_TOKEN: ${{ secrets.ZENN_SYNC_TOKEN }}
+      SYNC_TOKEN: ${{ secrets.GH_PAT }}
     steps:
       - name: Checkout source repository
         uses: actions/checkout@v4
