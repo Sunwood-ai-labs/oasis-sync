@@ -44,11 +44,9 @@ if [[ -n "${CLEAN_PATH}" ]]; then
 fi
 
 if [[ -n "${CLEAN_PATH}" ]]; then
-  rm -rf "${TARGET_ROOT}"
   mkdir -p "${TARGET_ROOT}"
   cp -a "${SOURCE_DIR}/." "${TARGET_ROOT}/"
 else
-  find target -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
   cp -a "${SOURCE_DIR}/." target/
 fi
 
