@@ -1,0 +1,199 @@
+name: "🪄 Oasis Article Sync"
+
+on:
+  push:
+    paths:
+      - "articles/oasis/**/*.md"
+  workflow_dispatch:
+    inputs:
+      files:
+        description: "Optional JSON array of articles/oasis Markdown files to process"
+        required: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  generate-derivatives:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Collect newly added oasis articles
+        id: collect
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const filesOverride = core.getInput("files");
+            if (filesOverride) {
+              try {
+                const parsed = JSON.parse(filesOverride);
+                core.setOutput("files", JSON.stringify(parsed));
+                return;
+              } catch (error) {
+                core.setFailed(`Failed to parse workflow_dispatch input 'files' as JSON: ${error}`);
+                return;
+              }
+            }
+
+            if (context.eventName !== "push") {
+              core.notice("No files specified and event is not push; nothing to do.");
+              core.setOutput("files", "[]");
+              return;
+            }
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const before = context.payload.before && !/^0+$/.test(context.payload.before)
+              ? context.payload.before
+              : `${context.sha}^`;
+
+            const comparison = await github.rest.repos.compareCommits({
+              owner,
+              repo,
+              base: before,
+              head: context.sha,
+            });
+
+            const added = (comparison.data.files || [])
+              .filter(file => file.status === "added"
+                && file.filename.startsWith("articles/oasis/")
+                && file.filename.endsWith(".md"))
+              .map(file => file.filename);
+
+            core.info(`Detected ${added.length} newly added oasis article(s).`);
+            core.setOutput("files", JSON.stringify(added));
+
+      - name: No new oasis articles
+        if: ${{ steps.collect.outputs.files == '[]' }}
+        run: echo "No newly added articles/oasis Markdown files found. Skipping."
+
+      - name: Prepare article payload
+        id: prepare
+        if: ${{ steps.collect.outputs.files != '[]' }}
+        env:
+          FILES_JSON: ${{ steps.collect.outputs.files }}
+        run: |
+          python .github/scripts/process_oasis_articles.py prepare \
+            --files-json "${FILES_JSON}" \
+            --output oasis_payload.json \
+            --gemini-output oasis_gemini_payload.json \
+            --base-prefix articles/oasis
+          NEEDS_GEMINI=$(python - <<'PY'
+import json
+from pathlib import Path
+payload = Path("oasis_gemini_payload.json").read_text(encoding="utf-8")
+data = json.loads(payload) if payload.strip() else []
+print("true" if data else "false")
+PY
+)
+          {
+            echo "payload<<'EOF'"
+            cat oasis_payload.json
+            echo "EOF"
+            echo "gemini_payload<<'EOF'"
+            cat oasis_gemini_payload.json
+            echo "EOF"
+            echo "needs_gemini=${NEEDS_GEMINI}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Initialise metadata output
+        if: ${{ steps.collect.outputs.files != '[]' }}
+        run: |
+          : > oasis_metadata.yaml
+
+      - name: Generate Oasis metadata with Gemini
+        id: gemini
+        if: ${{ steps.collect.outputs.files != '[]' && steps.prepare.outputs.needs_gemini == 'true' }}
+        uses: google-github-actions/run-gemini-cli@v0
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          gcp_workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          gcp_project_id: ${{ vars.GOOGLE_CLOUD_PROJECT }}
+          gcp_location: ${{ vars.GOOGLE_CLOUD_LOCATION }}
+          gcp_service_account: ${{ vars.SERVICE_ACCOUNT_EMAIL }}
+          use_vertex_ai: ${{ vars.GOOGLE_GENAI_USE_VERTEXAI }}
+          use_gemini_code_assist: ${{ vars.GOOGLE_GENAI_USE_GCA }}
+          settings: |
+            {
+              "debug": false,
+              "maxSessionTurns": 20,
+              "telemetry": {
+                "enabled": false,
+                "target": "gcp"
+              }
+            }
+          prompt: |
+            You convert newly added Markdown articles located under articles/oasis
+            into metadata suitable for both Zenn and Qiita platforms.
+
+            Input JSON payload:
+            ```json
+            ${{ steps.prepare.outputs.gemini_payload }}
+            ```
+
+            Output requirements:
+            - Produce one YAML document per article, separated with `---`.
+            - Each document must include:
+              filename: the repository path (articles/oasis/...)
+              zenn: mapping containing keys:
+                title (string), emoji (string), type ("tech"), topics (exactly 4 entries),
+                published (boolean)
+              qiita: mapping containing keys:
+                title (string),
+                tags (exactly 5 entries),
+                private (false),
+                updated_at (ISO 8601 timestamp with +09:00 offset),
+                id (stable slug from filename/title),
+                organization_url_name (null),
+                slide (false),
+                ignorePublish (false)
+            - Ensure the YAML is valid and contains no extra commentary.
+
+            For each article, infer titles/topics/tags from the body. Keep the output concise.
+
+      - name: Persist Gemini response
+        if: ${{ steps.collect.outputs.files != '[]' && steps.prepare.outputs.needs_gemini == 'true' }}
+        run: |
+          cat <<'EOF' > oasis_metadata.yaml
+${{ steps.gemini.outputs.summary != '' && steps.gemini.outputs.summary || steps.gemini.outputs.text }}
+EOF
+
+      - name: Install Python dependencies
+        if: ${{ steps.collect.outputs.files != '[]' }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyyaml
+
+      - name: Merge metadata into articles
+        if: ${{ steps.collect.outputs.files != '[]' }}
+        run: |
+          python .github/scripts/process_oasis_articles.py apply \
+            --payload oasis_payload.json \
+            --metadata oasis_metadata.yaml \
+            --zenn-dir articles/zenn \
+            --qiita-dir articles/qiita \
+            --oasis-dir articles/oasis
+
+      - name: Configure git user
+        if: ${{ steps.collect.outputs.files != '[]' }}
+        run: |
+          git config user.name "oasis-sync[bot]"
+          git config user.email "oasis-sync[bot]@users.noreply.github.com"
+
+      - name: Commit generated articles
+        if: ${{ steps.collect.outputs.files != '[]' }}
+        run: |
+          if [[ -z "$(git status --porcelain -- articles/oasis articles/zenn articles/qiita)" ]]; then
+            echo "No changes detected for articles directories."
+            exit 0
+          fi
+
+          git add articles/oasis articles/zenn articles/qiita
+          git commit -m "🪄 Update oasis articles with Zenn & Qiita metadata"
+          git push
