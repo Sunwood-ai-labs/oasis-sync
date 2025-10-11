@@ -1,29 +1,14 @@
 ---
-zenn:
-  title: 常識を覆すAI？ 小さくても強力な画像言語モデル「Moondream 3」の5つの驚くべき真実
-  emoji: 🪄
-  type: tech
-  topics:
-  - AI
-  - VLM
-  - Moondream
-  - MoE
-  - ObjectDetection
-  published: false
-qiita:
-  title: 常識を覆すAI？ 小さくても強力な画像言語モデル「Moondream 3」の5つの驚くべき真実
-  tags:
-  - AI
-  - VLM
-  - Moondream
-  - MoE
-  - ObjectDetection
-  private: false
-  updated_at: '2025-10-11T09:00:00+09:00'
-  id: moondream-3-five-truths
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
+title: 常識を覆すAI？ 小さくても強力な画像言語モデル「Moondream 3」の5つの驚くべき真実
+emoji: 🪄
+type: tech
+topics:
+- AI
+- VLM
+- Moondream
+- MoE
+- ObjectDetection
+published: false
 ---
 
 # 常識を覆すAI？ 小さくても強力な画像言語モデル「Moondream 3」の5つの驚くべき真実
