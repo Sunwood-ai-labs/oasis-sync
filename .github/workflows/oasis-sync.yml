@@ -61,7 +61,7 @@ jobs:
             });
 
             const added = (comparison.data.files || [])
-              .filter(file => file.status === "added"
+              .filter(file => (file.status === "added" || file.status === "renamed")
                 && file.filename.startsWith("articles/oasis/")
                 && file.filename.endsWith(".md"))
               .map(file => file.filename);
