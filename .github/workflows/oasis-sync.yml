@@ -83,15 +83,9 @@ jobs:
             --files-json "${FILES_JSON}" \
             --output oasis_payload.json \
             --gemini-output oasis_gemini_payload.json \
+            --needs-gemini-output needs_gemini.txt \
             --base-prefix articles/oasis
-          NEEDS_GEMINI=$(python - <<'PY'
-import json
-from pathlib import Path
-payload = Path("oasis_gemini_payload.json").read_text(encoding="utf-8")
-data = json.loads(payload) if payload.strip() else []
-print("true" if data else "false")
-PY
-)
+          NEEDS_GEMINI=$(cat needs_gemini.txt)
           {
             echo "payload<<'EOF'"
             cat oasis_payload.json
@@ -161,8 +155,8 @@ PY
         if: ${{ steps.collect.outputs.files != '[]' && steps.prepare.outputs.needs_gemini == 'true' }}
         run: |
           cat <<'EOF' > oasis_metadata.yaml
-${{ steps.gemini.outputs.summary != '' && steps.gemini.outputs.summary || steps.gemini.outputs.text }}
-EOF
+          ${{ steps.gemini.outputs.summary != '' && steps.gemini.outputs.summary || steps.gemini.outputs.text }}
+          EOF
 
       - name: Install Python dependencies
         if: ${{ steps.collect.outputs.files != '[]' }}
