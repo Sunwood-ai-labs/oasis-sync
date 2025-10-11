@@ -6,12 +6,18 @@ on:
       - "main"
     paths:
       - "articles/zenn/**/*.md"
+  workflow_run:
+    workflows:
+      - "🪄 Oasis Article Sync"
+    types:
+      - completed
 
 permissions:
   contents: read
 
 jobs:
   sync:
+    if: ${{ (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || (github.event_name != 'workflow_run' && github.actor != 'oasis-sync[bot]') }}
     runs-on: ubuntu-latest
     env:
       TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY || 'Sunwood-ai-labs/Zenn-dev' }}
@@ -23,6 +29,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
 
       - name: Prepare sync script
         run: chmod +x .github/scripts/sync_platform.sh
