@@ -48,6 +48,7 @@ def prepare_payload(
     files: list[str],
     output_path: Path,
     gemini_output_path: Path,
+    needs_gemini_path: Path,
     base_prefix: Path,
 ) -> None:
     """Collect article content for the newly added oasis Markdown files."""
@@ -95,6 +96,7 @@ def prepare_payload(
         json.dumps(gemini_entries, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    needs_gemini_path.write_text("true\n" if gemini_entries else "false\n", encoding="utf-8")
 
 
 def apply_metadata(
@@ -174,6 +176,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--files-json", required=True, help="JSON array of newly added files")
     prepare.add_argument("--output", required=True, help="Path to write the payload JSON")
     prepare.add_argument("--gemini-output", required=True, help="Path to write Gemini input JSON")
+    prepare.add_argument("--needs-gemini-output", required=True, help="Path to write Gemini usage flag")
     prepare.add_argument(
         "--base-prefix",
         default="articles/oasis",
@@ -202,6 +205,7 @@ def main(argv: list[str] | None = None) -> int:
             files,
             Path(args.output),
             Path(args.gemini_output),
+            Path(args.needs_gemini_output),
             Path(args.base_prefix),
         )
         return 0
