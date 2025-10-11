@@ -14,7 +14,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     env:
-      TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY || 'https://github.com/Sunwood-ai-labs/Zenn-dev' }}
+      TARGET_REPOSITORY: ${{ vars.ZENN_TARGET_REPOSITORY || 'Sunwood-ai-labs/Zenn-dev' }}
       TARGET_PATH: ${{ vars.ZENN_TARGET_PATH || './articles' }}
       TARGET_BRANCH: ${{ vars.ZENN_TARGET_BRANCH || 'main' }}
       SYNC_TOKEN: ${{ secrets.GH_PAT }}

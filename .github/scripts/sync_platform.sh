@@ -16,6 +16,15 @@ require_env "TARGET_REPOSITORY"
 require_env "TARGET_BRANCH"
 require_env "SYNC_TOKEN"
 
+NORMALIZED_TARGET_REPOSITORY="${TARGET_REPOSITORY#https://github.com/}"
+NORMALIZED_TARGET_REPOSITORY="${NORMALIZED_TARGET_REPOSITORY#git@github.com:}"
+NORMALIZED_TARGET_REPOSITORY="${NORMALIZED_TARGET_REPOSITORY%.git}"
+
+if [[ -z "${NORMALIZED_TARGET_REPOSITORY}" ]]; then
+  echo "Failed to determine target repository from TARGET_REPOSITORY='${TARGET_REPOSITORY}'." >&2
+  exit 1
+fi
+
 BASE_SHA="${BEFORE_SHA:-}"
 if [[ -z "${BASE_SHA}" || "${BASE_SHA}" =~ ^0+$ ]]; then
   if git rev-parse HEAD^ >/dev/null 2>&1; then
@@ -35,10 +44,11 @@ if [[ "${#FILES[@]}" -eq 0 ]]; then
   exit 0
 fi
 
-REPO_URL="https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPOSITORY}"
+REPO_URL="https://x-access-token:${SYNC_TOKEN}@github.com/${NORMALIZED_TARGET_REPOSITORY}"
 git clone --depth 1 --branch "${TARGET_BRANCH}" "${REPO_URL}" target
 
-CLEAN_PATH="${TARGET_PATH#/}"
+CLEAN_PATH="${TARGET_PATH#./}"
+CLEAN_PATH="${CLEAN_PATH#/}"
 CLEAN_PATH="${CLEAN_PATH%/}"
 
 TARGET_ROOT="target"
