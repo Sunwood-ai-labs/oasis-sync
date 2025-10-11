@@ -5,7 +5,7 @@ on:
     branches:
       - "main"
     paths:
-      - "articles/zenn/**/*.md"
+      - "articles/zenn/*.md"
   workflow_run:
     workflows:
       - "🪄 Oasis Article Sync"

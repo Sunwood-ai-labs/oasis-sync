@@ -5,7 +5,7 @@ on:
     branches:
       - "main"
     paths:
-      - "articles/qiita/**/*.md"
+      - "articles/qiita/*.md"
   workflow_run:
     workflows:
       - "🪄 Oasis Article Sync"
