@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   sync:
-    if: ${{ (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || (github.event_name != 'workflow_run' && github.actor != 'oasis-sync[bot]') }}
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
       TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'Sunwood-ai-labs/Qiita-dev' }}
