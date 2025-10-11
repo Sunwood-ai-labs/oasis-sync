@@ -1,0 +1,36 @@
+name: "🪄 Oasis Qiita Sync"
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "articles/qiita/**/*.md"
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY }}
+      TARGET_PATH: ${{ vars.QIITA_TARGET_PATH }}
+      TARGET_BRANCH: ${{ vars.QIITA_TARGET_BRANCH || 'main' }}
+      SYNC_TOKEN: ${{ secrets.QIITA_SYNC_TOKEN }}
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare sync script
+        run: chmod +x .github/scripts/sync_platform.sh
+
+      - name: Sync new Qiita articles
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          PLATFORM: "Qiita"
+          SOURCE_PREFIX: "articles/qiita"
+          COMMIT_MESSAGE: "Sync new Qiita articles from oasis-sync"
+        run: .github/scripts/sync_platform.sh
