@@ -24,6 +24,22 @@ qiita:
   organization_url_name: null
   slide: false
   ignorePublish: false
+wordpress:
+  title: 常識を覆すAI？ 小さくても強力な画像言語モデル「Moondream 3」の5つの驚くべき真実
+  post_status: draft
+  post_excerpt: 小規模ながらフラッグシップモデルを凌駕する可能性を秘めた画像言語モデル「Moondream 3 Preview」の特徴とユースケースを解説します。
+  featured_image: _images/hero.jpg
+  taxonomy:
+    category:
+    - ai
+    post_tag:
+    - AI
+    - Vision
+    - Moondream
+    - MoE
+    - ObjectDetection
+  custom_fields:
+    lead: 小さくて高速な画像言語モデル「Moondream 3」が、なぜフロンティアモデルと肩を並べる性能を発揮できるのかを5つの視点から読み解きます。
 ---
 
 # 常識を覆すAI？ 小さくても強力な画像言語モデル「Moondream 3」の5つの驚くべき真実
