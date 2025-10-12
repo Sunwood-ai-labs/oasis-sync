@@ -4,21 +4,18 @@ zenn:
   emoji: 🚀
   type: tech
   topics:
-  - oasis
-  - github-actions
-  - gemini
-  - zenn
-  - qiita
+    - oasis
+    - github-actions
+    - gemini
+    - automation
   published: true
 qiita:
   title: 🪄 Oasis Sync v0.1.0 リリース！Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
   tags:
-  - Oasis
-  - GitHubActions
-  - Gemini
-  - 自動化
-  - Zenn
-  - Qiita
+    - Oasis
+    - GitHubActions
+    - Gemini
+    - Automation
   private: false
   updated_at: ''
   id: ''
