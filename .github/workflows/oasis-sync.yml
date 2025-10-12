@@ -139,6 +139,13 @@ jobs:
                 organization_url_name (null),
                 slide (false),
                 ignorePublish (false)
+              wordpress: mapping containing keys:
+                title (string),
+                post_status (string such as "draft" or "publish"),
+                post_excerpt (short summary),
+                featured_image (string path, default to "_images/hero.jpg" if unsure),
+                taxonomy (mapping with "category" (list of 1-3 strings) and "post_tag" (list of 1-5 strings)),
+                custom_fields (mapping that at minimum includes key "lead" with a short lead paragraph)
             - Ensure the YAML is valid and contains no extra commentary.
 
             For each article, infer titles/topics/tags from the body. Keep the output concise.
@@ -164,6 +171,7 @@ jobs:
             --metadata oasis_metadata.yaml \
             --zenn-dir articles/zenn \
             --qiita-dir articles/qiita \
+            --wordpress-dir articles/wordpress \
             --oasis-dir articles/oasis
 
       - name: Configure git user

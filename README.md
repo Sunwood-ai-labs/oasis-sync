@@ -31,7 +31,7 @@
 ## ✨ Overview
 
 - GitHub Actions で `articles/oasis/` に追加された Markdown を監視し、ハイブリッド front matter を生成します。
-- 生成されたメタデータを基に Zenn・Qiita 向け記事を分岐させ、対象リポジトリへ PR/Commit を自動作成します。
+- 生成されたメタデータを基に Zenn・Qiita・WordPress 向け記事を分岐させ、対象リポジトリへ PR/Commit を自動作成します。
 - Gemini CLI を利用してタイトルやタグ候補を推論し、レビュー可能な YAML として取り扱います。
 - リポジトリをテンプレートとして提供し、最小構成でコンテンツのマルチ配信を始められます。
 
@@ -53,7 +53,7 @@
 
 1. `articles/oasis/` に Markdown を追加または更新します。
 2. `main` ブランチへ push すると、`🪄 Oasis Article Sync` ワークフローが起動します。
-3. Gemini が front matter を生成し、Zenn/Qiita への派生 Markdown を `articles/zenn/`, `articles/qiita/` に出力します。
+3. Gemini が front matter を生成し、Zenn/Qiita/WordPress への派生 Markdown を `articles/zenn/`, `articles/qiita/`, `articles/wordpress/` に出力します。
 4. `.github/scripts/sync_platform.sh` が各配信先リポジトリへ同期します。
 5. ワークフロー結果やログは Actions タブで確認してください。
 
@@ -61,9 +61,10 @@
 
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
-| `oasis-sync.yml` | push to `articles/oasis/**` / manual | Oasis 記事から Gemini メタデータを生成し、Zenn/Qiita へ分配 |
+| `oasis-sync.yml` | push to `articles/oasis/**` / manual | Oasis 記事から Gemini メタデータを生成し、Zenn/Qiita/WordPress へ分配 |
 | `oasis-zenn-sync.yml` | schedule / manual | Zenn 用派生記事を別リポジトリへ同期 |
 | `oasis-qiita-sync.yml` | schedule / manual | Qiita 用派生記事を別リポジトリへ同期 |
+| `oasis-wordpress-sync.yml` | schedule / manual | WordPress 用派生記事を Git it Write 等のリポジトリへ同期 |
 
 詳細は各ワークフロー YAML と [Architecture ドキュメント](./.github/workflows/architecture.md) を参照してください。
 
@@ -74,6 +75,7 @@ articles/
   oasis/   # ソース記事 (Gemini でメタデータ生成)
   zenn/    # Zenn 用派生記事
   qiita/   # Qiita 用派生記事
+  wordpress/ # WordPress 用派生記事 (Git it Write 形式)
 .github/
   workflows/  # Actions 定義
   scripts/    # メタデータ生成・同期スクリプト

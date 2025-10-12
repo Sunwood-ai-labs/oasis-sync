@@ -1,0 +1,51 @@
+name: "🪄 Oasis WordPress Sync"
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "articles/wordpress/*.md"
+  workflow_run:
+    workflows:
+      - "🪄 Oasis Article Sync"
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    env:
+      TARGET_REPOSITORY: ${{ vars.WORDPRESS_TARGET_REPOSITORY || 'Sunwood-ai-labs/wordpress-content' }}
+      TARGET_PATH: ${{ vars.WORDPRESS_TARGET_PATH || './content' }}
+      TARGET_BRANCH: ${{ vars.WORDPRESS_TARGET_BRANCH || 'main' }}
+      SYNC_TOKEN: ${{ secrets.GH_PAT }}
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.ref }}
+
+      - name: Sync to latest branch head
+        if: ${{ github.event_name == 'workflow_run' }}
+        env:
+          BRANCH: ${{ github.event.workflow_run.head_branch || 'main' }}
+        run: |
+          git fetch origin "${BRANCH}"
+          git checkout "origin/${BRANCH}"
+
+      - name: Prepare sync script
+        run: chmod +x .github/scripts/sync_platform.sh
+
+      - name: Sync new WordPress articles
+        env:
+          BEFORE_SHA: ${{ github.event.before || github.event.workflow_run.head_sha }}
+          PLATFORM: "WordPress"
+          SOURCE_PREFIX: "articles/wordpress"
+          COMMIT_MESSAGE: "Sync new WordPress articles from oasis-sync"
+        run: .github/scripts/sync_platform.sh

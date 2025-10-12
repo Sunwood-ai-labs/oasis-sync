@@ -77,8 +77,11 @@ def prepare_payload(
 
         front_matter, body = split_front_matter(raw_text)
         has_hybrid_metadata = False
-        if front_matter and "zenn:" in front_matter and "qiita:" in front_matter:
-            has_hybrid_metadata = True
+        if front_matter:
+            has_zenn = "zenn:" in front_matter
+            has_qiita = "qiita:" in front_matter
+            has_wordpress = "wordpress:" in front_matter
+            has_hybrid_metadata = has_zenn and has_qiita and has_wordpress
 
         entries.append(
             {
@@ -119,6 +122,7 @@ def apply_metadata(
     metadata_path: Path,
     zenn_dir: Path,
     qiita_dir: Path,
+    wordpress_dir: Path,
     oasis_dir: Path,
 ) -> None:
     """Merge Gemini-generated metadata into oasis/zenn/qiita articles."""
@@ -157,8 +161,11 @@ def apply_metadata(
                 raise SystemExit(f"Existing front matter for {filename} is not a mapping.")
             zenn_meta = parsed_meta.get("zenn")
             qiita_meta = parsed_meta.get("qiita")
-            if not isinstance(zenn_meta, dict) or not isinstance(qiita_meta, dict):
-                raise SystemExit(f"Existing front matter for {filename} must include 'zenn' and 'qiita' mappings.")
+            wordpress_meta = parsed_meta.get("wordpress")
+            if not isinstance(zenn_meta, dict) or not isinstance(qiita_meta, dict) or not isinstance(wordpress_meta, dict):
+                raise SystemExit(
+                    f"Existing front matter for {filename} must include 'zenn', 'qiita', and 'wordpress' mappings."
+                )
             combined_meta = parsed_meta
         else:
             generated = gemini_lookup.get(filename)
@@ -166,16 +173,21 @@ def apply_metadata(
                 raise SystemExit(f"No Gemini metadata found for {filename}.")
             zenn_meta = generated.get("zenn")
             qiita_meta = generated.get("qiita")
-            if not isinstance(zenn_meta, dict) or not isinstance(qiita_meta, dict):
-                raise SystemExit(f"Gemini YAML for {filename} must include 'zenn' and 'qiita' mappings.")
-            combined_meta = {"zenn": zenn_meta, "qiita": qiita_meta}
+            wordpress_meta = generated.get("wordpress")
+            if not isinstance(zenn_meta, dict) or not isinstance(qiita_meta, dict) or not isinstance(wordpress_meta, dict):
+                raise SystemExit(
+                    f"Gemini YAML for {filename} must include 'zenn', 'qiita', and 'wordpress' mappings."
+                )
+            combined_meta = {"zenn": zenn_meta, "qiita": qiita_meta, "wordpress": wordpress_meta}
 
         zenn_path = (zenn_dir / rel_path).with_suffix(".md")
         qiita_path = (qiita_dir / rel_path).with_suffix(".md")
+        wordpress_path = (wordpress_dir / rel_path).with_suffix(".md")
         oasis_path = oasis_dir / rel_path
 
         write_article(zenn_path, zenn_meta, body)
         write_article(qiita_path, qiita_meta, body)
+        write_article(wordpress_path, wordpress_meta, body)
         write_article(oasis_path, combined_meta, body)
 
 
@@ -232,6 +244,7 @@ def build_parser() -> argparse.ArgumentParser:
     apply.add_argument("--metadata", required=True, help="Path to Gemini-generated YAML metadata")
     apply.add_argument("--zenn-dir", required=True, help="Directory for Zenn articles")
     apply.add_argument("--qiita-dir", required=True, help="Directory for Qiita articles")
+    apply.add_argument("--wordpress-dir", required=True, help="Directory for WordPress articles")
     apply.add_argument("--oasis-dir", required=True, help="Directory for Oasis source articles")
 
     return parser
@@ -261,6 +274,7 @@ def main(argv: list[str] | None = None) -> int:
             metadata_path=Path(args.metadata),
             zenn_dir=Path(args.zenn_dir),
             qiita_dir=Path(args.qiita_dir),
+            wordpress_dir=Path(args.wordpress_dir),
             oasis_dir=Path(args.oasis_dir),
         )
         return 0
