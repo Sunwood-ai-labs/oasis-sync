@@ -1,6 +1,6 @@
 ---
 zenn:
-  title: 🪄 Oasis Sync v0.1.0 リリース！Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
+  title: 🪄 Oasis Sync v0.1.0 リリース！ Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
   emoji: 🚀
   type: tech
   topics:
@@ -10,7 +10,7 @@ zenn:
     - automation
   published: true
 qiita:
-  title: 🪄 Oasis Sync v0.1.0 リリース！Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
+  title: 🪄 Oasis Sync v0.1.0 リリース！ Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
   tags:
     - Oasis
     - GitHubActions
