@@ -183,11 +183,11 @@ jobs:
       - name: Commit generated articles
         if: ${{ steps.collect.outputs.files != '[]' }}
         run: |
-          if [[ -z "$(git status --porcelain -- articles/oasis articles/zenn articles/qiita)" ]]; then
+          if [[ -z "$(git status --porcelain -- articles/oasis articles/zenn articles/qiita articles/wordpress)" ]]; then
             echo "No changes detected for articles directories."
             exit 0
           fi
 
-          git add articles/oasis articles/zenn articles/qiita
+          git add articles/oasis articles/zenn articles/qiita articles/wordpress
           git commit -m "🪄 Update oasis articles with Zenn & Qiita metadata"
           git push
