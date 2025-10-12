@@ -46,22 +46,16 @@
    `Use this template` をクリックし、自身の GitHub アカウントへコピーします。
 2. **環境変数の準備**  
    `.env.example` と `.env.actions.example` を参考に、GitHub Actions 用の `GH_PAT` を Secrets/Variables に設定します。
-3. **記事ディレクトリの初期化**  
+3. **記事ディレクトリの初期化**
    `articles/oasis/` に元記事を配置します。既存記事には `zenn` / `qiita` セクション付き front matter を付与してください。
-4. **必要な CLI のセットアップ（任意）**  
-   Zenn への手動投稿を併用する場合は [`zenn-cli`](https://zenn.dev/zenn/articles/zenn-cli-guide)、Qiita には [`qiita-cli`](https://github.com/increments/qiita-cli) を利用できます。ローカルでスクリプトを試す際は `pip install pyyaml` を実行してください。
 
 ## 📦 Usage
 
 1. `articles/oasis/` に Markdown を追加または更新します。
 2. `main` ブランチへ push すると、`🪄 Oasis Article Sync` ワークフローが起動します。
 3. Gemini が front matter を生成し、Zenn/Qiita への派生 Markdown を `articles/zenn/`, `articles/qiita/` に出力します。
-4. `.github/scripts/sync_platform.sh` が各配信先リポジトリへ同期し、必要に応じてコミット/PR を作成します。
+4. `.github/scripts/sync_platform.sh` が各配信先リポジトリへ同期します。
 5. ワークフロー結果やログは Actions タブで確認してください。
-
-### 🔁 Manual Dispatch
-
-`Actions > 🪄 Oasis Article Sync > Run workflow` から JSON 形式で対象記事を指定し、手動でメタデータ生成を行うこともできます。
 
 ## 🔄 Workflows
 
@@ -75,7 +69,7 @@
 
 ## 🗂 Repository Layout
 
-```text
+```bash
 articles/
   oasis/   # ソース記事 (Gemini でメタデータ生成)
   zenn/    # Zenn 用派生記事
