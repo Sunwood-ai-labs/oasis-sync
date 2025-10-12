@@ -1,29 +1,17 @@
 ---
-zenn:
-  title: 画像生成AIの常識が変わる？話題の「DreamOmni 2」の驚くべき4つの新機能
-  emoji: 🪄
-  type: tech
-  topics:
-  - ai
-  - image-generation
-  - dreamomni
-  - multimodal
-  - creativity
-  published: true
-qiita:
-  title: 画像生成AIの常識が変わる？話題の「DreamOmni 2」の驚くべき4つの新機能
-  tags:
-  - AI
-  - ImageGeneration
-  - DreamOmni
-  - Multimodal
-  - Creativity
-  private: false
-  updated_at: ''
-  id: ''
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
+title: 画像生成AIの常識が変わる？話題の「DreamOmni 2」の驚くべき4つの新機能
+tags:
+- AI
+- ImageGeneration
+- DreamOmni
+- Multimodal
+- Creativity
+private: false
+updated_at: ''
+id: ''
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 「このキャラクターのまま、違うポーズや服装の画像を生成したい」「この写真の素敵な雰囲気を、別の写真に適用できないだろうか？」 画像生成AIを使ったことがある人なら、一度はこんな風に思ったことがあるのではないでしょうか。テキストだけで微妙なニュアンスを伝えるのは難しく、思い通りの結果を得るために試行錯誤を繰り返すことも少なくありません。
