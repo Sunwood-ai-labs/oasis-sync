@@ -60,6 +60,7 @@ jobs:
               head: context.sha,
             });
 
+            const added = (comparison.data.files || [])
               .filter(file => (file.status === "added" || file.status === "modified" || file.status === "renamed")
                 && file.filename.startsWith("articles/oasis/")
                 && file.filename.endsWith(".md"))
