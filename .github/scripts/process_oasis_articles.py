@@ -44,6 +44,13 @@ def render_front_matter(data: dict[str, Any]) -> str:
     return f"---\n{dumped}\n---\n\n"
 
 
+def write_article(target_path: Path, metadata: dict[str, Any], body: str) -> None:
+    """Write an article with front matter, overwriting any existing file."""
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = render_front_matter(metadata) + body
+    target_path.write_text(payload, encoding="utf-8")
+
+
 def prepare_payload(
     files: list[str],
     output_path: Path,
@@ -159,13 +166,9 @@ def apply_metadata(
         qiita_path = (qiita_dir / rel_path).with_suffix(".md")
         oasis_path = oasis_dir / rel_path
 
-        zenn_path.parent.mkdir(parents=True, exist_ok=True)
-        qiita_path.parent.mkdir(parents=True, exist_ok=True)
-        oasis_path.parent.mkdir(parents=True, exist_ok=True)
-
-        zenn_path.write_text(render_front_matter(zenn_meta) + body, encoding="utf-8")
-        qiita_path.write_text(render_front_matter(qiita_meta) + body, encoding="utf-8")
-        oasis_path.write_text(render_front_matter(combined_meta) + body, encoding="utf-8")
+        write_article(zenn_path, zenn_meta, body)
+        write_article(qiita_path, qiita_meta, body)
+        write_article(oasis_path, combined_meta, body)
 
 
 def build_parser() -> argparse.ArgumentParser:

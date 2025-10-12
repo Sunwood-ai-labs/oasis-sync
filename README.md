@@ -1,7 +1,7 @@
 <h1 align="center">🪄 Oasis Article Sync</h1>
 
 <p align="center">
-  <img src="./header.jpeg" alt="Oasis Article Sync banner" width="720">
+  <img src="./header.jpeg" alt="Oasis Article Sync banner" width="100%">
 </p>
 
 <p align="center">
