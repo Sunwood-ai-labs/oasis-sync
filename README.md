@@ -57,10 +57,6 @@
 4. `.github/scripts/sync_platform.sh` が各配信先リポジトリへ同期します。
 5. ワークフロー結果やログは Actions タブで確認してください。
 
-### 🔁 Manual Dispatch
-
-`Actions > 🪄 Oasis Article Sync > Run workflow` から JSON 形式で対象記事を指定し、手動でメタデータ生成を行うこともできます。
-
 ## 🔄 Workflows
 
 | Workflow | Trigger | Purpose |
