@@ -54,7 +54,7 @@
 1. `articles/oasis/` に Markdown を追加または更新します。
 2. `main` ブランチへ push すると、`🪄 Oasis Article Sync` ワークフローが起動します。
 3. Gemini が front matter を生成し、Zenn/Qiita への派生 Markdown を `articles/zenn/`, `articles/qiita/` に出力します。
-4. `.github/scripts/sync_platform.sh` が各配信先リポジトリへ同期し、必要に応じてコミット/PR を作成します。
+4. `.github/scripts/sync_platform.sh` が各配信先リポジトリへ同期します。
 5. ワークフロー結果やログは Actions タブで確認してください。
 
 ### 🔁 Manual Dispatch
@@ -73,7 +73,7 @@
 
 ## 🗂 Repository Layout
 
-```text
+```bash
 articles/
   oasis/   # ソース記事 (Gemini でメタデータ生成)
   zenn/    # Zenn 用派生記事
