@@ -46,10 +46,8 @@
    `Use this template` をクリックし、自身の GitHub アカウントへコピーします。
 2. **環境変数の準備**  
    `.env.example` と `.env.actions.example` を参考に、GitHub Actions 用の `GH_PAT` を Secrets/Variables に設定します。
-3. **記事ディレクトリの初期化**  
+3. **記事ディレクトリの初期化**
    `articles/oasis/` に元記事を配置します。既存記事には `zenn` / `qiita` セクション付き front matter を付与してください。
-4. **必要な CLI のセットアップ（任意）**  
-   Zenn への手動投稿を併用する場合は [`zenn-cli`](https://zenn.dev/zenn/articles/zenn-cli-guide)、Qiita には [`qiita-cli`](https://github.com/increments/qiita-cli) を利用できます。ローカルでスクリプトを試す際は `pip install pyyaml` を実行してください。
 
 ## 📦 Usage
 
