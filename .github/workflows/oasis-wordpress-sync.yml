@@ -20,8 +20,8 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
-      TARGET_REPOSITORY: ${{ vars.WORDPRESS_TARGET_REPOSITORY || 'Sunwood-ai-labs/wordpress-content' }}
-      TARGET_PATH: ${{ vars.WORDPRESS_TARGET_PATH || './content' }}
+      TARGET_REPOSITORY: ${{ vars.WORDPRESS_TARGET_REPOSITORY || 'Sunwood-ai-labs/WP-dev' }}
+      TARGET_PATH: ${{ vars.WORDPRESS_TARGET_PATH || './docs' }}
       TARGET_BRANCH: ${{ vars.WORDPRESS_TARGET_BRANCH || 'main' }}
       SYNC_TOKEN: ${{ secrets.GH_PAT }}
     steps:
