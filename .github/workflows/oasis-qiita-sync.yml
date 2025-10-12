@@ -5,16 +5,23 @@ on:
     branches:
       - "main"
     paths:
-      - "articles/qiita/**/*.md"
+      - "articles/qiita/*.md"
+  workflow_run:
+    workflows:
+      - "🪄 Oasis Article Sync"
+    types:
+      - completed
 
 permissions:
   contents: read
 
 jobs:
   sync:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
-      TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'https://github.com/Sunwood-ai-labs/Qiita-dev' }}
+      # TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'Sunwood-ai-labs/Qiita-dev' }}
+      TARGET_REPOSITORY: ${{ vars.QIITA_TARGET_REPOSITORY || 'Sunwood-ai-labs/qiita-article' }}
       TARGET_PATH: ${{ vars.QIITA_TARGET_PATH || './public' }}
       TARGET_BRANCH: ${{ vars.QIITA_TARGET_BRANCH || 'main' }}
       SYNC_TOKEN: ${{ secrets.GH_PAT }}
@@ -23,13 +30,22 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.ref }}
+
+      - name: Sync to latest branch head
+        if: ${{ github.event_name == 'workflow_run' }}
+        env:
+          BRANCH: ${{ github.event.workflow_run.head_branch || 'main' }}
+        run: |
+          git fetch origin "${BRANCH}"
+          git checkout "origin/${BRANCH}"
 
       - name: Prepare sync script
         run: chmod +x .github/scripts/sync_platform.sh
 
       - name: Sync new Qiita articles
         env:
-          BEFORE_SHA: ${{ github.event.before }}
+          BEFORE_SHA: ${{ github.event.before || github.event.workflow_run.head_sha }}
           PLATFORM: "Qiita"
           SOURCE_PREFIX: "articles/qiita"
           COMMIT_MESSAGE: "Sync new Qiita articles from oasis-sync"

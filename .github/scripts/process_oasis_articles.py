@@ -56,6 +56,7 @@ def prepare_payload(
     output_path: Path,
     gemini_output_path: Path,
     needs_gemini_path: Path,
+    github_output_path: Path | None,
     base_prefix: Path,
 ) -> None:
     """Collect article content for the newly added oasis Markdown files."""
@@ -104,6 +105,13 @@ def prepare_payload(
         encoding="utf-8",
     )
     needs_gemini_path.write_text("true\n" if gemini_entries else "false\n", encoding="utf-8")
+    if github_output_path is not None:
+        write_github_output(
+            payload_path=output_path,
+            gemini_path=gemini_output_path,
+            needs_path=needs_gemini_path,
+            target_path=github_output_path,
+        )
 
 
 def apply_metadata(
@@ -171,6 +179,38 @@ def apply_metadata(
         write_article(oasis_path, combined_meta, body)
 
 
+def normalise_json_file(path: Path) -> str:
+    """Load JSON from file and serialise into a single-line string."""
+    content = path.read_text(encoding="utf-8")
+    if not content.strip():
+        return "[]"
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError as exc:  # pragma: no cover - defensive path
+        raise SystemExit(f"Failed to decode JSON from {path}") from exc
+    return json.dumps(data, ensure_ascii=False)
+
+
+def write_github_output(
+    payload_path: Path,
+    gemini_path: Path,
+    needs_path: Path,
+    target_path: Path,
+) -> None:
+    """Write formatted GitHub Actions output variables to a file."""
+    payload_json = normalise_json_file(payload_path)
+    gemini_json = normalise_json_file(gemini_path)
+    needs_value = needs_path.read_text(encoding="utf-8").strip() or "false"
+
+    lines = [
+        f"payload={payload_json}",
+        f"gemini_payload={gemini_json}",
+        f"needs_gemini={needs_value}",
+        "",
+    ]
+    target_path.write_text("\n".join(lines), encoding="utf-8")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -180,6 +220,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--output", required=True, help="Path to write the payload JSON")
     prepare.add_argument("--gemini-output", required=True, help="Path to write Gemini input JSON")
     prepare.add_argument("--needs-gemini-output", required=True, help="Path to write Gemini usage flag")
+    prepare.add_argument("--github-output", help="Path to write GitHub Actions output block")
     prepare.add_argument(
         "--base-prefix",
         default="articles/oasis",
@@ -209,6 +250,7 @@ def main(argv: list[str] | None = None) -> int:
             Path(args.output),
             Path(args.gemini_output),
             Path(args.needs_gemini_output),
+            Path(args.github_output) if args.github_output else None,
             Path(args.base_prefix),
         )
         return 0

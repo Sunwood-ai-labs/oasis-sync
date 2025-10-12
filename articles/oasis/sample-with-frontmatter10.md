@@ -1,24 +1,24 @@
 ---
 zenn:
-  title: "フロントマター付きサンプル（Zenn）"
-  emoji: "🪄"
-  type: "tech"
+  title: フロントマター付きサンプル（Zenn）
+  emoji: 🪄
+  type: tech
   topics:
-    - oasis
-    - zenn
-    - qiita
-    - github-actions
+  - oasis
+  - zenn
+  - qiita
+  - github-actions
   published: false
 qiita:
-  title: "フロントマター付きサンプル（Qiita）"
+  title: フロントマター付きサンプル（Qiita）
   tags:
-    - Oasis
-    - Zenn
-    - Qiita
-    - GitHub
-    - Actions
+  - Oasis
+  - Zenn
+  - Qiita
+  - GitHub
+  - Actions
   private: false
-  updated_at: "2024-05-01T12:00:00+09:00"
+  updated_at: '2024-05-01T12:00:00+09:00'
   id: frontmatter-sample
   organization_url_name: null
   slide: false
