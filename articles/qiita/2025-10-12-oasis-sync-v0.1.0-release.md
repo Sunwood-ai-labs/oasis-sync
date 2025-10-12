@@ -1,30 +1,18 @@
 ---
-zenn:
-  title: 🪄 Oasis Sync v0.1.0 リリース！Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
-  emoji: 🚀
-  type: tech
-  topics:
-  - oasis
-  - github-actions
-  - gemini
-  - zenn
-  - qiita
-  published: true
-qiita:
-  title: 🪄 Oasis Sync v0.1.0 リリース！Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
-  tags:
-  - Oasis
-  - GitHubActions
-  - Gemini
-  - 自動化
-  - Zenn
-  - Qiita
-  private: false
-  updated_at: ''
-  id: ''
-  organization_url_name: sunwood-ai-labs
-  slide: false
-  ignorePublish: false
+title: 🪄 Oasis Sync v0.1.0 リリース！Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
+tags:
+- Oasis
+- GitHubActions
+- Gemini
+- 自動化
+- Zenn
+- Qiita
+private: false
+updated_at: ''
+id: ''
+organization_url_name: sunwood-ai-labs
+slide: false
+ignorePublish: false
 ---
 
 # 🪄 Oasis Sync v0.1.0 リリース！ Gemini と GitHub Actions でブログのマルチプラットフォーム配信を自動化
