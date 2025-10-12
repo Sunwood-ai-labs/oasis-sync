@@ -8,7 +8,7 @@ topics:
 - Moondream
 - MoE
 - ObjectDetection
-published: true
+published: false
 ---
 
 # 常識を覆すAI？ 小さくても強力な画像言語モデル「Moondream 3」の5つの驚くべき真実
