@@ -1,47 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】Oasis Sync v0.2.0 - WordPress連携とリリース記事の自動生成
-  emoji: ✨
-  type: tech
-  topics:
-  - github
-  - actions
-  - wordpress
-  - automation
-  - gemini
-  published: true
-qiita:
-  title: 【リリースノート】Oasis Sync v0.2.0 - WordPress連携とリリース記事の自動生成
-  tags:
-  - GitHub
-  - Actions
-  - WordPress
-  - Automation
-  - Gemini
-  private: false
-  updated_at: null
-  id: oasis-sync-v0-2-0-release
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Oasis Sync v0.2.0 - WordPress連携とリリース記事の自動生成
-  post_status: publish
-  post_excerpt: Oasis Sync v0.2.0がリリースされました。本バージョンでは、WordPressへの記事自動同期機能や、Geminiを利用したリリース記事の自動生成ワークフローが導入されています。
-  featured_image: imagen-4-ultra_2025-10-14T14-33-34-241Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - github-actions
-    - automation
-    - release-note
-    post_tag:
-    - GitHub
-    - Actions
-    - WordPress
-    - Automation
-    - Gemini
-  custom_fields:
-    lead: Oasis Sync v0.2.0では、WordPressとの連携が大幅に強化され、リリースプロセスも自動化されました。本記事では、新機能の詳細と技術的な背景を解説します。
+title: 【リリースノート】Oasis Sync v0.2.0 - WordPress連携とリリース記事の自動生成
+tags:
+- GitHub
+- Actions
+- WordPress
+- Automation
+- Gemini
+private: false
+updated_at: null
+id: oasis-sync-v0-2-0-release
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-10-14T14-33-34-241Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.2.0-20251014_143214/imagen-4-ultra_2025-10-14T14-33-34-241Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
