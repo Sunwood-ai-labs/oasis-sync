@@ -1,4 +1,3 @@
-```markdown
 ---
 zenn:
   title: "【リリースノート】Oasis Sync v0.2.0 - WordPress連携とリリース記事の自動生成"
@@ -117,4 +116,4 @@ v0.2.0の主要なハイライトは以下の通りです。
 -   **GitHub Repository**: [Sunwood-ai-labs/oasis-sync](https://github.com/Sunwood-ai-labs/oasis-sync)
 -   **Release Page**: [v0.2.0 Release](https://github.com/Sunwood-ai-labs/oasis-sync/releases/tag/v0.2.0)
 -   **Compare URL**: [v0.1.0...v0.2.0](https://github.com/Sunwood-ai-labs/oasis-sync/compare/v0.1.0...v0.2.0)
-```
+
