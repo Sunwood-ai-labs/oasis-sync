@@ -21,7 +21,7 @@ env:
   MAX_DIFF_LINES: 2000
 
 jobs:
-  zenn-article:
+  oasis-article:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -163,8 +163,26 @@ jobs:
           echo "Found header image: ${image}"
           echo "RAW URL: ${raw_url}"
 
-      - name: Generate Zenn article with Gemini
-        id: zenn_article
+      - name: Load sample article
+        id: sample_article
+        run: |
+          set -euo pipefail
+          SAMPLE_PATH=".github/prompts/git-it-write-guide-20251012.md"
+          if [[ ! -f "${SAMPLE_PATH}" ]]; then
+            echo "sample_path=${SAMPLE_PATH}" >> "$GITHUB_OUTPUT"
+            echo "content=" >> "$GITHUB_OUTPUT"
+            echo "Sample article file ${SAMPLE_PATH} was not found." >&2
+            exit 0
+          fi
+          {
+            echo "sample_path=${SAMPLE_PATH}"
+            echo 'content<<EOF'
+            cat "${SAMPLE_PATH}"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Generate Oasis article with Gemini
+        id: oasis_article
         uses: google-github-actions/run-gemini-cli@v0
         env:
           REPOSITORY: "${{ github.repository }}"
@@ -190,99 +208,100 @@ jobs:
           settings: |
             { "debug": false, "maxSessionTurns": 10, "telemetry": { "enabled": false, "target": "gcp" } }
           prompt: |
-            あなたはZennの技術記事作成のエキスパートです。以下の情報から、リリースノートを元にしたZenn記事を作成してください。
+            あなたはOasisフォーマットの技術記事作成のエキスパートです。以下の情報を基に、GitHubリリースノートを題材とした技術記事を生成してください。
             
-            # コンテキスト
+            # 目的
+            - GitHubリリースの技術的な背景をわかりやすくまとめたリリースノート記事を作成する
+            - Oasisフォーマット（zenn/qiita/wordpress front matter + 本文）で出力する
+            - 参考フォーマット: articles/oasis/git-it-write-guide-20251012-V5.md
+            - 以下のサンプル記事構成を参考にする
+            
+            # フロントマター要件
+            - 先頭を `---` で開始し、最後も `---` で閉じる
+            - `zenn`, `qiita`, `wordpress` の順でネストしたセクションを作る
+            - `zenn`:
+              - `title`: "【リリースノート】{推測したプロジェクト名} ${{ steps.ctx.outputs.tag }} - {主要な変更点を短く要約}"
+              - `emoji`: 記事内容に合う1文字
+              - `type`: `tech`
+              - `topics`: 4〜5件の関連技術キーワード（英小文字、ハイフン区切り可）
+              - `published`: true
+            - `qiita`:
+              - `title`: Zennタイトルと同じ
+              - `tags`: 5件（先頭大文字推奨、技術的に関連する単語）
+              - `private`: false
+              - `updated_at`: null
+              - `id`: 英小文字とハイフンのみで構成された固有ID（例: `{リポジトリ名}-{tag}-release`）
+              - `organization_url_name`: null
+              - `slide`: false
+              - `ignorePublish`: false
+            - `wordpress`:
+              - `title`: 同じタイトル
+              - `post_status`: `publish`
+              - `post_excerpt`: 2〜3文で要約
+              - `featured_image`: ヘッダー画像が存在すれば `${{ steps.header.outputs.image_name }}`、無ければ空文字 `""`
+              - `taxonomy.category`: 2〜3件のカテゴリキー
+              - `taxonomy.post_tag`: 5件のタグ
+              - `custom_fields.lead`: 記事冒頭で使うリード文（2〜3文）
+            - 配列は YAML のリスト構文（`- value`）を使い、インデントは2スペースで統一する
+            - 未設定の文字列は空文字 `""` を使用し、null 項目は `null` を明記する
+            - front matter と本文の間には空行を1行入れる
+            
+            # 本文要件
+            - タイトル行は `#` 見出しで front matter と同じタイトルを記載する
+            - セクション構成は以下を基本とし、必要に応じて補足見出しを追加する
+              - `## はじめに`
+              - `## 主な変更点`
+              - `## 技術的な詳細`
+              - `### 新機能`
+              - `### 改善点`
+              - `### バグ修正`
+              - `## まとめ`
+              - `---`
+              - `📚 参考リンク`
+            - `HEADER_IMAGE_URL` があれば front matter の直後に `![<image_name>](<image_url>)` 形式で画像を挿入する
+            - 変更点はリリースノート・コミット・差分を引用しながら、開発者が理解しやすい言葉で解説する
+            - 必要に応じてコードブロックや表、箇条書きを使って整理する
+            - 文章は日本語で作成し、具体的なメリット、移行手順、注意点を含める
+            - `📚 参考リンク` には GitHub リポジトリ、比較URL、リリースページを含める
+            - 箇条書きや表のスタイル、リード文のトーンは下記サンプルと整合させる
+            
+            # サンプル記事 (参考用、出力には含めない)
+            ```markdown
+            ${{ steps.sample_article.outputs.content }}
+            ```
+
+            # 提供データ
             - リポジトリ: ${{ github.repository }}
             - リリースタグ: ${{ steps.ctx.outputs.tag }}
             - 前リリースタグ: ${{ steps.ctx.outputs.prev_tag }}
             - 比較URL: ${{ steps.ctx.outputs.compare_url }}
             - ヘッダー画像URL: ${{ steps.header.outputs.raw_url }}
             - ヘッダー画像ファイル名: ${{ steps.header.outputs.image_name }}
+            - リリースノート本文:
+              ${{ steps.notes.outputs.summary }}
+            - 差分統計:
+              ${{ steps.ctx.outputs.diff_stats }}
+            - 差分内容:
+              ```diff
+              ${{ steps.ctx.outputs.diff_content }}
+              ```
+            - コミット一覧:
+              ${{ steps.ctx.outputs.commits }}
+            - 変更ファイル一覧:
+              ${{ steps.ctx.outputs.files }}
+            - 主要貢献者:
+              ${{ steps.ctx.outputs.contributors }}
             
-            # 生成済みリリースノート
-            ${{ steps.notes.outputs.summary }}
-            
-            # 変更統計
-            ${{ steps.ctx.outputs.diff_stats }}
-            
-            # コード差分（実際の変更内容）
-            ```diff
-            ${{ steps.ctx.outputs.diff_content }}
-            ```
-            
-            # 変更コミット（抜粋）
-            ${{ steps.ctx.outputs.commits }}
-            
-            # 変更ファイル（抜粋）
-            ${{ steps.ctx.outputs.files }}
-            
-            # 執筆方針
-            - **リポジトリ名からプロジェクト名を推測し、適切なタイトルを作成する**
-            - **topics配列には技術スタック、言語、フレームワークなど関連する技術キーワードを4つ程度設定する**
-            - **emojiは内容に応じて適切なものを選択する**
-            - **コード差分を分析し、技術的な変更点を詳しく説明する**
-            - **開発者向けに具体的で実用的な内容にする**
-            - **リリースノートの内容をベースに、より詳細で読みやすい技術記事として展開する**
-            - **ヘッダー画像URL（${{ steps.header.outputs.raw_url }}）があれば、frontmatterの直後にMarkdownで表示する**
-            
-            # 出力フォーマット
-            **必ず記事全体を<article>タグで囲んで出力してください：**
-            
-            <article>
-            ---
-            title: "【リリースノート】[プロジェクト名] ${{ steps.ctx.outputs.tag }} - [主要な変更点を一言で]"
-            emoji: "🚀"
-            type: "tech"
-            topics: ['技術1', '技術2', '技術3', '技術4']
-            published: true
-            ---
-            
-            [ヘッダー画像がある場合: ![image_name](image_url)]
-            
-            ## はじめに
-            [プロジェクトの簡単な説明とリリースの概要]
-            
-            ## 主な変更点
-            [リリースノートを元にした詳細な説明]
-            
-            ## 技術的な詳細
-            [コード差分から読み取れる技術的な変更点の詳細]
-            
-            ### 新機能
-            [新機能の詳細説明]
-            
-            ### 改善点
-            [改善点の詳細説明]
-            
-            ### バグ修正
-            [バグ修正の詳細説明]
-            
-            ## まとめ
-            [今回のリリースのまとめと今後の展望]
-            
-            ---
-            
-            📚 **参考リンク**
-            - [リポジトリ](https://github.com/${{ github.repository }})
-            - [比較表示](${{ steps.ctx.outputs.compare_url }})
-            - [リリースページ](https://github.com/${{ github.repository }}/releases/tag/${{ steps.ctx.outputs.tag }})
-            </article>
-            
-            **重要**: 必ず<article>開始タグから</article>終了タグまでで記事全体を囲んでください。
+            # 出力形式
+            - Oasisフォーマットに準拠した1つのMarkdownドキュメントのみを出力する
+            - 説明文や余計なコメントは含めない
 
-      - name: Checkout Zenn repository
-        uses: actions/checkout@v4
-        with:
-          repository: 'Sunwood-ai-labs/Zenn'
-          token: ${{ secrets.ZENN_REPO_TOKEN }}
-          path: 'zenn-repo'
-
-      - name: Create Zenn article file
+      - name: Create Oasis article file
+        id: oasis_file
         env:
           TAG: "${{ steps.ctx.outputs.tag }}"
           REPOSITORY: "${{ github.repository }}"
-          ZENN_CONTENT: "${{ steps.zenn_article.outputs.summary }}"
+          OASIS_CONTENT: "${{ steps.oasis_article.outputs.summary }}"
           HEADER_IMAGE_URL: "${{ steps.header.outputs.raw_url }}"
           HEADER_IMAGE_NAME: "${{ steps.header.outputs.image_name }}"
         run: |
@@ -312,37 +331,37 @@ jobs:
             exit 1
           fi
           FILENAME="${SLUG}.md"
-          FILEPATH="zenn-repo/articles/${FILENAME}"
-          echo "Creating Zenn article: ${FILEPATH}"
-          mkdir -p "zenn-repo/articles"
-          if echo "${ZENN_CONTENT}" | grep -q '<article>'; then
-            echo "${ZENN_CONTENT}" | perl -0777 -pe 's/^.*?<article>\s*(.*)\s*<\/article>.*$/\1/s' > "${FILEPATH}"
-            echo "✅ Created Zenn article: ${FILENAME} (extracted from article tags)"
-          else
-            echo "${ZENN_CONTENT}" > "${FILEPATH}"
-            echo "✅ Created Zenn article: ${FILENAME} (used as-is)"
+          FILEPATH="articles/oasis/${FILENAME}"
+          if [[ -z "$(echo "${OASIS_CONTENT}" | tr -d '[:space:]')" ]]; then
+            echo "生成された記事コンテンツが空です" >&2
+            exit 1
           fi
-          echo "zenn_filename=${FILENAME}" >> "$GITHUB_OUTPUT"
-          echo "zenn_filepath=${FILEPATH}" >> "$GITHUB_OUTPUT"
+          mkdir -p "articles/oasis"
+          TEMP_FILE="$(mktemp)"
+          trap 'rm -f "${TEMP_FILE}"' EXIT
+          printf "%s\n" "${OASIS_CONTENT}" > "${TEMP_FILE}"
+          HAS_CHANGES="true"
+          if [[ -f "${FILEPATH}" ]]; then
+            if diff -q "${TEMP_FILE}" "${FILEPATH}" >/dev/null; then
+              HAS_CHANGES="false"
+            fi
+          fi
+          if [[ "${HAS_CHANGES}" == "true" ]]; then
+            cp "${TEMP_FILE}" "${FILEPATH}"
+            echo "✅ Oasis article written to ${FILEPATH}"
+          else
+            echo "No content changes detected for ${FILEPATH}"
+          fi
+          rm -f "${TEMP_FILE}"
+          trap - EXIT
+          echo "oasis_filename=${FILENAME}" >> "$GITHUB_OUTPUT"
+          echo "oasis_filepath=${FILEPATH}" >> "$GITHUB_OUTPUT"
+          echo "slug=${SLUG}" >> "$GITHUB_OUTPUT"
+          echo "has_changes=${HAS_CHANGES}" >> "$GITHUB_OUTPUT"
 
-      - name: Commit and push Zenn article
-        env:
-          TAG: "${{ steps.ctx.outputs.tag }}"
-          REPOSITORY: "${{ github.repository }}"
-          GITHUB_TOKEN: "${{ secrets.ZENN_REPO_TOKEN }}"
-        run: |
-          set -euo pipefail
-          cd zenn-repo
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add articles/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit \
-              -m "📝 Add release article for ${REPOSITORY} ${TAG}" \
-              -m "Generated from: ${REPOSITORY}/releases/tag/${TAG}" \
-              -m "Generated at: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            git push
-            echo "✅ Committed and pushed Zenn article"
-          fi
+      - name: Commit Oasis article
+        if: steps.oasis_file.outputs.has_changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # ratchet:stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "📰 Add Oasis release article for ${{ github.repository }} ${{ steps.ctx.outputs.tag }}"
+          file_pattern: ${{ steps.oasis_file.outputs.oasis_filepath }}
