@@ -1,17 +1,23 @@
 ---
 title: Git it Write の設定と使い方完全ガイド
-tags:
-- WordPress
-- Git
-- Markdown
-- Plugin
-- Automation
-private: false
-updated_at: null
-id: git-it-write-guide-20251012
-organization_url_name: null
-slide: false
-ignorePublish: false
+post_status: publish
+post_excerpt: GitHub の Markdown ファイルを push するだけで WordPress に自動投稿できるプラグイン「Git it Write」の導入と設定方法を詳しく解説。Webhook
+  やトークン設定、トラブル対処まで完全ガイドします。
+featured_image: _images/git-it-write-setup.jpg
+taxonomy:
+  category:
+  - wordpress
+  - github
+  - automation
+  post_tag:
+  - WordPress
+  - Git
+  - Markdown
+  - Plugin
+  - Automation
+custom_fields:
+  lead: GitHub の Markdown を WordPress 投稿へ自動反映するプラグイン「Git it Write」。本記事では導入から設定、Webhook
+    連携までをわかりやすくまとめました。
 ---
 
 # Git it Write の設定と使い方完全ガイド
