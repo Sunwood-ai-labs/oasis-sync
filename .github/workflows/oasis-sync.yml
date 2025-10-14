@@ -2,6 +2,8 @@ name: "🪄 Oasis Article Sync"
 
 on:
   push:
+    branches:
+      - "main"
     paths:
       - "articles/oasis/**/*.md"
   workflow_dispatch:
