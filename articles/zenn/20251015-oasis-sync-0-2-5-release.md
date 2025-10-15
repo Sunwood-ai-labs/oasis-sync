@@ -1,47 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】Oasis Sync v0.2.5 - CIワークフローの認証強化
-  emoji: 🔑
-  type: tech
-  topics:
-  - github-actions
-  - ci-cd
-  - automation
-  - github
-  - release-note
-  published: true
-qiita:
-  title: 【リリースノート】Oasis Sync v0.2.5 - CIワークフローの認証強化
-  tags:
-  - GitHubActions
-  - CI/CD
-  - Automation
-  - GitHub
-  - ReleaseNote
-  private: false
-  updated_at: null
-  id: oasis-sync-v0-2-5-release-20251015091530
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Oasis Sync v0.2.5 - CIワークフローの認証強化
-  post_status: publish
-  post_excerpt: Oasis Sync v0.2.5をリリースしました。本バージョンでは、GitHub ActionsのCIワークフローにおける認証方法を改善し、より安定した自動コミットを実現しています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.2.5-20251015_084354/imagen-4-ultra_2025-10-15T08-44-52-118Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - github-actions
-    - ci-cd
-    post_tag:
-    - Oasis Sync
-    - GitHubActions
-    - CI/CD
-    - Automation
-    - ReleaseNote
-  custom_fields:
-    lead: Oasis Sync v0.2.5では、GitHub Actionsワークフローの認証トークンを見直し、自動化プロセスの信頼性を向上させました。この記事では、変更の技術的な背景と内容を詳しく解説します。
+title: 【リリースノート】Oasis Sync v0.2.5 - CIワークフローの認証強化
+emoji: 🔑
+type: tech
+topics:
+- github-actions
+- ci-cd
+- automation
+- github
+- release-note
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-15T08-44-52-118Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.2.5-20251015_084354/imagen-4-ultra_2025-10-15T08-44-52-118Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
