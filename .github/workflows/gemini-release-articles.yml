@@ -238,7 +238,7 @@ jobs:
               - `title`: 同じタイトル
               - `post_status`: `publish`
               - `post_excerpt`: 2〜3文で要約
-              - `featured_image`: ヘッダー画像が存在すれば `${{ steps.header.outputs.image_name }}`、無ければ空文字 `""`
+              - `featured_image`: ヘッダー画像が存在すれば `${{ steps.header.outputs.raw_url }}`、無ければ空文字 `""`
               - `taxonomy.category`: 2〜3件のカテゴリキー
               - `taxonomy.post_tag`: 5件のタグ
               - `custom_fields.lead`: 記事冒頭で使うリード文（2〜3文）
