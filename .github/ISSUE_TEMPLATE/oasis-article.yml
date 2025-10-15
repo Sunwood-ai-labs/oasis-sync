@@ -33,7 +33,7 @@ body:
     validations:
       required: false
 
-  - type: textarea
+  - type: input
     id: header_image_url
     attributes:
       label: ヘッダー画像 URL (オプション)
@@ -49,7 +49,6 @@ body:
       label: Oasis ハイブリッド Markdown
       description: |
         front matter (`---` で囲まれた zenn/qiita/wordpress セクション) と本文をすべて貼り付けてください。
-      render: markdown
       placeholder: |
         ---
         zenn:
