@@ -1,48 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】Oasis Sync v0.3.3 - Qiitaへの差分自動公開ワークフローを追加
-  emoji: 🚀
-  type: tech
-  topics:
-  - github-actions
-  - qiita
-  - automation
-  - cli
-  - git
-  published: true
-qiita:
-  title: 【リリースノート】Oasis Sync v0.3.3 - Qiitaへの差分自動公開ワークフローを追加
-  tags:
-  - GitHubActions
-  - Qiita
-  - Automation
-  - CLI
-  - Git
-  private: false
-  updated_at: null
-  id: oasis-sync-v0-3-3-release-20251015130000
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Oasis Sync v0.3.3 - Qiitaへの差分自動公開ワークフローを追加
-  post_status: publish
-  post_excerpt: Oasis Sync v0.3.3をリリースしました。このバージョンでは、変更があったMarkdownファイルのみを自動でQiitaに投稿・更新するGitHub
-    Actionsワークフローが追加され、コンテンツの公開がより効率的になりました。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.3-20251015_123446/imagen-4-ultra_2025-10-15T12-36-03-293Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - github-actions
-    - automation
-    post_tag:
-    - Oasis Sync
-    - GitHubActions
-    - Qiita
-    - Automation
-    - ReleaseNote
-  custom_fields:
-    lead: Oasis Sync v0.3.3では、`git diff` を活用して変更されたMarkdownファイルのみをQiitaに自動公開する新しいワークフローを導入しました。本記事では、この機能の詳細とその他の改善点について解説します。
+title: 【リリースノート】Oasis Sync v0.3.3 - Qiitaへの差分自動公開ワークフローを追加
+tags:
+- GitHubActions
+- Qiita
+- Automation
+- CLI
+- Git
+private: false
+updated_at: null
+id: oasis-sync-v0-3-3-release-20251015130000
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-10-15T12-36-03-293Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.3-20251015_123446/imagen-4-ultra_2025-10-15T12-36-03-293Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
