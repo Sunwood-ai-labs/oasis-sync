@@ -20,7 +20,7 @@ qiita:
   - CICD
   private: false
   updated_at: null
-  id: oasis-sync-v0-3-2-release-20251015111741
+  id: 'oasis-sync-v0-3-2-release-20251015111741'
   organization_url_name: null
   slide: false
   ignorePublish: false
