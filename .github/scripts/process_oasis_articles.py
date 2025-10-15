@@ -211,7 +211,7 @@ def apply_metadata(
                 raise SystemExit(
                     f"Existing front matter for {filename} must include 'zenn', 'qiita', and 'wordpress' mappings."
                 )
-            ensure_qiita_id(qiita_meta, rel_path)
+            # ensure_qiita_id(qiita_meta, rel_path)
             combined_meta = parsed_meta
         else:
             generated = gemini_lookup.get(filename)
@@ -224,7 +224,7 @@ def apply_metadata(
                 raise SystemExit(
                     f"Gemini YAML for {filename} must include 'zenn', 'qiita', and 'wordpress' mappings."
                 )
-            ensure_qiita_id(qiita_meta, rel_path)
+            # ensure_qiita_id(qiita_meta, rel_path)
             combined_meta = {"zenn": zenn_meta, "qiita": qiita_meta, "wordpress": wordpress_meta}
 
         zenn_path = (zenn_dir / rel_path).with_suffix(".md")
