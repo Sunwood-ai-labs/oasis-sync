@@ -231,7 +231,7 @@ jobs:
               - `tags`: 5件（先頭大文字推奨、技術的に関連する単語）
               - `private`: false
               - `updated_at`: null
-              - `id`: 英小文字・数字・ハイフンのみで構成し、`yyyyMMddHHmmss` 形式のタイムスタンプを末尾に付与（例: `{リポジトリ名}-{tag}-release-20251015091530`）
+              - `id`: null
               - `organization_url_name`: null
               - `slide`: false
               - `ignorePublish`: false
