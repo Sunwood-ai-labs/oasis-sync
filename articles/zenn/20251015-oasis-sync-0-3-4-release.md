@@ -1,47 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】Oasis Sync v0.3.4 - Qiita連携の改善とコンテンツ整理
-  emoji: 📝
-  type: tech
-  topics:
-  - github-actions
-  - qiita
-  - automation
-  - ci-cd
-  - release-note
-  published: true
-qiita:
-  title: 【リリースノート】Oasis Sync v0.3.4 - Qiita連携の改善とコンテンツ整理
-  tags:
-  - GitHubActions
-  - Qiita
-  - Automation
-  - CI
-  - ReleaseNote
-  private: false
-  updated_at: null
-  id: oasis-sync-v0-3-4-release-20251015125254
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Oasis Sync v0.3.4 - Qiita連携の改善とコンテンツ整理
-  post_status: publish
-  post_excerpt: Oasis Sync v0.3.4をリリースしました。本バージョンではQiita連携ワークフローを改善し、記事IDの自動採番に対応したほか、コンテンツの整理を行いました。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.4-20251015_125254/imagen-4-ultra_2025-10-15T12-53-58-148Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - automation
-    - github
-    post_tag:
-    - OasisSync
-    - GitHubActions
-    - Qiita
-    - Automation
-    - ReleaseNote
-  custom_fields:
-    lead: Oasis Sync v0.3.4では、Qiitaへの新規投稿時にIDが自動採番されるよう連携を改善しました。本記事では、変更点の技術的な詳細と背景を解説します。
+title: 【リリースノート】Oasis Sync v0.3.4 - Qiita連携の改善とコンテンツ整理
+emoji: 📝
+type: tech
+topics:
+- github-actions
+- qiita
+- automation
+- ci-cd
+- release-note
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-15T12-53-58-148Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.4-20251015_125254/imagen-4-ultra_2025-10-15T12-53-58-148Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
