@@ -1,46 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】Oasis Sync v0.3.7 - Qiita ID検証処理の一時的な無効化
-  emoji: 🛠️
-  type: tech
-  topics:
-  - github
-  - github-actions
-  - python
-  - qiita
-  - automation
-  published: true
-qiita:
-  title: 【リリースノート】Oasis Sync v0.3.7 - Qiita ID検証処理の一時的な無効化
-  tags:
-  - GitHub
-  - GitHubActions
-  - Python
-  - Qiita
-  - Automation
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Oasis Sync v0.3.7 - Qiita ID検証処理の一時的な無効化
-  post_status: publish
-  post_excerpt: Oasis Sync v0.3.7をリリースしました。本バージョンでは、記事処理スクリプトにおけるQiita IDの検証ロジックを一時的に無効化し、処理の柔軟性を向上させています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.7-20251015_132539/imagen-4-ultra_2025-10-15T13-26-34-786Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - automation
-    post_tag:
-    - Oasis Sync
-    - GitHub Actions
-    - Python
-    - Qiita
-    - CI/CD
-  custom_fields:
-    lead: Oasis Sync v0.3.7がリリースされました。この記事では、Qiita ID検証処理を無効化した技術的背景と変更内容について詳しく解説します。
+title: 【リリースノート】Oasis Sync v0.3.7 - Qiita ID検証処理の一時的な無効化
+tags:
+- GitHub
+- GitHubActions
+- Python
+- Qiita
+- Automation
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-10-15T13-26-34-786Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.7-20251015_132539/imagen-4-ultra_2025-10-15T13-26-34-786Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
