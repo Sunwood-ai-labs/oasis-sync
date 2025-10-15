@@ -1,50 +1,22 @@
 ---
-zenn:
-  title: 【リリースノート】Oasis Sync v0.3.2 - アーキテクチャ刷新とリリースノート生成の強化
-  emoji: ✨
-  type: tech
-  topics:
-  - github-actions
-  - gemini
-  - automation
+title: 【リリースノート】Oasis Sync v0.3.2 - アーキテクチャ刷新とリリースノート生成の強化
+post_status: publish
+post_excerpt: Oasis Sync v0.3.2をリリースしました。本バージョンではアーキテクチャドキュメントを全面的に刷新し、コンテンツ生成と配信の役割を明確化。さらに、リリースノート生成機能も強化され、より精度の高いノート作成が可能になりました。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.2-20251015_111741/imagen-4-ultra_2025-10-15T11-18-40-617Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
+taxonomy:
+  category:
   - release-note
-  - ci-cd
-  published: true
-qiita:
-  title: 【リリースノート】Oasis Sync v0.3.2 - アーキテクチャ刷新とリリースノート生成の強化
-  tags:
-  - GitHubActions
+  - github-actions
+  - automation
+  post_tag:
+  - OasisSync
   - Gemini
-  - Automation
+  - GitHubActions
   - ReleaseNote
   - CICD
-  private: false
-  updated_at: null
-  id: oasis-sync-v0-3-2-release-20251015111741
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Oasis Sync v0.3.2 - アーキテクチャ刷新とリリースノート生成の強化
-  post_status: publish
-  post_excerpt: Oasis Sync v0.3.2をリリースしました。本バージョンではアーキテクチャドキュメントを全面的に刷新し、コンテンツ生成と配信の役割を明確化。さらに、リリースノート生成機能も強化され、より精度の高いノート作成が可能になりました。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.2-20251015_111741/imagen-4-ultra_2025-10-15T11-18-40-617Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - github-actions
-    - automation
-    post_tag:
-    - OasisSync
-    - Gemini
-    - GitHubActions
-    - ReleaseNote
-    - CICD
-  custom_fields:
-    lead: Oasis Sync v0.3.2では、アーキテクチャの再定義とドキュメント刷新を行いました。リリースノート生成機能の精度向上や、Qiita/Zenn連携ワークフローの有効化など、開発効率を高める改善が含まれています。
+custom_fields:
+  lead: Oasis Sync v0.3.2では、アーキテクチャの再定義とドキュメント刷新を行いました。リリースノート生成機能の精度向上や、Qiita/Zenn連携ワークフローの有効化など、開発効率を高める改善が含まれています。
 ---
-
-![imagen-4-ultra_2025-10-15T11-18-40-617Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.3.2-20251015_111741/imagen-4-ultra_2025-10-15T11-18-40-617Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
 
 ## はじめに
 
