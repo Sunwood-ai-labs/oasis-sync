@@ -20,7 +20,7 @@ qiita:
   - Node.js
   private: false
   updated_at: null
-  id: "oasis-sync-v0-2-4-release-20251015091530"
+  id: oasis-sync-v0-2-4-release-20251015091530
   organization_url_name: null
   slide: false
   ignorePublish: false
