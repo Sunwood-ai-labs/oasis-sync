@@ -31,6 +31,21 @@ def ensure_trailing_newline(text: str) -> str:
     return text if text.endswith("\n") else text + "\n"
 
 
+def remove_leading_markdown_image(text: str) -> str:
+    """Remove the first Markdown image from the top of the document, if present."""
+    lines = text.splitlines()
+    idx = 0
+    while idx < len(lines) and not lines[idx].strip():
+        idx += 1
+    if idx < len(lines):
+        stripped = lines[idx].strip()
+        if stripped.startswith("![") and "](" in stripped:
+            del lines[: idx + 1]
+            while lines and not lines[0].strip():
+                lines.pop(0)
+    return "\n".join(lines)
+
+
 def render_front_matter(data: dict[str, Any]) -> str:
     """Serialise a dictionary into a YAML front matter block."""
     if yaml is None:
@@ -187,7 +202,8 @@ def apply_metadata(
 
         write_article(zenn_path, zenn_meta, body)
         write_article(qiita_path, qiita_meta, body)
-        write_article(wordpress_path, wordpress_meta, body)
+        wordpress_body = ensure_trailing_newline(remove_leading_markdown_image(body))
+        write_article(wordpress_path, wordpress_meta, wordpress_body)
         write_article(oasis_path, combined_meta, body)
 
 
