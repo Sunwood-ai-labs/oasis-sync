@@ -75,34 +75,7 @@ jobs:
           clamp_diff() {
             local max_lines="$1"
             local max_chars="$2"
-            python3 - "$max_lines" "$max_chars" <<'PY'
-import sys
-max_lines = int(sys.argv[1])
-max_chars = int(sys.argv[2])
-lines = 0
-chars = 0
-chunks = []
-truncated = False
-append = chunks.append
-for raw in sys.stdin:
-    if lines >= max_lines:
-        truncated = True
-        break
-    encoded = raw.encode("utf-8", "ignore")
-    prospective = chars + len(encoded)
-    if prospective > max_chars:
-        remain = max_chars - chars
-        if remain > 0:
-            append(encoded[:remain].decode("utf-8", "ignore"))
-        truncated = True
-        break
-    append(raw)
-    chars = prospective
-    lines += 1
-sys.stdout.write("".join(chunks))
-if truncated:
-    sys.stdout.write("\n[diff truncated]")
-PY
+            python3 .github/scripts/clamp_diff.py "$max_lines" "$max_chars"
           }
 
           if [[ -n "${PREV_RELEASE_TAG}" ]]; then
