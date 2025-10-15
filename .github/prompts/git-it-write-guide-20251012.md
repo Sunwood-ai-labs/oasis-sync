@@ -20,7 +20,7 @@ qiita:
   - Automation
   private: false
   updated_at: null
-  id: "git-it-write-guide-20251012-20251012090000"
+  id: null
   organization_url_name: null
   slide: false
   ignorePublish: false
