@@ -264,6 +264,7 @@ jobs:
             - 本文冒頭でタイトルを再掲せず、front matter のタイトルと重複させない
             - 本文全体は通常のMarkdownとして出力し、三連バッククォートなどのコードブロックで全体を囲まない
             - 各見出しは一度だけマークダウン記法を付け、`##` や `###` が重複しないようにする
+            - 見出しや節タイトルに番号を付けず、シンプルなテキストのみで表現する
             - `📚 参考リンク` には GitHub リポジトリ、比較URL、リリースページを含める
             - 箇条書きや表のスタイル、リード文のトーンは下記サンプルと整合させる
             
@@ -335,27 +336,37 @@ jobs:
           fi
           FILENAME="${SLUG}.md"
           FILEPATH="articles/oasis/${FILENAME}"
-          if [[ -z "$(echo "${OASIS_CONTENT}" | tr -d '[:space:]')" ]]; then
+          mkdir -p "articles/oasis"
+          RAW_FILE="$(mktemp)"
+          CLEAN_FILE="$(mktemp)"
+          trap 'rm -f "${RAW_FILE}" "${CLEAN_FILE}"' EXIT
+          printf "%s\n" "${OASIS_CONTENT}" > "${RAW_FILE}"
+          FIRST_LINE="$(head -n 1 "${RAW_FILE}")"
+          LAST_LINE="$(tail -n 1 "${RAW_FILE}")"
+          CONTENT_FILE="${RAW_FILE}"
+          if [[ "${FIRST_LINE}" =~ ^\`\`\`(markdown)?$ ]] && [[ "${LAST_LINE}" == '```' ]]; then
+            if [[ $(wc -l < "${RAW_FILE}") -ge 2 ]]; then
+              sed '1d;$d' "${RAW_FILE}" > "${CLEAN_FILE}"
+              CONTENT_FILE="${CLEAN_FILE}"
+            fi
+          fi
+          if [[ -z "$(tr -d '[:space:]' < "${CONTENT_FILE}")" ]]; then
             echo "生成された記事コンテンツが空です" >&2
             exit 1
           fi
-          mkdir -p "articles/oasis"
-          TEMP_FILE="$(mktemp)"
-          trap 'rm -f "${TEMP_FILE}"' EXIT
-          printf "%s\n" "${OASIS_CONTENT}" > "${TEMP_FILE}"
           HAS_CHANGES="true"
           if [[ -f "${FILEPATH}" ]]; then
-            if diff -q "${TEMP_FILE}" "${FILEPATH}" >/dev/null; then
+            if diff -q "${CONTENT_FILE}" "${FILEPATH}" >/dev/null; then
               HAS_CHANGES="false"
             fi
           fi
           if [[ "${HAS_CHANGES}" == "true" ]]; then
-            cp "${TEMP_FILE}" "${FILEPATH}"
+            cp "${CONTENT_FILE}" "${FILEPATH}"
             echo "✅ Oasis article written to ${FILEPATH}"
           else
             echo "No content changes detected for ${FILEPATH}"
           fi
-          rm -f "${TEMP_FILE}"
+          rm -f "${RAW_FILE}" "${CLEAN_FILE}"
           trap - EXIT
           echo "oasis_filename=${FILENAME}" >> "$GITHUB_OUTPUT"
           echo "oasis_filepath=${FILEPATH}" >> "$GITHUB_OUTPUT"
