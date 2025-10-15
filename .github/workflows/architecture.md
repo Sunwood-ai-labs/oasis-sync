@@ -1,113 +1,224 @@
-![](../../docs/architecture.png)
+
+![Architecture Diagram](./architecture.svg)
 
 ## 🏗️ アーキテクチャとワークフロー詳細
 
 このドキュメントは、リポジトリ内のGitHub Actionsワークフローの全体像と詳細仕様をまとめたものです。トップレベルの概要は `README.md` を参照し、ここでは各ワークフローの目的・トリガー・実装上のポイントを詳述します。
 
-### 全体像（Mermaid）
+### 全体像
 
+上記の構成図（[architecture.svg](./architecture.svg)）をご参照ください。
 
-```mermaid
-flowchart TD
-  A[Issue/PR/Comment] -->|triggers| B[GitHub Actions]
-  B --> C1[💬 gemini-cli / gemini-jp-cli]
-  B --> C2[🧐 gemini-pr-review]
-  B --> C3[🏷️ issue-automated-triage]
-  B --> C4[📋 issue-scheduled-triage]
-  B --> C5[🎨 imagen4-issue-trigger]
-  B --> C6[🎨 imagen4-dispatch]
-  B --> C7[📝 release-notes]
-  B --> C8[📄 static-site]
+### アーキテクチャの目的
 
-  subgraph Gemini CLI
-    C1 -->|google-github-actions/run-gemini-cli| G[Gemini/Vertex AI]
-  end
+このリポジトリは、**2つの主要モジュール**で構成されています：
 
-  subgraph PR Review
-    C2 -->|MCP github server| GHAPI[GitHub API]
-    C2 --> G
-  end
+#### 🟨 Gemini Actions Labs Module
+- **目的**: AIを活用したコンテンツ生成
+- **機能**:
+  - リリースノートの自動生成
+  - Imagen APIによるヘッダー画像生成
+  - 複数プラットフォーム対応のハイブリッド記事作成
 
-  subgraph Triage
-    C3 --> G
-    C4 --> G
-  end
+#### 🟧 Oasis Sync Module
+- **目的**: コンテンツの変換と配信
+- **機能**:
+  - Oasisハイブリッド記事のプラットフォーム別分割
+  - Geminiによるメタデータ生成
+  - 各プラットフォームリポジトリへの自動同期
 
-  subgraph Images
-    C5 -->|Imagen MCP| IM[Imagen 4]
-    C6 -->|Imagen MCP| IM
-  end
+---
 
-  subgraph Release
-    C7 --> G
-    C7 -->|Commit images| Repo[Repo]
-    C7 -->|Create/Update Release| GHAPI
-  end
+## 📋 ワークフロー詳細
 
-  subgraph Static Site
-    C8 --> GHPages[GitHub Pages]
-  end
+### 🟨 Gemini Actions Labs Module
+
+#### 📝 `gemini-release-notes.yml`
+- **トリガー**: Release tag作成 (`on: push tags`)
+- **役割**:
+  1. 前回リリースとの差分を収集（コミット、変更ファイル、コントリビューター、コード差分）
+  2. Imagen 4でヘッダー画像を生成
+  3. Geminiでリリースノートを生成（Markdown形式）
+  4. GitHub Releaseを作成/更新
+  5. ヘッダー画像をReleaseアセットとしてアップロード
+- **出力**:
+  - `generated-images/release-{TAG}-{TIMESTAMP}/` にヘッダー画像
+  - GitHub Releaseページに公開
+- **実装ポイント**:
+  - 環境変数で制御可能な最大値（`MAX_COMMITS`, `MAX_FILES`, `MAX_DIFF_LINES`等）
+  - pre-releaseタグの自動検出（`-alpha`, `-beta`, `-rc`）
+  - コード差分を含めた詳細な分析
+
+#### 📰 `gemini-release-articles.yml`
+- **トリガー**: `gemini-release-notes.yml` 完了後 (`workflow_run`)
+- **役割**:
+  1. トリガーしたリリースタグを特定
+  2. リリースノート本文とヘッダー画像URLを取得
+  3. サンプル記事（`.github/prompts/git-it-write-guide-*.md`）を参考にGeminiでOasis形式の記事を生成
+  4. `articles/oasis/` にコミット
+- **生成記事の構造**:
+  ```yaml
+  ---
+  zenn:
+    title: "【リリースノート】{project} {tag} - {summary}"
+    emoji: "🎉"
+    type: "tech"
+    topics: ["tag1", "tag2", "tag3", "tag4"]
+    published: true
+  qiita:
+    title: "{同じタイトル}"
+    tags: ["Tag1", "Tag2", "Tag3", "Tag4", "Tag5"]
+    private: false
+    updated_at: null
+    id: "{slug}-{timestamp}"
+    organization_url_name: null
+    slide: false
+    ignorePublish: false
+  wordpress:
+    title: "{同じタイトル}"
+    post_status: "publish"
+    post_excerpt: "{2-3文の要約}"
+    featured_image: "{ヘッダー画像URL}"
+    taxonomy:
+      category: ["category1", "category2"]
+      post_tag: ["tag1", "tag2", "tag3", "tag4", "tag5"]
+    custom_fields:
+      lead: "{リード文}"
+  ---
+  
+  ![{image_name}]({image_url})
+  
+  ## はじめに
+  ...
+  ```
+- **実装ポイント**:
+  - ファイル名は `{YYYYMMDD}-{repo_name}-{tag}-release.md` 形式
+  - Qiita IDには末尾にタイムスタンプを付与
+  - front matterと本文を一体化したハイブリッド形式
+
+---
+
+### 🟧 Oasis Sync Module
+
+#### 🪄 `oasis-sync.yml`
+- **トリガー**: 
+  - `articles/oasis/**/*.md` へのpush
+  - 手動実行（`workflow_dispatch`）
+- **役割**:
+  1. 新規追加/変更されたOasis記事を検出
+  2. Geminiで各プラットフォーム用のメタデータを生成
+  3. 記事をZenn、Qiita、WordPress形式に分割
+  4. 各ディレクトリにコミット:
+     - `articles/zenn/`
+     - `articles/qiita/`
+     - `articles/wordpress/`
+- **処理フロー**:
+  ```python
+  1. collect: 変更ファイル検出
+  2. prepare: ペイロード準備
+  3. gemini: メタデータ生成
+  4. apply: 記事分割・出力
+  5. commit: 変更をコミット
+  ```
+- **実装ポイント**:
+  - Pythonスクリプト（`.github/scripts/process_oasis_articles.py`）で記事処理
+  - 既存メタデータは保持、不足分のみGeminiで補完
+  - YAML形式のメタデータを安全にパース
+
+#### 📘 `oasis-zenn-sync.yml`
+- **トリガー**:
+  - `articles/zenn/*.md` へのpush
+  - `oasis-sync.yml` 完了後（`workflow_run`）
+- **役割**: Zenn記事をターゲットリポジトリに同期
+- **ターゲット**: `Sunwood-ai-labs/Zenn` (`./articles`)
+- **実装ポイント**:
+  - 差分検出により新規/変更記事のみを同期
+  - `.github/scripts/sync_platform.sh` スクリプトを使用
+  - GH_PAT（Personal Access Token）で認証
+
+#### 📗 `oasis-qiita-sync.yml`
+- **トリガー**:
+  - `articles/qiita/*.md` へのpush
+  - `oasis-sync.yml` 完了後（`workflow_run`）
+- **役割**: Qiita記事をターゲットリポジトリに同期
+- **ターゲット**: `Sunwood-ai-labs/qiita-article` (`./public`)
+- **実装ポイント**:
+  - Zenn同期と同じ仕組みを利用
+  - Qiita CLIが期待するディレクトリ構造に対応
+
+#### 📙 `oasis-wordpress-sync.yml`
+- **トリガー**:
+  - `articles/wordpress/*.md` へのpush
+  - `oasis-sync.yml` 完了後（`workflow_run`）
+- **役割**: WordPress記事をターゲットリポジトリに同期
+- **ターゲット**: `Sunwood-ai-labs/WP-dev` (`./docs`)
+- **実装ポイント**:
+  - WordPress側のGitHub Actionsが記事を検出して自動投稿
+  - front matterのメタデータをWordPress APIに渡す
+
+---
+
+## 🔄 データフロー
+
+### 1️⃣ リリース時の自動フロー
+
+```
+Release Tag Created
+  ↓
+📝 gemini-release-notes.yml
+  • コード差分分析
+  • Imagen 4でヘッダー画像生成
+  • Geminiでリリースノート生成
+  • GitHub Releaseに公開
+  ↓
+📰 gemini-release-articles.yml (workflow_run)
+  • リリースノート取得
+  • Oasisハイブリッド記事生成
+  • articles/oasis/ にコミット
+  ↓
+🪄 oasis-sync.yml (push trigger)
+  • Geminiでメタデータ生成
+  • プラットフォーム別に分割
+  • articles/zenn/、qiita/、wordpress/ にコミット
+  ↓
+📘📗📙 Platform-specific sync (push/workflow_run)
+  • oasis-zenn-sync.yml → Zennリポジトリ
+  • oasis-qiita-sync.yml → Qiitaリポジトリ
+  • oasis-wordpress-sync.yml → WordPressリポジトリ
+  ↓
+各プラットフォームで自動検出・投稿
 ```
 
+### 2️⃣ トリガータイプ
 
-### 目的
-- Issue/PR 由来のチャットオペレーションで Gemini を活用
-- MCP GitHub サーバー経由の自動 PR レビュー
-- イベント駆動とスケジュール駆動の Issue トリアージ
-- Imagen MCP による画像生成とコミット
-- リリース画像とリリースノートの自動生成
-- GitHub Pages への静的サイト公開
-
----
-
-### ワークフロー詳細
-
-- 💬 `/.github/workflows/gemini-cli.yml`, `/.github/workflows/gemini-jp-cli.yml`
-  - トリガー: Issue/コメント/PRレビューコメント/レビュー提出/手動（条件付き）
-  - 役割: CLIライクな対話。`google-github-actions/run-gemini-cli@v0` を利用
-  - 実装ポイント: ヒアドキュメントで `GITHUB_OUTPUT` を安全に書き込み。イベント種別に依存しにくい Concurrency グループ設計
-
-- 🧐 `/.github/workflows/gemini-pr-review.yml`
-  - トリガー: PR ライフサイクル（opened, synchronize 等）や opt-in コメント
-  - 役割: MCP GitHub サーバーでレビューコメントを PR に直接投稿
-  - 注意: 変更ハンク内のみコメント可能というGitHubの制約に準拠
-
-- 🏷️ `/.github/workflows/gemini-issue-automated-triage.yml`
-  - トリガー: Issue opened/reopened、手動
-  - 役割: Issue の内容に基づく自動ラベル付け/担当者提案
-  - 実装ポイント: 不在ラベルは作成後に適用
-
-- 📋 `/.github/workflows/gemini-issue-scheduled-triage.yml`
-  - トリガー: スケジュール（cron）
-  - 役割: 未トリアージIssueを定期バッチで分析
-  - 実装ポイント: JSON取扱いの堅牢化、フォールバックラベル適用
-
-- 🎨 `/.github/workflows/imagen4-issue-trigger-and-commit.yml`
-  - トリガー: Issue/コメントなど（イシュー起点）
-  - 役割: Imagen MCP で画像生成、メタデータ付与、生成物をコミット
-  - 出力: 結果をIssueへコメント（Raw 画像リンク）
-
-- 🎨 `/.github/workflows/imagen4-generate-and-commit.yml`
-  - トリガー: 手動/ディスパッチ
-  - 役割: 任意プロンプトで画像生成しコミット
-
-- 📝 `/.github/workflows/gemini-release-notes.yml`
-  - トリガー: リリースタグ作成
-  - 役割: ヘッダー画像生成、要点を押さえたリリースノート作成
-  - 出力: 画像コミット + Release アセットへのアップロード
-
-- 📄 `/.github/workflows/static-site.yml`
-  - トリガー: main への push や手動
-  - 役割: リポジトリ内容を GitHub Pages に公開
-
-- 🔄 `/.github/workflows/sync-to-report-gh.yml`
-  - トリガー: main への push
-  - 役割: 旧テンプレのレガシー。現在は参考用途
+| ワークフロー | push | workflow_run | manual |
+|-------------|------|--------------|--------|
+| gemini-release-notes.yml | tags | - | - |
+| gemini-release-articles.yml | - | ✅ | - |
+| oasis-sync.yml | articles/oasis/** | - | ✅ |
+| oasis-zenn-sync.yml | articles/zenn/** | ✅ | - |
+| oasis-qiita-sync.yml | articles/qiita/** | ✅ | - |
+| oasis-wordpress-sync.yml | articles/wordpress/** | ✅ | - |
 
 ---
 
-### セキュリティ/運用メモ
-- 機密情報はコミットしない（例: `discord-issue-bot/.env` は `.gitignore` 済み）
-- トークン/鍵はリポジトリ/Org Secrets/Vars を利用（例: `GEMINI_API_KEY`, `GH_PAT`）
-- 書き込み系ジョブは信頼できるユーザー/イベントに限定
-- イシュー/PR/コメント起点でも競合しにくい Concurrency グループ設計
+## 🎯 主要な設計原則
+
+### 1. **責任分離**
+- **Gemini Actions Labs**: コンテンツ生成に特化
+- **Oasis Sync**: コンテンツ変換・配信に特化
+
+### 2. **ハイブリッド形式**
+- 単一ソース（Oasis記事）から複数プラットフォームへ配信
+- プラットフォーム固有のメタデータをfront matterで管理
+
+### 3. **イベント駆動**
+- `workflow_run`で連鎖的に実行
+- 各ワークフローは独立して動作可能
+
+### 4. **拡張性**
+- 新しいプラットフォーム追加が容易
+- 環境変数とスクリプトで柔軟に設定変更可能
+
+---
+
