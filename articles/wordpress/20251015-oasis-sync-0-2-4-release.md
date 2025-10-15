@@ -1,50 +1,22 @@
 ---
-zenn:
-  title: 【リリースノート】oasis-sync v0.2.4 - Qiita記事IDの一意性を向上
-  emoji: ✨
-  type: tech
-  topics:
-  - github-actions
-  - qiita
+title: 【リリースノート】oasis-sync v0.2.4 - Qiita記事IDの一意性を向上
+post_status: publish
+post_excerpt: oasis-sync v0.2.4をリリースしました。このバージョンでは、Qiitaへ投稿する際の記事IDにタイムスタンプを自動付与し、IDの重複を確実に防ぐ機能が追加されています。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.2.4-20251015_081049/imagen-4-ultra_2025-10-15T08-11-53-347Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
+taxonomy:
+  category:
+  - release-note
+  - github
   - automation
-  - ci-cd
-  - nodejs
-  published: true
-qiita:
-  title: 【リリースノート】oasis-sync v0.2.4 - Qiita記事IDの一意性を向上
-  tags:
+  post_tag:
+  - oasis-sync
   - GitHubActions
   - Qiita
   - Automation
   - CI
-  - Node.js
-  private: false
-  updated_at: null
-  id: oasis-sync-v0-2-4-release-20251015091530
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】oasis-sync v0.2.4 - Qiita記事IDの一意性を向上
-  post_status: publish
-  post_excerpt: oasis-sync v0.2.4をリリースしました。このバージョンでは、Qiitaへ投稿する際の記事IDにタイムスタンプを自動付与し、IDの重複を確実に防ぐ機能が追加されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.2.4-20251015_081049/imagen-4-ultra_2025-10-15T08-11-53-347Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - github
-    - automation
-    post_tag:
-    - oasis-sync
-    - GitHubActions
-    - Qiita
-    - Automation
-    - CI
-  custom_fields:
-    lead: oasis-sync v0.2.4では、Qiita投稿時の記事IDにタイムスタンプを付与し、一意性を保証する改善を行いました。これにより、手動でのID調整が不要になり、より安定した自動投稿が実現します。
+custom_fields:
+  lead: oasis-sync v0.2.4では、Qiita投稿時の記事IDにタイムスタンプを付与し、一意性を保証する改善を行いました。これにより、手動でのID調整が不要になり、より安定した自動投稿が実現します。
 ---
-
-![imagen-4-ultra_2025-10-15T08-11-53-347Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.2.4-20251015_081049/imagen-4-ultra_2025-10-15T08-11-53-347Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
 
 ## はじめに
 本日、`oasis-sync` のバージョン `v0.2.4` をリリースしました。このアップデートは、特にQiitaへの記事投稿における安定性を向上させるための重要な改善を含んでいます。
