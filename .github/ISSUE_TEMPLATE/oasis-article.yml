@@ -29,7 +29,8 @@ body:
       label: 公開日 (オプション)
       description: |
         YYYY-MM-DD 形式で入力するとファイル名・front matter の date に利用します。未入力時は作成日の JST を使用します。
-      placeholder: 2025-10-15
+      placeholder: "2025-10-15"   # ← クォート必須
+      # もしくは placeholder: !!str 2025-10-15
     validations:
       required: false
 
