@@ -1,8 +1,10 @@
-<h1 align="center">🪄 Oasis Article Sync</h1>
 
 <p align="center">
-  <img src="./header.jpeg" alt="Oasis Article Sync banner" width="100%">
+  <img src="./header2.png" alt="Oasis Article Sync banner" width="100%">
 </p>
+
+<h1 align="center">🪄 Oasis Sync</h1>
+
 
 <p align="center">
   <a href="https://github.com/Sunwood-ai-labs/oasis-sync/actions/workflows/oasis-sync.yml">
@@ -13,6 +15,9 @@
   </a>
   <a href="https://github.com/Sunwood-ai-labs/oasis-sync/actions/workflows/oasis-qiita-sync.yml">
     <img src="https://github.com/Sunwood-ai-labs/oasis-sync/actions/workflows/oasis-qiita-sync.yml/badge.svg?branch=main" alt="Qiita Sync status">
+  </a>
+  <a href="https://github.com/Sunwood-ai-labs/oasis-sync/actions/workflows/oasis-qiita-sync.yml">
+    <img src="https://github.com/Sunwood-ai-labs/oasis-sync/actions/workflows/oasis-wordpress-sync.yml/badge.svg?branch=main" alt="Wordpress Sync status">
   </a>
 </p>
 
@@ -37,7 +42,11 @@
 
 ## 🧱 Architecture
 
-- ワークフロー全体像とジョブ詳細は [`.github/workflows/architecture.md`](./.github/workflows/architecture.md) を参照してください。
+- 最新の構成図とワークフローの詳細は [`.github/workflows/architecture.md`](./.github/workflows/architecture.md) と [`.github/workflows/architecture.svg`](./.github/workflows/architecture.svg) を参照してください。
+- リポジトリは次の2モジュールで構成されています。
+  - **Gemini Actions Labs**: リリースノート生成やヘッダー画像生成など、Gemini/Imagen を活用したコンテンツ作成パイプライン。
+  - **Oasis Sync**: Oasis 形式の記事を各配信先向けに変換し、ターゲットリポジトリへ同期する配信パイプライン。
+- モジュール間のデータフローや各ワークフローのジョブ構成、使用スクリプトの関係は Architecture ドキュメントに集約しています。
 - `docs/flow.dio` には GitHub Actions と外部サービスの連携を表すダイアグラムが含まれています。
 
 ## 🚀 Setup
@@ -59,14 +68,10 @@
 
 ## 🔄 Workflows
 
-| Workflow | Trigger | Purpose |
-| --- | --- | --- |
-| `oasis-sync.yml` | push to `articles/oasis/**` / manual | Oasis 記事から Gemini メタデータを生成し、Zenn/Qiita/WordPress へ分配 |
-| `oasis-zenn-sync.yml` | schedule / manual | Zenn 用派生記事を別リポジトリへ同期 |
-| `oasis-qiita-sync.yml` | schedule / manual | Qiita 用派生記事を別リポジトリへ同期 |
-| `oasis-wordpress-sync.yml` | schedule / manual | WordPress 用派生記事を Git it Write 等のリポジトリへ同期 |
-
-詳細は各ワークフロー YAML と [Architecture ドキュメント](./.github/workflows/architecture.md) を参照してください。
+- Oasis 記事を分岐させる入口は `oasis-sync.yml` で、生成処理は `.github/scripts/process_oasis_articles.py` に実装されています。
+- 各プラットフォーム向け同期 (`oasis-zenn-sync.yml`, `oasis-qiita-sync.yml`, `oasis-wordpress-sync.yml`) は共通シェルスクリプトでターゲットリポジトリに反映します。
+- リリースノートと派生記事を扱う `gemini-release-*.yml` 系は Gemini Actions Labs モジュールとしてまとめています。
+- トリガー条件やジョブ構成、生成物の詳細は [Architecture ドキュメント](./.github/workflows/architecture.md) を確認してください。
 
 ## 🗂 Repository Layout
 
