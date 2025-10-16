@@ -158,9 +158,9 @@ def main():
     bg_hex = pick_section_value(body, "背景色（レターボックス用・任意）")
     src_url = pick_section_value(body, "画像 URL（任意）")
 
-    # 🕒 空欄扱いならタイムスタンプから自動生成（例: 20251016-oasis-thumb）
+    # 🕒 空欄扱いならタイムスタンプ（秒まで）から自動生成（例: 20251016-123045-oasis-thumb）
     if is_blank_or_no_response(slug):
-        slug = datetime.now().strftime("%Y%m%d") + "-oasis-thumb"
+        slug = datetime.now().strftime("%Y%m%d-%H%M%S") + "-oasis-thumb"
 
     slug = sanitize_slug(slug)
     size = parse_resize_preset(preset)

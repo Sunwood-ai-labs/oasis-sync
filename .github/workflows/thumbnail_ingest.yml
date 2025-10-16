@@ -108,6 +108,7 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           COMMIT_PERFORMED: ${{ steps.commit.outputs.commit_performed }}
           SAVED_FILES: ${{ steps.ingest.outputs.saved_files }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
 
