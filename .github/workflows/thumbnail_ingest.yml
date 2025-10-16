@@ -108,13 +108,32 @@ jobs:
           SAVED_FILES: ${{ steps.ingest.outputs.saved_files }}
         run: |
           set -euo pipefail
-          body="## ✅ サムネイルを保存しました\n\n- 保存ファイル:\n${SAVED_FILES}"
-          if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
-            body="${body}\n\n変更をコミットし、デフォルトブランチへプッシュしました。"
-          else
-            body="${body}\n\n差分が無かったためコミットはスキップしました。"
+
+          cat > comment.md <<'EOF'
+## ✅ サムネイルを保存しました
+
+- 保存ファイル:
+
+EOF
+
+          if [[ -n "${SAVED_FILES}" ]]; then
+            printf '%s\n' "${SAVED_FILES}" >> comment.md
           fi
-          gh issue comment "${ISSUE_NUMBER}" --body "${body}"
+          printf '\n' >> comment.md
+
+          if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
+            cat >> comment.md <<'EOF'
+
+変更をコミットし、デフォルトブランチへプッシュしました。
+EOF
+          else
+            cat >> comment.md <<'EOF'
+
+差分が無かったためコミットはスキップしました。
+EOF
+          fi
+
+          gh issue comment "${ISSUE_NUMBER}" --body-file comment.md
           gh issue close "${ISSUE_NUMBER}"
 
       - name: Comment on failure

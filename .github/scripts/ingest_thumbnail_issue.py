@@ -121,6 +121,21 @@ def sanitize_slug(s: str) -> str:
     s = re.sub(r"\-+", "-", s).strip("-")
     return s or "thumbnail"
 
+def is_blank_or_no_response(s: Optional[str]) -> bool:
+    if s is None:
+        return True
+    t = s.strip().lower()
+    candidates = {
+        "",
+        "_no response_",
+        "no response",
+        "no-response",
+        "n/a",
+        "(none)",
+        "none",
+    }
+    return t in candidates
+
 # ---- Main ----
 def main():
     ap = argparse.ArgumentParser()
@@ -143,8 +158,8 @@ def main():
     bg_hex = pick_section_value(body, "背景色（レターボックス用・任意）")
     src_url = pick_section_value(body, "画像 URL（任意）")
 
-    # 🕒 入力なしならタイムスタンプから自動生成（例: 20251016-oasis-thumb）
-    if not slug or not slug.strip():
+    # 🕒 空欄扱いならタイムスタンプから自動生成（例: 20251016-oasis-thumb）
+    if is_blank_or_no_response(slug):
         slug = datetime.now().strftime("%Y%m%d") + "-oasis-thumb"
 
     slug = sanitize_slug(slug)
