@@ -9,17 +9,20 @@ permissions:
   issues: write
 
 jobs:
-  # 1) ラベルの存在を保証（常に実行）
   ensure_label:
     runs-on: ubuntu-latest
     steps:
       - name: Ensure 'oasis-article' label exists
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}   # gh が使うトークン名は GH_TOKEN が確実
         run: |
           set -euo pipefail
-          if ! gh label list --limit 1000 | awk -F'\t' '{print $1}' | grep -Fxq 'oasis-article'; then
+          REPO="${{ github.repository }}"
+          # ラベル存在チェック
+          if ! gh label list --repo "$REPO" --limit 1000 \
+               | awk -F'\t' '{print $1}' | grep -Fxq 'oasis-article'; then
             gh label create "oasis-article" \
+              --repo "$REPO" \
               --description "Trigger Oasis article ingestion" \
               --color "2E7D32"
           fi
