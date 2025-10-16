@@ -120,10 +120,11 @@ jobs:
             body="${body}\n- ヘッダー画像: ${IMAGE_URL}"
           fi
           if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
-            body="${body}\n\n変更をコミットし、デフォルトブランチへプッシュしました。`oasis-sync` ワークフローがトリガーされます。"
+            body="${body}\n\n変更をコミットし、デフォルトブランチへプッシュしました。\`oasis-sync\` ワークフローがトリガーされます。"
           else
             body="${body}\n\n差分が検出されなかったためコミットはスキップしました。内容をご確認のうえ必要に応じて更新してください。"
           fi
+
           gh issue comment "${ISSUE_NUMBER}" --body "${body}"
           gh issue close "${ISSUE_NUMBER}"
 
