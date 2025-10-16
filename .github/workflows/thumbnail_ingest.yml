@@ -2,7 +2,7 @@ name: "🖼️ Thumbnail Intake"
 
 on:
   issues:
-    types: [opened, labeled, edited]
+    types: [opened, edited]
 
 permissions:
   contents: write
@@ -81,6 +81,7 @@ jobs:
         id: commit
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
           git config user.name "thumb-sync[bot]"
@@ -96,7 +97,8 @@ jobs:
           fi
 
           git commit -m "🖼️ Add thumbnail(s) from issue #${{ github.event.issue.number }}"
-          git push origin HEAD:"${{ github.event.repository.default_branch }}"
+          git pull --rebase origin "${DEFAULT_BRANCH}"
+          git push origin HEAD:"${DEFAULT_BRANCH}"
           echo "commit_performed=true" >> "$GITHUB_OUTPUT"
 
       - name: Comment and close issue
@@ -109,29 +111,28 @@ jobs:
         run: |
           set -euo pipefail
 
-          cat > comment.md <<'EOF'
-          ## ✅ サムネイルを保存しました
+          {
+            cat <<'EOF'
+            ## ✅ サムネイルを保存しました
 
-          - 保存ファイル:
+            - 保存ファイル:
 
-          EOF
-
-          if [[ -n "${SAVED_FILES}" ]]; then
-            printf '%s\n' "${SAVED_FILES}" >> comment.md
-          fi
-          printf '\n' >> comment.md
-
-          if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
-            cat >> comment.md <<'EOF'
-
-            変更をコミットし、デフォルトブランチへプッシュしました。
             EOF
-          else
-            cat >> comment.md <<'EOF'
+            if [[ -n "${SAVED_FILES}" ]]; then
+              printf '%s\n' "${SAVED_FILES}"
+            fi
+            printf '\n'
 
-            差分が無かったためコミットはスキップしました。
-            EOF
-          fi
+            if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
+              cat <<'EOF'
+              変更をコミットし、デフォルトブランチへプッシュしました。
+              EOF
+            else
+              cat <<'EOF'
+              差分が無かったためコミットはスキップしました。
+              EOF
+            fi
+          } > comment.md
 
           gh issue comment "${ISSUE_NUMBER}" --body-file comment.md
           gh issue close "${ISSUE_NUMBER}"
