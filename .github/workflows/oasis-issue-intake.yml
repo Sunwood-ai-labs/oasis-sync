@@ -2,16 +2,34 @@ name: "🗂️ Oasis Issue Intake"
 
 on:
   issues:
-    types:
-      - opened
+    types: [opened, labeled, edited]
 
 permissions:
   contents: write
   issues: write
 
 jobs:
+  # 1) ラベルの存在を保証（常に実行）
+  ensure_label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure 'oasis-article' label exists
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -euo pipefail
+          if ! gh label list --limit 1000 | awk -F'\t' '{print $1}' | grep -Fxq 'oasis-article'; then
+            gh label create "oasis-article" \
+              --description "Trigger Oasis article ingestion" \
+              --color "2E7D32"
+          fi
+
+  # 2) 本処理（ラベル or タイトルに [Oasis] があれば実行）
   ingest:
-    if: contains(github.event.issue.labels.*.name, 'oasis-article')
+    needs: ensure_label
+    if: |
+      contains(github.event.issue.labels.*.name, 'oasis-article') ||
+      contains(github.event.issue.title, '[Oasis]')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,6 +38,16 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
+
+      # タイトルマッチで来たけどラベルが無い場合は付与しておく（運用しやすく）
+      - name: Add label when title matches
+        if: |
+          contains(github.event.issue.title, '[Oasis]') &&
+          !contains(github.event.issue.labels.*.name, 'oasis-article')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh issue edit "${{ github.event.issue.number }}" --add-label "oasis-article"
 
       - name: Save issue body
         run: |
