@@ -110,27 +110,27 @@ jobs:
           set -euo pipefail
 
           cat > comment.md <<'EOF'
-## ✅ サムネイルを保存しました
+          ## ✅ サムネイルを保存しました
 
-- 保存ファイル:
+          - 保存ファイル:
 
-EOF
+          EOF
 
-          if [[ -n "${SAVED_FILES}" ]]; then
-            printf '%s\n' "${SAVED_FILES}" >> comment.md
-          fi
-          printf '\n' >> comment.md
+                    if [[ -n "${SAVED_FILES}" ]]; then
+                      printf '%s\n' "${SAVED_FILES}" >> comment.md
+                    fi
+                    printf '\n' >> comment.md
 
-          if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
-            cat >> comment.md <<'EOF'
+                    if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
+                      cat >> comment.md <<'EOF'
 
-変更をコミットし、デフォルトブランチへプッシュしました。
-EOF
+          変更をコミットし、デフォルトブランチへプッシュしました。
+          EOF
           else
             cat >> comment.md <<'EOF'
 
-差分が無かったためコミットはスキップしました。
-EOF
+            差分が無かったためコミットはスキップしました。
+            EOF
           fi
 
           gh issue comment "${ISSUE_NUMBER}" --body-file comment.md
