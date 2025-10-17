@@ -19,6 +19,11 @@ USER_ATTACH_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+IMG_SRC_PATTERN = re.compile(
+    r"<img\b[^>]*\bsrc\s*=\s*(?:\"([^\"]+)\"|'([^']+)'|([^>\s]+))",
+    re.IGNORECASE,
+)
+
 # ---- Helpers ----
 def read_body(path: str) -> str:
     return pathlib.Path(path).read_text(encoding="utf-8", errors="ignore")
@@ -106,6 +111,12 @@ def extract_all_urls(body: str, explicit_url: Optional[str]) -> List[str]:
     if explicit_url:
         urls.append(explicit_url.strip())
     urls.extend(USER_ATTACH_PATTERN.findall(body))
+    for m in IMG_SRC_PATTERN.finditer(body):
+        src = next((group for group in m.groups() if group), None)
+        if src:
+            cleaned = src.strip()
+            if cleaned.lower().startswith(("http://", "https://")):
+                urls.append(cleaned)
     # 重複排除・順序維持
     seen = set()
     uniq = []

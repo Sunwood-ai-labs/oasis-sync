@@ -1,6 +1,6 @@
-name: "🖼️ サムネイル登録（PNG保存）"
-description: "画像を添付/URL指定して PNG としてリポジトリに保存します。"
-title: "[Thumb] YYYYMMDD-your-slug"
+name: "🚧🖼️ サムネイル登録（Experimental PNG保存）"
+description: "🚧 実験版: 画像を添付/URL指定して PNG としてリポジトリに保存します。"
+title: "[Thumb][Experimental] YYYYMMDD-your-slug"
 labels:
   - thumbnail-upload
 body:
@@ -14,6 +14,7 @@ body:
         - 添付が複数ある場合は `-1`, `-2` を付けて保存します
         - PNG 以外も自動で PNG へ変換（透過維持）
         - リサイズ（1200x630 / 1280x720）を選べます（短辺フィット＋レターボックス）
+        - 備考欄に貼り付けた `<img src=\"...\">` からも画像を収集して保存します（🚧 実験中）
 
   - type: input
     id: file_slug
@@ -68,7 +69,9 @@ body:
   - type: textarea
     id: notes
     attributes:
-      label: 備考（任意）
+      label: 備考（任意・🚧 実験的な `<img>` 埋め込み対応可）
+      description: |
+        備考欄に `<img width="..." src="https://example.com/...">` のような HTML を貼ると、その画像も保存します。
     validations:
       required: false
 
