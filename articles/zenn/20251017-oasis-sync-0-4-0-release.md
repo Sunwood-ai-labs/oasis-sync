@@ -1,48 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】Oasis Sync v0.4.0 - GitHub Issueによる記事とサムネイルの自動登録
-  emoji: 🚀
-  type: tech
-  topics:
-  - github
-  - github-actions
-  - automation
-  - python
-  - contents-management
-  published: true
-qiita:
-  title: 【リリースノート】Oasis Sync v0.4.0 - GitHub Issueによる記事とサムネイルの自動登録
-  tags:
-  - GitHub
-  - GitHubActions
-  - Automation
-  - Python
-  - CMS
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Oasis Sync v0.4.0 - GitHub Issueによる記事とサムネイルの自動登録
-  post_status: publish
-  post_excerpt: Oasis Sync v0.4.0をリリースしました。本バージョンでは、GitHub Issueを通じて記事やサムネイルを自動でリポジトリに登録する機能が追加され、コンテンツ管理が大幅に効率化されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.4.0-20251017_165817/imagen-4-ultra_2025-10-17T16-59-41-056Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - github
-    - automation
-    post_tag:
-    - GitHub
-    - GitHubActions
-    - Automation
-    - Python
-    - OasisSync
-  custom_fields:
-    lead: GitHub Issueをトリガーに、記事やサムネイルを自動でリポジトリ登録する新機能を追加した Oasis Sync v0.4.0 をリリース。GitHub
-      Actionsを活用したコンテンツ管理の効率化について解説します。
+title: 【リリースノート】Oasis Sync v0.4.0 - GitHub Issueによる記事とサムネイルの自動登録
+emoji: 🚀
+type: tech
+topics:
+- github
+- github-actions
+- automation
+- python
+- contents-management
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-17T16-59-41-056Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.4.0-20251017_165817/imagen-4-ultra_2025-10-17T16-59-41-056Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
