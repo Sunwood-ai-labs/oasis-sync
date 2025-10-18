@@ -181,6 +181,7 @@ def merge_front_matter(
     front_matter: str,
     image_url: Optional[str],
     publish_date: Optional[str],
+    article_slug: Optional[str] = None,
 ) -> tuple[str, dict[str, Any]]:
     try:
         data = yaml.safe_load(front_matter) if front_matter else None
@@ -190,6 +191,8 @@ def merge_front_matter(
         raise IssuePayloadError("front matter が辞書形式ではありません。")
     if publish_date:
         data.setdefault("date", publish_date)
+    if article_slug:
+        data["article_slug"] = article_slug
     if image_url:
         wp = data.get("wordpress")
         if isinstance(wp, dict):
@@ -235,8 +238,23 @@ def main(argv: list[str] | None = None) -> int:
     if not markdown:
         raise IssuePayloadError("Oasis ハイブリッド Markdown が入力されていません。")
 
+    front_matter_text, body = split_front_matter(markdown)
+    if front_matter_text is None:
+        raise IssuePayloadError("front matter (`---` ... `---`) が見つかりません。")
+    try:
+        front_matter_data = yaml.safe_load(front_matter_text) if front_matter_text else None
+    except yaml.YAMLError as exc:
+        raise IssuePayloadError("front matter を YAML として解釈できませんでした。") from exc
+    if not isinstance(front_matter_data, dict):
+        raise IssuePayloadError("front matter が辞書形式ではありません。")
+    front_matter_slug = front_matter_data.get("article_slug")
+    if front_matter_slug is not None:
+        front_matter_slug = str(front_matter_slug).strip()
+        if not front_matter_slug:
+            front_matter_slug = None
+
     slug = build_slug(
-        preferred=fields.get("記事スラッグ (拡張子不要)") or fields.get("slug"),
+        preferred=fields.get("記事スラッグ (拡張子不要)") or fields.get("slug") or front_matter_slug,
         publish_date=fields.get("公開日 (オプション)") or fields.get("publish_date"),
         issue_title=args.issue_title,
         issue_number=args.issue_number,
@@ -249,10 +267,6 @@ def main(argv: list[str] | None = None) -> int:
     header_url = pick_header_image_url(fields, issue_body) if not provided_header_path else None
     image_rel_path: Optional[str] = None
     raw_image_url: Optional[str] = None
-
-    front_matter_text, body = split_front_matter(markdown)
-    if front_matter_text is None:
-        raise IssuePayloadError("front matter (`---` ... `---`) が見つかりません。")
 
     provided_header_path = (args.header_image_path or "").strip()
     if provided_header_path:
@@ -280,7 +294,7 @@ def main(argv: list[str] | None = None) -> int:
         raw_image_url = f"https://raw.githubusercontent.com/{args.repo}/{args.default_branch}/{image_rel_path}"
         body = update_markdown_image(body, raw_image_url, Path(image_rel_path).stem or slug)
 
-    rendered_front_matter, _ = merge_front_matter(front_matter_text, raw_image_url, publish_date)
+    rendered_front_matter, _ = merge_front_matter(front_matter_text, raw_image_url, publish_date, slug)
     article_path = Path(args.oasis_dir) / f"{slug}.md"
     has_changes = write_article_file(article_path, rendered_front_matter, body)
 
