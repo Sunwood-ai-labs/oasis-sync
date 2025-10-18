@@ -159,12 +159,22 @@ def download_image(url: str, target_dir: Path, token: str | None, slug: str) -> 
     return image_path
 
 
-def update_markdown_image(body: str, new_url: str) -> str:
+def update_markdown_image(body: str, new_url: str, alt: str = "") -> str:
+    """Ensure body references the provided image URL near the top."""
     def replacer(match: re.Match[str]) -> str:
-        alt = match.group("alt")
-        return f"![{alt}]({new_url})"
+        existing_alt = match.group("alt")
+        return f"![{existing_alt}]({new_url})"
 
-    return IMAGE_MARKDOWN_RE.sub(replacer, body, count=1)
+    if IMAGE_MARKDOWN_RE.search(body):
+        return IMAGE_MARKDOWN_RE.sub(replacer, body, count=1)
+
+    lines = body.splitlines()
+    idx = 0
+    while idx < len(lines) and not lines[idx].strip():
+        idx += 1
+    insert_line = f"![{alt}]({new_url})"
+    lines[idx:idx] = [insert_line, ""]
+    return "\n".join(lines)
 
 
 def merge_front_matter(
@@ -212,6 +222,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--images-root", default="generated-images")
     parser.add_argument("--repo", required=True, help="owner/repo")
     parser.add_argument("--default-branch", required=True)
+    parser.add_argument("--header-image-path", help="Relative path to existing header image")
     args = parser.parse_args(argv)
 
     issue_body_path = Path(args.issue_body_path)
@@ -234,7 +245,8 @@ def main(argv: list[str] | None = None) -> int:
 
     publish_date = fields.get("公開日 (オプション)") or fields.get("publish_date")
 
-    header_url = pick_header_image_url(fields, issue_body)
+    provided_header_path = (args.header_image_path or "").strip()
+    header_url = pick_header_image_url(fields, issue_body) if not provided_header_path else None
     image_rel_path: Optional[str] = None
     raw_image_url: Optional[str] = None
 
@@ -244,11 +256,15 @@ def main(argv: list[str] | None = None) -> int:
 
     token = os.environ.get("GITHUB_TOKEN", "")
     images_dir = Path(args.images_root) / f"issue-{args.issue_number}-{datetime.now(tz=JST).strftime('%Y%m%d%H%M%S')}"
-    if header_url:
+    if provided_header_path:
+        image_rel_path = Path(provided_header_path).as_posix()
+        raw_image_url = f"https://raw.githubusercontent.com/{args.repo}/{args.default_branch}/{image_rel_path}"
+        body = update_markdown_image(body, raw_image_url, Path(image_rel_path).stem)
+    elif header_url:
         image_path = download_image(header_url, images_dir, token, slug)
         image_rel_path = image_path.as_posix()
         raw_image_url = f"https://raw.githubusercontent.com/{args.repo}/{args.default_branch}/{image_rel_path}"
-        body = update_markdown_image(body, raw_image_url)
+        body = update_markdown_image(body, raw_image_url, Path(image_rel_path).stem)
 
     rendered_front_matter, _ = merge_front_matter(front_matter_text, raw_image_url, publish_date)
     article_path = Path(args.oasis_dir) / f"{slug}.md"
