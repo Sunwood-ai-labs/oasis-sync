@@ -1,0 +1,104 @@
+# Please set 'QIITA_TOKEN' secret to your repository
+name: Publish articles (changed only)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
+
+jobs:
+  publish_changed_articles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Qiita CLI
+        run: npm i -D @qiita/qiita-cli
+
+      # 差分の比較範囲を決定（push時は before..sha、手動/初回などは HEAD~1..HEAD）
+      - name: Compute diff range
+        id: range
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "push" ] && \
+             [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            echo "range=${{ github.event.before }}...${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              echo "range=$(git rev-parse HEAD~1)...HEAD" >> "$GITHUB_OUTPUT"
+            else
+              echo "range=" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      # 追加/変更/コピー/リネームのみ抽出（削除は除外）、対象は public/*.md
+      - name: Collect changed markdown files
+        id: changes
+        shell: bash
+        run: |
+          rng="${{ steps.range.outputs.range }}"
+          if [ -z "$rng" ]; then
+            echo "none=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          mapfile -t files < <(git diff --name-only --diff-filter=ACMR "$rng" -- 'public/*.md' || true)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "none=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          printf '%s\n' "${files[@]}" > changed_files.txt
+          : > changed_basenames.txt
+          for f in "${files[@]}"; do
+            basename "$f" .md >> changed_basenames.txt
+          done
+          echo "none=false" >> "$GITHUB_OUTPUT"
+
+      # ★ 非対話ログインの代替：credentials.json を生成して CLI に読ませる
+      - name: Write Qiita credentials.json (non-interactive)
+        if: steps.changes.outputs.none == 'false'
+        shell: bash
+        run: |
+          mkdir -p .qiita-cred
+          cat > .qiita-cred/credentials.json <<'JSON'
+          {
+            "default": "qiita",
+            "credentials": [
+              { "name": "qiita", "accessToken": "__TOKEN__" }
+            ]
+          }
+          JSON
+          # トークンを埋め込み
+          sed -i "s/__TOKEN__/${QIITA_TOKEN}/g" .qiita-cred/credentials.json
+          # 参考: credentials.json のフォーマット
+          # {
+          #   "default": "qiita",
+          #   "credentials": [{ "name": "qiita", "accessToken": "your access token" }]
+          # }
+
+      # 変更された記事だけ投稿/更新
+      - name: Publish changed articles only
+        if: steps.changes.outputs.none == 'false'
+        run: |
+          while read -r base; do
+            echo "::group::Publishing $base"
+            npx qiita publish "$base" --root "." --credential ./.qiita-cred --verbose
+            echo "::endgroup::"
+          done < changed_basenames.txt

@@ -137,7 +137,7 @@ jobs:
                 tags (exactly 5 entries),
                 private (false),
                 updated_at (ISO 8601 timestamp with +09:00 offset),
-                id (stable slug from filename/title),
+                id (null),
                 organization_url_name (null),
                 slide (false),
                 ignorePublish (false)

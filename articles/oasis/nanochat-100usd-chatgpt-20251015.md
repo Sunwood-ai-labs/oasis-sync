@@ -1,0 +1,159 @@
+---
+zenn:
+  title: null
+  emoji: 🤯
+  type: tech
+  topics:
+  - ai
+  - llm
+  - chatgpt
+  - nanochat
+  - karpathy
+  published: true
+qiita:
+  title: 100ドルと4時間で自分だけのChatGPT？アンドレイ・カルパシー氏が公開した「nanochat」の衝撃
+  tags:
+  - AI
+  - LLM
+  - ChatGPT
+  - Nanochat
+  - Karpathy
+  private: false
+  updated_at: null
+  id: null
+  organization_url_name: null
+  slide: false
+  ignorePublish: false
+wordpress:
+  title: 100ドルと4時間で自分だけのChatGPT？アンドレイ・カルパシー氏が公開した「nanochat」の衝撃
+  post_status: publish
+  post_excerpt: OpenAI創設メンバーのアンドレイ・カルパシー氏が公開した「nanochat」は、わずか100ドルと4時間でChatGPTライクなAIを自作できる画期的なプロジェクト。AI開発の敷居を下げ、誰もが自分専用のチャットボットを構築できる未来を示しています。
+  featured_image: https://github.com/user-attachments/assets/884df376-1efc-48ad-a640-1859921651ce
+  taxonomy:
+    category:
+    - artificial-intelligence
+    - llm
+  post_tag:
+  - AI
+  - LLM
+  - ChatGPT
+  - Nanochat
+  - Karpathy
+  custom_fields:
+    lead: 100ドルとわずか4時間でChatGPTのようなAIを自作できる――そんな夢のようなプロジェクト「nanochat」が登場。AI開発の常識を覆すカルパシー氏の挑戦を解説します。
+---
+
+![](https://github.com/user-attachments/assets/884df376-1efc-48ad-a640-1859921651ce)
+
+## はじめに
+
+ChatGPTのような強力なAIを自前で構築するには、数百万ドルもの資金と膨大なリソースが必要——多くの人がそう考えているでしょう。  
+実際、これまでの大規模言語モデル（LLM）開発は、一部の巨大テック企業だけが担える「億万長者の遊び」でした。
+
+しかし、その常識を覆すプロジェクトが登場しました。  
+OpenAIの創設メンバーの一人、**アンドレイ・カルパシー（Andrej Karpathy）氏**が公開した「**nanochat**」です。  
+このプロジェクトは、驚くほど低コストで高性能なAIチャットボットをゼロから構築できる可能性を示しました。
+
+本記事では、nanochatがもたらす衝撃と、AI開発の未来を解き明かします。
+
+---
+
+## 1. 驚きの低コストとスピード：コーヒー数杯分の値段でAIを育てる
+
+nanochat最大の特徴は、その**圧倒的なコストパフォーマンス**です。  
+公式には「The best ChatGPT that $100 can buy（100ドルで買える最高のChatGPT）」と紹介されており、実際に**約100ドル・約4時間**でChatGPTライクなモデルを構築可能です。
+
+方法は驚くほどシンプル。  
+1時間あたり約24ドルの「8xH100 GPUノード」をレンタルし、付属の `speedrun.sh` スクリプトを実行するだけ。  
+カルパシー氏の計算では**総コスト92.40ドル**、実行時間はわずか**3時間51分**。  
+つまり、**コーヒー数杯分の価格**で、自分専用AIを「育てる」ことが現実になったのです。
+
+---
+
+## 2. ただのモデルじゃない！AI開発の全工程を体験できる「フルスタック」設計
+
+nanochatは単なる学習済みモデルではありません。  
+AI開発に必要な**すべての工程を1つのコードベースに統合**した、完全なエンドツーエンドのパイプラインです。
+
+含まれる主な要素は以下の通りです。
+
+- **トークナイザの生成（Tokenization）**  
+  テキストをAIが理解できるトークンに変換。
+- **事前学習（Pretraining）**  
+  膨大なテキストから言語知識を学習。
+- **ファインチューニング（Finetuning）**  
+  対話データを使って応答能力を磨く。
+- **評価（Evaluation）**  
+  性能を客観的に測定。
+- **推論（Inference）**  
+  実際にテキストを生成。
+- **Web UI**  
+  ブラウザ上で動作確認可能。
+
+全体のコードは**約8,000行**と非常にコンパクト。  
+複雑な設定ファイルを排除し、学習者が理解しやすいように設計されています。  
+AI開発のブラックボックスを開くための「教育的ベースライン」として理想的です。
+
+---
+
+## 3. 侮れない性能：生の知識から対話の達人へ、AIの「成長物語」
+
+カルパシー氏は100ドルで構築したモデルを「幼稚園児と話しているようだ」と評しています。  
+事前学習を終えた段階では知識はあるものの、応用力に欠けます。
+
+たとえば、
+> 「フランスの首都は？」  
+> → 「パリです。フランス最大の都市であり、ヨーロッパで2番目に大きな都市です。」
+
+と答える一方で、
+> 「5x + 3 = 13 のとき、xは？」  
+> → 「正の整数です。」
+
+といった具合に、推論力にはまだ課題があります。
+
+しかし、「ミッドトレーニング」と「教師ありファインチューニング（SFT）」を経ることで、  
+モデルは劇的に進化します。  
+対話形式のデータで会話能力を磨き、複雑な質問にも科学的・創造的な回答が可能に。  
+「空はなぜ青いのか？」という質問にはレイリー散乱を用いて説明し、詩まで生成できるほどに成長します。
+
+評価指標の**CORE Metricスコアは0.22**で、GPT-2 large（0.21）を上回る性能。  
+MMLUで31.51%、GSM8Kで4.55%を達成しており、100ドルモデルとしては驚異的な結果です。
+
+---
+
+## 4. 究極の「AIの教科書」：誰もが開発者になれる教育プロジェクト
+
+nanochatの真の目的は、**教育プラットフォームとしての役割**にあります。  
+このプロジェクトは、AIネイティブ世代の学習を目指す「**Eureka Labs**」が開発中の  
+**LLM101nコース**の最終課題（キャップストーン）として設計されています。
+
+Eureka Labsの理念は、  
+> 「もしファインマンがAI教育をしてくれたら？」  
+という理想の学習体験を、AIとの共創で実現すること。
+
+学習者はnanochatのコードを通じて、LLMの内部構造を理解し、  
+自らの手でAIを構築することで、**未来のAI開発者になる第一歩**を踏み出せます。
+
+---
+
+## 結論：AI開発の民主化へ
+
+nanochatは、これまで専門家と大企業の独占だったLLM開発を、  
+**すべての人に開放する「知の解放装置」**です。
+
+AIを作ることが、もはや夢や研究テーマではなく、  
+**わずか100ドルと4時間の「週末プロジェクト」**として現実になりました。
+
+もしあなたが自分専用のChatGPTを育てられるとしたら、  
+最初にどんなことを教えますか？
+
+---
+
+参考リンク：
+
+- [GitHub: karpathy/nanochat](https://github.com/karpathy/nanochat)  
+- [Discussion #1 on GitHub](https://github.com/karpathy/nanochat/discussions/1)  
+- [Eureka Labs](https://eurekalabs.ai/)  
+- [Hugging Face – nanochat](https://huggingface.co/sdobson/nanochat)  
+- [Complete AI Training: nanochat](https://completeaitraining.com/ai-tools/nanochat/)  
+- [Gigazine 記事](https://gigazine.net/gsc_news/en/20251014-nanochat/)

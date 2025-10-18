@@ -31,6 +31,7 @@ jobs:
         with:
           ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
 
       - name: Determine release tag
         id: tag
@@ -59,7 +60,7 @@ jobs:
         env:
           REPOSITORY: "${{ github.repository }}"
           TAG_NAME: "${{ steps.tag.outputs.tag }}"
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GH_PAT }}"
           MAX_COMMITS: "${{ env.MAX_COMMITS }}"
           MAX_FILES: "${{ env.MAX_FILES }}"
           MAX_CONTRIBUTORS: "${{ env.MAX_CONTRIBUTORS }}"
@@ -116,7 +117,7 @@ jobs:
         id: notes
         env:
           TAG: "${{ steps.ctx.outputs.tag }}"
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GH_PAT }}"
         run: |
           set -euo pipefail
           NOTES="$(gh release view "${TAG}" --json body --jq '.body' || true)"
@@ -230,7 +231,7 @@ jobs:
               - `tags`: 5件（先頭大文字推奨、技術的に関連する単語）
               - `private`: false
               - `updated_at`: null
-              - `id`: 英小文字とハイフンのみで構成された固有ID（例: `{リポジトリ名}-{tag}-release`）
+              - `id`: null
               - `organization_url_name`: null
               - `slide`: false
               - `ignorePublish`: false
@@ -375,6 +376,8 @@ jobs:
 
       - name: Commit Oasis article
         if: steps.oasis_file.outputs.has_changes == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # ratchet:stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "📰 Add Oasis release article for ${{ github.repository }} ${{ steps.ctx.outputs.tag }}"

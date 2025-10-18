@@ -1,0 +1,138 @@
+name: "🗂️ Oasis Issue Intake"
+
+on:
+  issues:
+    types: [opened, labeled, edited]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  ensure_label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure 'oasis-article' label exists
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}   # gh が使うトークン名は GH_TOKEN が確実
+        run: |
+          set -euo pipefail
+          REPO="${{ github.repository }}"
+          # ラベル存在チェック
+          if ! gh label list --repo "$REPO" --limit 1000 \
+               | awk -F'\t' '{print $1}' | grep -Fxq 'oasis-article'; then
+            gh label create "oasis-article" \
+              --repo "$REPO" \
+              --description "Trigger Oasis article ingestion" \
+              --color "2E7D32"
+          fi
+
+  # 2) 本処理（ラベル or タイトルに [Oasis] があれば実行）
+  ingest:
+    needs: ensure_label
+    if: |
+      contains(github.event.issue.labels.*.name, 'oasis-article') ||
+      contains(github.event.issue.title, '[Oasis]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      # タイトルマッチで来たけどラベルが無い場合は付与しておく（運用しやすく）
+      - name: Add label when title matches
+        if: |
+          contains(github.event.issue.title, '[Oasis]') &&
+          !contains(github.event.issue.labels.*.name, 'oasis-article')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh issue edit "${{ github.event.issue.number }}" --add-label "oasis-article"
+
+      - name: Save issue body
+        run: |
+          cat <<'EOF' > issue_body.md
+          ${{ github.event.issue.body }}
+          EOF
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && python -m pip install pyyaml
+
+      - name: Generate Oasis article assets
+        id: ingest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          python .github/scripts/ingest_oasis_issue.py \
+            --issue-number "${{ github.event.issue.number }}" \
+            --issue-title "${{ github.event.issue.title }}" \
+            --issue-body-path issue_body.md \
+            --oasis-dir articles/oasis \
+            --images-root generated-images \
+            --repo "${{ github.repository }}" \
+            --default-branch "${{ github.event.repository.default_branch }}"
+
+      - name: Commit generated files
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -euo pipefail
+          git config user.name "oasis-sync[bot]"
+          git config user.email "oasis-sync[bot]@users.noreply.github.com"
+
+          if [[ -d "articles/oasis" ]]; then
+            git add "articles/oasis"
+          fi
+          if [[ -d "generated-images" ]]; then
+            git add "generated-images"
+          fi
+
+          if git diff --cached --quiet; then
+            echo "commit_performed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git commit -m "📰 Add Oasis article from issue #${{ github.event.issue.number }}"
+          git push origin HEAD:"${{ github.event.repository.default_branch }}"
+          echo "commit_performed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Comment and close issue
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ARTICLE_PATH: ${{ steps.ingest.outputs.article_path }}
+          IMAGE_URL: ${{ steps.ingest.outputs.image_url }}
+          COMMIT_PERFORMED: ${{ steps.commit.outputs.commit_performed }}
+        run: |
+          set -euo pipefail
+          body="## ✅ Oasis記事を登録しました\n\n- ファイル: \`${ARTICLE_PATH}\`"
+          if [[ -n "${IMAGE_URL}" ]]; then
+            body="${body}\n- ヘッダー画像: ${IMAGE_URL}"
+          fi
+          if [[ "${COMMIT_PERFORMED}" == "true" ]]; then
+            body="${body}\n\n変更をコミットし、デフォルトブランチへプッシュしました。\`oasis-sync\` ワークフローがトリガーされます。"
+          else
+            body="${body}\n\n差分が検出されなかったためコミットはスキップしました。内容をご確認のうえ必要に応じて更新してください。"
+          fi
+
+          gh issue comment "${ISSUE_NUMBER}" --body "${body}"
+          gh issue close "${ISSUE_NUMBER}"
+
+      - name: Comment on failure
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          gh issue comment "${ISSUE_NUMBER}" --body "⚠️ 自動登録でエラーが発生しました。Actions のログをご確認ください。"

@@ -5,7 +5,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +46,34 @@ def remove_leading_markdown_image(text: str) -> str:
             while lines and not lines[0].strip():
                 lines.pop(0)
     return "\n".join(lines)
+
+
+_QIITA_ID_TIMESTAMP_RE = re.compile(r"-\d{14}$")
+_JST = timezone(timedelta(hours=9))
+
+
+def _normalise_slug(value: str) -> str:
+    """Normalise a string into a lowercase, hyphen-delimited slug."""
+    slug = value.lower().replace("_", "-").replace("/", "-")
+    slug = re.sub(r"[^a-z0-9-]", "-", slug)
+    slug = re.sub(r"-{2,}", "-", slug).strip("-")
+    return slug or "article"
+
+
+def ensure_qiita_id(qiita_meta: dict[str, Any], relative_path: Path) -> None:
+    """Ensure Qiita metadata includes a timestamped id."""
+    current = qiita_meta.get("id")
+    if isinstance(current, str) and _QIITA_ID_TIMESTAMP_RE.search(current):
+        return
+
+    if isinstance(current, str) and current.strip():
+        base_source = current
+    else:
+        base_source = str(relative_path.with_suffix(""))
+
+    base_slug = _normalise_slug(base_source)
+    timestamp = datetime.now(tz=_JST).strftime("%Y%m%d%H%M%S")
+    qiita_meta["id"] = f"{base_slug}-{timestamp}"
 
 
 def render_front_matter(data: dict[str, Any]) -> str:
@@ -181,6 +211,7 @@ def apply_metadata(
                 raise SystemExit(
                     f"Existing front matter for {filename} must include 'zenn', 'qiita', and 'wordpress' mappings."
                 )
+            # ensure_qiita_id(qiita_meta, rel_path)
             combined_meta = parsed_meta
         else:
             generated = gemini_lookup.get(filename)
@@ -193,6 +224,7 @@ def apply_metadata(
                 raise SystemExit(
                     f"Gemini YAML for {filename} must include 'zenn', 'qiita', and 'wordpress' mappings."
                 )
+            # ensure_qiita_id(qiita_meta, rel_path)
             combined_meta = {"zenn": zenn_meta, "qiita": qiita_meta, "wordpress": wordpress_meta}
 
         zenn_path = (zenn_dir / rel_path).with_suffix(".md")

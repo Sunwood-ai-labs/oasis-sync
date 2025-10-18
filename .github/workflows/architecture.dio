@@ -1,0 +1,260 @@
+<mxfile host="65bd71144e">
+    <diagram id="-tfUMTEdt4RNtD6wDK0i" name="Oasis Sync Architecture">
+        <mxGraphModel dx="2176" dy="1653" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1450" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="46" value="Oasis Sync Architecture - Complete Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="580" y="20" width="500" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="📌 Release Tag Created" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="625" y="80" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="Gemini Actions Labs Module" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="160" width="1110" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="📝 gemini-release-notes.yml&lt;br&gt;&lt;br&gt;• Generate release notes&lt;br&gt;• Create header image (Imagen)&lt;br&gt;• Update GitHub Release&lt;br&gt;• Commit to generated-images/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;" parent="48" vertex="1">
+                    <mxGeometry x="30" y="60" width="260" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="📰 gemini-release-articles.yml&lt;br&gt;&lt;br&gt;• Triggered by release-notes completion&lt;br&gt;• Fetch release notes body&lt;br&gt;• Generate Oasis hybrid article&lt;br&gt;• Commit to articles/oasis/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;" parent="48" vertex="1">
+                    <mxGeometry x="330" y="60" width="280" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="📄 Oasis Hybrid Article&lt;br&gt;(articles/oasis/*.md)&lt;br&gt;&lt;br&gt;• Zenn front matter&lt;br&gt;• Qiita front matter&lt;br&gt;• WordPress front matter&lt;br&gt;• Shared content body" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;fontStyle=1" parent="48" vertex="1">
+                    <mxGeometry x="650" y="60" width="270" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="oasis-sync-module" value="Oasis Sync Module" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#e67e22;fontSize=14;fontStyle=1;startSize=40;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="400" width="1110" height="580" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="🪄 oasis-sync.yml&lt;br&gt;&lt;br&gt;• Detect new Oasis articles (push to articles/oasis/)&lt;br&gt;• Generate platform metadata with Gemini&lt;br&gt;• Split into platform-specific formats&lt;br&gt;• Commit to articles/zenn/, articles/qiita/, articles/wordpress/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="305" y="50" width="500" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="235" y="200" width="640" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="Platform-Specific Articles Generated" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="335" y="205" width="440" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="📘 Zenn Articles&lt;br&gt;(articles/zenn/*.md)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6c8ebf;fontSize=11;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="50" y="280" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="🪄 oasis-zenn-sync.yml&lt;br&gt;&lt;br&gt;• Detect changes (push/workflow_run)&lt;br&gt;• Sync to target repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cfe2f3;strokeColor=#6c8ebf;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=5;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="50" y="360" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="🗂️ Zenn Repository&lt;br&gt;Sunwood-ai-labs/Zenn&lt;br&gt;(./articles)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b9d5ff;strokeColor=#6c8ebf;fontSize=10;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="50" y="460" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="📗 Qiita Articles&lt;br&gt;(articles/qiita/*.md)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d0e0e3;strokeColor=#82b366;fontSize=11;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="270" y="280" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="🪄 oasis-qiita-sync.yml&lt;br&gt;&lt;br&gt;• Detect changes (push/workflow_run)&lt;br&gt;• Sync to target repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d0e0e3;strokeColor=#82b366;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=5;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="270" y="360" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="🗂️ Qiita Repository&lt;br&gt;Sunwood-ai-labs/qiita-article&lt;br&gt;(./public)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a8d5a8;strokeColor=#82b366;fontSize=10;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="270" y="460" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="📙 WordPress Articles&lt;br&gt;(articles/wordpress/*.md)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="490" y="280" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="🪄 oasis-wordpress-sync.yml&lt;br&gt;&lt;br&gt;• Detect changes (push/workflow_run)&lt;br&gt;• Sync to target repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;verticalAlign=top;spacingLeft=8;spacingTop=5;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="490" y="360" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" value="🗂️ WordPress Repository&lt;br&gt;Sunwood-ai-labs/WP-dev&lt;br&gt;(./docs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffd699;strokeColor=#d79b00;fontSize=10;fontStyle=1" parent="oasis-sync-module" vertex="1">
+                    <mxGeometry x="490" y="460" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="📘 Zenn Platform&lt;br&gt;Auto-publish" style="ellipse;whiteSpace=wrap;html=1;fillColor=#85b8ff;strokeColor=#6c8ebf;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="210" y="1020" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="📗 Qiita Platform&lt;br&gt;Auto-publish" style="ellipse;whiteSpace=wrap;html=1;fillColor=#7fcc7f;strokeColor=#82b366;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="430" y="1020" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="📙 WordPress Platform&lt;br&gt;Auto-publish" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffb84d;strokeColor=#d79b00;fontSize=11;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="660" y="1020" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="Key Workflows" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;startSize=30;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="400" width="300" height="580" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="1️⃣ gemini-release-notes.yml&lt;br&gt;   └ Generate release content" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="40" width="280" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="2️⃣ gemini-release-articles.yml&lt;br&gt;   └ Create Oasis hybrid article" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="85" width="280" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="3️⃣ oasis-sync.yml&lt;br&gt;   └ Split into platform formats" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="130" width="280" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="4️⃣ Platform-Specific Sync:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="175" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="   📘 oasis-zenn-sync.yml&lt;br&gt;      └ Push to Zenn repo" style="text;html=1;strokeColor=none;fillColor=#cfe2f3;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=9;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="205" width="280" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="   📗 oasis-qiita-sync.yml&lt;br&gt;      └ Push to Qiita repo" style="text;html=1;strokeColor=none;fillColor=#d0e0e3;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=9;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="250" width="280" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="   📙 oasis-wordpress-sync.yml&lt;br&gt;      └ Push to WordPress repo" style="text;html=1;strokeColor=none;fillColor=#ffe6cc;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=9;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="295" width="280" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="5️⃣ Platform Auto-Detection:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="345" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="   • Each platform&#39;s repository has&lt;br&gt;     GitHub Actions to detect new&lt;br&gt;     articles and auto-publish" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="375" width="280" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="Trigger Events:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="440" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="78" value="   • push: Direct file changes&lt;br&gt;   • workflow_run: After oasis-sync" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="470" width="280" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="module-note" value="Module Structure:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="520" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="module-note2" value="   • Gemini Actions Labs: Generate&lt;br&gt;   • Oasis Sync: Transform &amp; Distribute" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;spacingLeft=10;" parent="67" vertex="1">
+                    <mxGeometry x="10" y="545" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" source="47" target="49" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="on: push tags" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=2;labelBackgroundColor=#ffffff;" parent="79" vertex="1" connectable="0">
+                    <mxGeometry x="-0.3" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" source="49" target="50" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="workflow_run" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=2;labelBackgroundColor=#ffffff;" parent="81" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint y="21" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="83" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" source="50" target="51" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="commit to&lt;br&gt;articles/oasis/" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=2;labelBackgroundColor=#ffffff;" parent="83" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint y="31" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" source="51" target="52" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="on: push&lt;br&gt;articles/oasis/**" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=2;labelBackgroundColor=#ffffff;" parent="85" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="52" target="53" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="commit split articles" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=2;labelBackgroundColor=#ffffff;" parent="87" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#cfe2f3;strokeColor=#6c8ebf;" parent="1" source="53" target="55" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#d0e0e3;strokeColor=#82b366;" parent="1" source="53" target="59" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" source="53" target="63" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#cfe2f3;strokeColor=#6c8ebf;" parent="1" source="55" target="56" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="trigger" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="92" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="25" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="94" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#cfe2f3;strokeColor=#6c8ebf;" parent="1" source="56" target="57" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="push" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="94" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="26" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="96" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#cfe2f3;strokeColor=#6c8ebf;dashed=1;" parent="1" source="57" target="58" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" value="detect &amp;&lt;br&gt;auto-publish" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="96" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="41" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#d0e0e3;strokeColor=#82b366;" parent="1" source="59" target="60" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="trigger" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="98" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="25" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="100" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#d0e0e3;strokeColor=#82b366;" parent="1" source="60" target="61" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" value="push" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="100" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="26" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#d0e0e3;strokeColor=#82b366;dashed=1;" parent="1" source="61" target="62" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="103" value="detect &amp;&lt;br&gt;auto-publish" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="102" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="41" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" source="63" target="64" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="105" value="trigger" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="104" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="25" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="106" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" source="64" target="65" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="107" value="push" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="106" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="26" y="-6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="108" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;dashed=1;" parent="1" source="65" target="66" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" value="detect &amp;&lt;br&gt;auto-publish" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontStyle=2;labelBackgroundColor=#ffffff;" parent="108" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" y="1" relative="1" as="geometry">
+                        <mxPoint x="41" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="110" value="Legend" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;startSize=30;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="160" width="300" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="111" value="━━ Solid line: Direct trigger/commit" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="110" vertex="1">
+                    <mxGeometry x="10" y="40" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="112" value="╌╌ Dashed line: Platform auto-detection" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="110" vertex="1">
+                    <mxGeometry x="10" y="65" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="113" value="📘📗📙 Platform-specific workflows" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="110" vertex="1">
+                    <mxGeometry x="10" y="90" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="114" value="🪄 Oasis sync workflows" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="110" vertex="1">
+                    <mxGeometry x="10" y="115" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="115" value="🗂️ Target repositories" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="110" vertex="1">
+                    <mxGeometry x="10" y="135" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="🟨 Gemini Labs | 🟧 Oasis Sync modules" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="110" vertex="1">
+                    <mxGeometry x="10" y="155" width="300" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

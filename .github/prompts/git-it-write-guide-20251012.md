@@ -20,7 +20,7 @@ qiita:
   - Automation
   private: false
   updated_at: null
-  id: "git-it-write-guide-20251012"
+  id: null
   organization_url_name: null
   slide: false
   ignorePublish: false
@@ -207,5 +207,4 @@ taxonomy:
 ---
 
 *作成者: Sunwood AI Labs*
-
 
