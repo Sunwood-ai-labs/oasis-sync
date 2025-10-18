@@ -209,6 +209,8 @@ def main():
     with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
         f.write(f"dest_dir={dest_dir}\n")
         f.write(f"saved_files={saved_list}\n")
+        if saved_paths:
+            f.write(f"primary_saved_file={saved_paths[0]}\n")
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,7 @@ name: "🧪 Oasis Article + Thumbnail Intake (Experimental)"
 
 on:
   issues:
-    types: [opened, edited, labeled]
+    types: [opened, edited, reopened]
 
 permissions:
   contents: write
@@ -31,9 +31,6 @@ jobs:
 
   ingest:
     needs: ensure_labels
-    if: |
-      contains(github.event.issue.labels.*.name, 'oasis-article-thumbnail-experimental') ||
-      contains(github.event.issue.title, '[Oasis+Thumb]')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -42,15 +39,6 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           ref: ${{ github.event.repository.default_branch }}
           fetch-depth: 0
-
-      - name: Ensure experimental label is present
-        if: |
-          contains(github.event.issue.title, '[Oasis+Thumb]') &&
-          !contains(github.event.issue.labels.*.name, 'oasis-article-thumbnail-experimental')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          gh issue edit "${{ github.event.issue.number }}" --add-label "oasis-article-thumbnail-experimental"
 
       - name: Save issue body
         run: |
@@ -91,6 +79,7 @@ jobs:
             --issue-body-path issue_body.md \
             --oasis-dir articles/oasis \
             --images-root generated-images \
+            --header-image-path "${{ steps.thumb.outputs.primary_saved_file }}" \
             --repo "${{ github.repository }}" \
             --default-branch "${{ github.event.repository.default_branch }}"
 
