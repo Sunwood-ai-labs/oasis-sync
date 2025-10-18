@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import os
+from pathlib import Path
 from urllib.parse import quote
 
 from write_thumbnail_comment import parse_saved_paths
@@ -21,6 +22,12 @@ def build_comment() -> str:
     server_raw = "https://raw.githubusercontent.com"
 
     saved_paths = parse_saved_paths(saved_files_raw)
+    filtered_paths: list[str] = []
+    for rel_path in saved_paths:
+        path_obj = Path(rel_path)
+        if path_obj.exists():
+            filtered_paths.append(rel_path)
+    saved_paths = filtered_paths
     if article_image_path:
         if article_image_path in saved_paths:
             saved_paths.remove(article_image_path)
