@@ -46,6 +46,13 @@ jobs:
           ${{ github.event.issue.body }}
           EOF
 
+      - name: Post start progress comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "${ISSUE_NUMBER}" --body "⚙️ サムネイルと記事の取り込みを開始します…"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -82,6 +89,20 @@ jobs:
             --header-image-path "${{ steps.thumb.outputs.primary_saved_file }}" \
             --repo "${{ github.repository }}" \
             --default-branch "${{ github.event.repository.default_branch }}"
+
+      - name: Post article progress comment
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ARTICLE_PATH: ${{ steps.article.outputs.article_path }}
+          ARTICLE_SLUG: ${{ steps.article.outputs.slug }}
+        run: |
+          MESSAGE="📝 記事生成が完了しました: \`${ARTICLE_PATH}\`"
+          if [[ -n "${ARTICLE_SLUG}" ]]; then
+            MESSAGE="${MESSAGE}\nSlug: \`${ARTICLE_SLUG}\`"
+          fi
+          gh issue comment "${ISSUE_NUMBER}" --body "${MESSAGE}"
 
       - name: Commit generated files
         id: commit
