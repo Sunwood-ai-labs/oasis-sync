@@ -1,0 +1,131 @@
+name: "🧪 Oasis記事 + サムネイル登録（Experimental）"
+description: "記事ファイルとサムネイル画像を同時に登録する実験的フォームです。"
+title: "[Oasis+Thumb][Experimental] YYYYMMDD-your-slug"
+labels:
+  - oasis-article-thumbnail-experimental
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Oasis ハイブリッド記事とサムネイル PNG を同時に登録します（実験機能）。画像は Issue の添付または URL から取り込みます。
+
+        - `articles/oasis/{slug}.md` に記事が保存されます
+        - サムネイルは `images/thumbnails/`（変更可）配下に PNG として保存されます
+        - 添付が複数ある場合は `-1`, `-2` が自動で付きます
+        - リサイズ（1200x630 / 1280x720）と背景色の指定が可能です
+
+  - type: input
+    id: article_slug
+    attributes:
+      label: 記事スラッグ (拡張子不要)
+      description: |
+        ファイル名として利用します。英小文字・数字・ハイフンで 12〜50 文字を推奨します。未入力の場合は発行日ベースで自動生成されます。
+      placeholder: 20251015-oasis-sync-0-3-2-release
+    validations:
+      required: false
+
+  - type: input
+    id: publish_date
+    attributes:
+      label: 公開日 (オプション)
+      description: |
+        YYYY-MM-DD 形式で入力すると front matter `date` とスラッグの先頭に利用します。未入力時は作成日の JST を使用します。
+      placeholder: "2025-10-15"
+    validations:
+      required: false
+
+  - type: input
+    id: header_image_url
+    attributes:
+      label: 記事ヘッダー画像 URL (オプション)
+      description: |
+        既存の画像 URL があれば指定してください。Issue に画像を添付する場合は空欄で構いません。
+      placeholder: https://example.com/path/to/header.png
+    validations:
+      required: false
+
+  - type: textarea
+    id: hybrid_markdown
+    attributes:
+      label: Oasis ハイブリッド Markdown
+      description: |
+        front matter (`---` で囲まれた zenn/qiita/wordpress セクション) と本文をまとめて貼り付けてください。
+      placeholder: |
+        ---
+        zenn:
+          title: ...
+        qiita:
+          title: ...
+        wordpress:
+          title: ...
+        ---
+
+        ## はじめに
+        ...
+    validations:
+      required: true
+
+  - type: input
+    id: thumb_slug
+    attributes:
+      label: 保存ファイル名（拡張子不要）
+      description: "未入力の場合は `YYYYMMDD-HHMMSS-oasis-thumb` が自動採番されます。"
+      placeholder: 20251016-oasis-thumb
+    validations:
+      required: false
+
+  - type: input
+    id: thumb_dest_dir
+    attributes:
+      label: 保存ディレクトリ（相対パス）
+      placeholder: images/thumbnails
+      value: images/thumbnails
+    validations:
+      required: true
+
+  - type: dropdown
+    id: thumb_resize
+    attributes:
+      label: リサイズ（任意）
+      description: "短辺フィット＋レターボックス。未選択なら原寸維持。"
+      options:
+        - "なし"
+        - "1200x630"
+        - "1280x720"
+      default: 0
+    validations:
+      required: false
+
+  - type: input
+    id: thumb_background_hex
+    attributes:
+      label: 背景色（レターボックス用・任意）
+      description: "例) `#FFFFFF`。空欄なら透明。"
+      placeholder: "#FFFFFF"
+    validations:
+      required: false
+
+  - type: input
+    id: thumb_source_url
+    attributes:
+      label: 画像 URL（任意）
+      description: "添付する代わりに URL を指定できます。"
+      placeholder: https://github.com/user-attachments/assets/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    validations:
+      required: false
+
+  - type: textarea
+    id: thumb_notes
+    attributes:
+      label: 備考（任意・🚧 実験的な `<img>` 埋め込み対応可）
+      description: "HTML の `<img src=\"...\">` を貼り付けると、その画像も保存対象になります。"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: 確認事項
+      options:
+        - label: 添付・指定したコンテンツの権利/ライセンスを保有し、リポジトリへの保存に同意します。
+          required: true
