@@ -13,6 +13,7 @@ body:
         - サムネイルは `images/thumbnails/`（変更可）配下に PNG として保存されます
         - 添付が複数ある場合は `-1`, `-2` が自動で付きます
         - リサイズ（1200x630 / 1280x720）と背景色の指定が可能です
+        - front matter の `article_slug` でもスラッグを指定できます（フォーム入力が空の場合に利用します）
 
   - type: input
     id: article_slug
@@ -50,8 +51,10 @@ body:
       label: Oasis ハイブリッド Markdown
       description: |
         front matter (`---` で囲まれた zenn/qiita/wordpress セクション) と本文をまとめて貼り付けてください。
+        `article_slug` を front matter に含めると、フォームを空のままでもスラッグを指定できます。
       placeholder: |
         ---
+        article_slug: 20251015-oasis-sync-0-3-2-release
         zenn:
           title: ...
         qiita:
