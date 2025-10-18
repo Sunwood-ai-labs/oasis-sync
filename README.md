@@ -33,30 +33,46 @@
   Oasis 配下の記事を検知して Gemini と連携し、Zenn/Qiita 用メタデータの生成から投稿リポジトリへの同期までを自動化します。
 </p>
 
-## ✨ Overview
+## ✨ Features
 
-- GitHub Actions で `articles/oasis/` に追加された Markdown を監視し、ハイブリッド front matter を生成します。
-- 生成されたメタデータを基に Zenn・Qiita・WordPress 向け記事を分岐させ、対象リポジトリへ PR/Commit を自動作成します。
-- Gemini CLI を利用してタイトルやタグ候補を推論し、レビュー可能な YAML として取り扱います。
-- リポジトリをテンプレートとして提供し、最小構成でコンテンツのマルチ配信を始められます。
+- Oasis ハイブリッド記事を検出し、Gemini でメタデータを生成して Zenn/Qiita/WordPress へ安全に分岐。
+- Issues ベースの受付ワークフローで、記事・サムネイル素材を自動生成＆コミット。
+- リリースタグからヘッダー画像・リリースノート・派生記事までを一気通貫で生成する Gemini Actions Labs。
+- Google Gemini/Imagen、Qiita CLI、Git it Write など外部サービスと連携した配信・自動投稿。
+- 充実したプロンプトとスクリプト群により、レビューコメントやHugging Face Space の整備まで自動化。
 
-## 🧱 Architecture
+## 🔁 Automation Modules
 
-- 最新の構成図とワークフローの詳細は [`.github/workflows/architecture.md`](./.github/workflows/architecture.md) と [`.github/workflows/architecture.svg`](./.github/workflows/architecture.svg) を参照してください。
-- リポジトリは次の2モジュールで構成されています。
-  - **Gemini Actions Labs**: リリースノート生成やヘッダー画像生成など、Gemini/Imagen を活用したコンテンツ作成パイプライン。
-  - **Oasis Sync**: Oasis 形式の記事を各配信先向けに変換し、ターゲットリポジトリへ同期する配信パイプライン。
-- モジュール間のデータフローや各ワークフローのジョブ構成、使用スクリプトの関係は Architecture ドキュメントに集約しています。
-- `docs/flow.dio` には GitHub Actions と外部サービスの連携を表すダイアグラムが含まれています。
+- **Gemini Actions Labs**  
+  リリースタグをトリガーにヘッダー画像を Imagen で生成し、Gemini でリリースノート/ハイブリッド記事を作成。PR レビューの自動化や Hugging Face Space の準備など AI アシストタスクを包含します。
+- **Oasis Sync**  
+  Oasis ソース記事や Issue 入力を取り込み、Zenn/Qiita/WordPress 形式へ展開。ターゲットリポジトリとの同期や Qiita CLI 連携までを GitHub Actions で完結させます。
+
+設計図と詳細は [`.github/workflows/architecture.md`](./.github/workflows/architecture.md) および [`.github/workflows/architecture.svg`](./.github/workflows/architecture.svg) を参照してください。
+
+## 🧱 Required Secrets & Variables
+
+| 名前 | 種別 | 用途 |
+|------|------|------|
+| `GH_PAT` | Secret | Actions からの push・Issue 操作全般。 |
+| `GEMINI_API_KEY` | Secret | Gemini CLI / Imagen 連携。 |
+| `QIITA_TOKEN` | Secret | `qiita/publish.yml` での Qiita CLI 認証。 |
+| `HUGGINGFACE_TOKEN` | Secret | Hugging Face Space デプロイ (必要時)。 |
+| `vars.GCP_*` 系 | Variable | Google Cloud Workload Identity / Vertex AI 設定。 |
+| `vars.*_TARGET_REPOSITORY` など | Variable | 各プラットフォーム同期先のリポジトリ・ブランチ設定。 |
+
+> 追加のラベル管理用トークン（例: `GH_PAT_KOZAKI` など）は PR レビューボットごとに設定してください。
 
 ## 🚀 Setup
 
 1. **テンプレートからリポジトリを作成**  
    `Use this template` をクリックし、自身の GitHub アカウントへコピーします。
 2. **環境変数の準備**  
-   `.env.example` と `.env.actions.example` を参考に、GitHub Actions 用の `GH_PAT` を Secrets/Variables に設定します。
-3. **記事ディレクトリの初期化**
-   `articles/oasis/` に元記事を配置します。既存記事には `zenn` / `qiita` セクション付き front matter を付与してください。
+   上記「Required Secrets & Variables」に従って Secrets / Variables を登録します。
+3. **記事ディレクトリの初期化**  
+   `articles/oasis/` にサンプル記事を用意します。既存記事に front matter が含まれる場合は Gemini による再生成がスキップされます。
+4. **Issue テンプレートの確認**  
+   `.github/ISSUE_TEMPLATE/` のフォームを利用すると、記事・サムネイルが自動生成されます。必要に応じて説明文をカスタマイズしてください。
 
 ## 📦 Usage
 
@@ -72,6 +88,20 @@
 - 各プラットフォーム向け同期 (`oasis-zenn-sync.yml`, `oasis-qiita-sync.yml`, `oasis-wordpress-sync.yml`) は共通シェルスクリプトでターゲットリポジトリに反映します。
 - リリースノートと派生記事を扱う `gemini-release-*.yml` 系は Gemini Actions Labs モジュールとしてまとめています。
 - トリガー条件やジョブ構成、生成物の詳細は [Architecture ドキュメント](./.github/workflows/architecture.md) を確認してください。
+
+### Workflow Map
+
+| Workflow | モジュール | トリガー | 概要 |
+|----------|------------|----------|------|
+| `🗂️ Oasis Issue Intake` | Oasis Sync | Issue (label/title) | Issue form から Oasis 記事・画像を生成し commit。 |
+| `🪄 Oasis Article Sync` | Oasis Sync | Push / Dispatch | Oasis 記事を検出し Zenn/Qiita/WordPress へ分岐。 |
+| `🪄 Oasis Zenn/Qiita/WordPress Sync` | Oasis Sync | Push / workflow_run | 各派生記事をターゲットリポジトリへ同期。 |
+| `🚧 Experimental Thumbnail Intake` | Oasis Sync | Issue | 画像添付/URLからサムネイル PNG を生成しコミット。 |
+| `📝 Gemini Release Notes` | Gemini Actions Labs | Tag push | リリースノートとヘッダー画像の生成・Release 更新。 |
+| `📰 Gemini Release Article` | Gemini Actions Labs | workflow_run | Oasis リリース記事を生成し `articles/oasis/` に追加。 |
+| `💬 Gemini CLI / 日本語版` | Gemini Actions Labs | Issue/PR コメント | Gemini による Issue/PR 返信・実装支援。 |
+| `🧐 Gemini Pull Request Review` | Gemini Actions Labs | PR / コメント | Persona 別レビューコメントを自動投稿。 |
+| `🚀 Deploy to Hugging Face Space` | Gemini Actions Labs | Dispatch | Space の存在確認と push をフル自動化。 |
 
 ## 🗂 Repository Layout
 
@@ -89,6 +119,15 @@ docs/
   flow.dio    # アーキテクチャ図 (tldraw 形式)
 ```
 
+## 🧰 Key Scripts & Prompts
+
+- `.github/scripts/process_oasis_articles.py` — Oasis 記事の分割・メタデータ適用。
+- `.github/scripts/ingest_oasis_issue.py` — Issue フォームから記事ファイル/画像を生成。
+- `.github/scripts/ingest_thumbnail_issue.py` — サムネイルの収集・リサイズ・保存。
+- `.github/scripts/sync_platform.sh` — 各派生記事をターゲットリポジトリへ同期。
+- `.github/scripts/build_reviewer_prompt.py` — Persona レビュー用プロンプトの組み立て。
+- `.github/prompts/*` — Gemini CLI ワークフローで利用する出力テンプレート。
+
 ## 📝 Sample Articles
 
 - [Zenn: moondream-3-five-truths](./articles/zenn/moondream-3-five-truths.md)
@@ -104,7 +143,9 @@ docs/
 
 - **同期対象のリポジトリにアクセスできない**: `TARGET_REPOSITORY`, `SYNC_TOKEN` など環境変数の設定を確認してください。
 - **Gemini 生成がスキップされる**: 既存 front matter に `zenn:` と `qiita:` が含まれている場合、再生成は行われません。
+- **Issue ワークフローがラベル未存在で失敗する**: ワークフロー先頭の `ensure_label` ステップが `GH_PAT` を利用できるよう、権限を確認してください。
 - **`TARGET_PATH` 未設定エラー**: `sync_platform.sh` をローカル実行する際は `TARGET_PATH` を空文字でエクスポートするか、環境変数を指定してください。
+- **Gemini CLI がコメントを投稿しない**: `vars.APP_ID` とアプリシークレットが設定されているか、またコメント発火条件（`@gemini-cli` など）を満たしているか確認してください。
 
 ---
 Generated by Gemini CLI ギャルエンジニア 🎀
