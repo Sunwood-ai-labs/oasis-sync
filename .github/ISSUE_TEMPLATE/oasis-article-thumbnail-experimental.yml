@@ -1,5 +1,5 @@
-name: "🧪 Oasis記事 + サムネイル登録（Experimental）"
-description: "記事ファイルとサムネイル画像を同時に登録する実験的フォームです。"
+name: "🚧🧪 Oasis記事 + サムネイル登録（Experimental）"
+description: "🚧 実験版: 記事ファイルとサムネイル画像を同時に登録する実験的フォームです。"
 title: "[Oasis+Thumb][Experimental] YYYYMMDD-your-slug"
 labels:
   - oasis-article-thumbnail-experimental

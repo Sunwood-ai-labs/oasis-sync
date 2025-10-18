@@ -38,14 +38,20 @@ def build_comment() -> str:
         "",
     ]
 
+    branch_encoded = quote(default_branch, safe="")
+
     if article_path:
-        comment_lines.append(f"- 記事ファイル: `{article_path}`")
+        if repository:
+            encoded_article = "/".join(quote(part, safe="") for part in article_path.split("/"))
+            article_link = f"{server_raw}/{repository}/{branch_encoded}/{encoded_article}"
+            comment_lines.append(f"- 記事ファイル: [{article_path}]({article_link})")
+        else:
+            comment_lines.append(f"- 記事ファイル: `{article_path}`")
     if article_image_url:
         comment_lines.append(f"- 記事ヘッダー画像: {article_image_url}")
 
     comment_lines.append("- サムネイル:")
     if saved_paths and repository:
-        branch_encoded = quote(default_branch, safe="")
         for rel_path in saved_paths:
             encoded_path = "/".join(quote(part, safe="") for part in rel_path.split("/"))
             link = f"{server_raw}/{repository}/{branch_encoded}/{encoded_path}"
