@@ -32,7 +32,24 @@ FIELD_ALIASES = {
     "記事スラッグ (拡張子不要)": "slug",
     "公開日 (オプション)": "publish_date",
     "ヘッダー画像 URL (オプション)": "header_image_url",
+    "記事ヘッダー画像 URL (オプション)": "header_image_url",
     "Oasis ハイブリッド Markdown": "markdown",
+}
+
+KNOWN_FORM_LABELS = {
+    "記事スラッグ (拡張子不要)",
+    "公開日 (オプション)",
+    "ヘッダー画像 URL (オプション)",
+    "記事ヘッダー画像 URL (オプション)",
+    "Oasis ハイブリッド Markdown",
+    "保存ファイル名（拡張子不要）",
+    "保存ファイル名（拡張子不要・必須）",
+    "保存ディレクトリ（相対パス）",
+    "リサイズ（任意）",
+    "背景色（レターボックス用・任意）",
+    "画像 URL（任意）",
+    "備考（任意・🚧 実験的な `<img>` 埋め込み対応可）",
+    "確認事項",
 }
 
 ASSET_URL_RE = re.compile(
@@ -46,19 +63,33 @@ class IssuePayloadError(RuntimeError):
 
 
 def parse_issue_fields(issue_body: str) -> dict[str, str]:
-    """Extract form fields from the GitHub Issue body produced by issue forms."""
-    body = issue_body.replace("\r\n", "\n")
-    pattern = re.compile(
-        r"^###\s+(?P<label>.+?)\s*\n(?P<value>.*?)(?=\n###\s+|\Z)",
-        re.DOTALL | re.MULTILINE,
-    )
+    """Extract form fields while ignoring markdown headings inside the content."""
+    lines = issue_body.replace("\r\n", "\n").splitlines()
     fields: dict[str, str] = {}
-    for match in pattern.finditer(body):
-        label = match.group("label").strip()
-        value = match.group("value").strip()
-        if value == "_No response_":
-            value = ""
-        fields[label] = value
+    current_label: str | None = None
+    buffer: list[str] = []
+
+    def flush() -> None:
+        nonlocal buffer, current_label
+        if current_label is None:
+            return
+        raw_value = "\n".join(buffer).strip()
+        if raw_value == "_No response_":
+            raw_value = ""
+        fields[current_label] = raw_value
+        buffer = []
+
+    for line in lines:
+        if line.startswith("### "):
+            label = line[4:].strip()
+            if label in KNOWN_FORM_LABELS:
+                flush()
+                current_label = label
+                continue
+        if current_label is not None:
+            buffer.append(line)
+
+    flush()
     return fields
 
 
