@@ -126,68 +126,13 @@ jobs:
         id: comment_body
         env:
           SAVED_FILES: ${{ steps.thumb.outputs.saved_files }}
-          DEST_DIR: ${{ steps.thumb.outputs.dest_dir }}
           ARTICLE_PATH: ${{ steps.article.outputs.article_path }}
           ARTICLE_IMAGE_URL: ${{ steps.article.outputs.image_url }}
           COMMIT_PERFORMED: ${{ steps.commit.outputs.commit_performed }}
-          REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
-          set -euo pipefail
-          python <<'PY'
-import os
-from urllib.parse import quote
-
-def parse_saved(raw: str):
-    paths = []
-    for line in raw.splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        if line.startswith("-"):
-            line = line[1:].strip()
-        if line.startswith("`") and line.endswith("`") and len(line) >= 2:
-            line = line[1:-1].strip()
-        if line:
-            paths.append(line)
-    return paths
-
-saved_files_raw = os.environ.get("SAVED_FILES", "")
-paths = parse_saved(saved_files_raw)
-repo = os.environ["REPOSITORY"]
-branch = os.environ["DEFAULT_BRANCH"]
-article_path = os.environ.get("ARTICLE_PATH", "")
-article_image = os.environ.get("ARTICLE_IMAGE_URL", "")
-commit_performed = os.environ.get("COMMIT_PERFORMED", "false") == "true"
-server_raw = "https://raw.githubusercontent.com"
-
-links = []
-for path in paths:
-    encoded = "/".join(quote(part, safe="") for part in path.split("/"))
-    links.append((path, f"{server_raw}/{repo}/{branch}/{encoded}"))
-
-lines = []
-lines.append("## ✅ Oasis記事とサムネイルを登録しました")
-lines.append("")
-if article_path:
-    lines.append(f"- 記事ファイル: `{article_path}`")
-if article_image:
-    lines.append(f"- 記事ヘッダー画像: {article_image}")
-lines.append("- サムネイル:")
-if links:
-    for rel, url in links:
-        lines.append(f"  - [{rel}]({url})")
-else:
-    lines.append("  - (保存されたサムネイルはありません)")
-lines.append("")
-if commit_performed:
-    lines.append("変更をコミットし、デフォルトブランチへプッシュしました。")
-else:
-    lines.append("差分が検出されなかったためコミットはスキップしました。")
-
-with open("comment.md", "w", encoding="utf-8") as fh:
-    fh.write("\n".join(lines) + "\n")
-PY
+          python .github/scripts/write_oasis_article_thumbnail_comment.py comment.md
 
       - name: Comment and close issue
         if: success()
