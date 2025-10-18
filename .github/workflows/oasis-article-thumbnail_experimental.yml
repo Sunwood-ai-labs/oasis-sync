@@ -89,8 +89,8 @@ jobs:
           DEST_DIR: ${{ steps.thumb.outputs.dest_dir }}
         run: |
           set -euo pipefail
-          git config user.name "oasis-sync[bot]"
-          git config user.email "oasis-sync[bot]@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
 
           if [[ -d "articles/oasis" ]]; then
             git add articles/oasis
@@ -117,6 +117,7 @@ jobs:
           SAVED_FILES: ${{ steps.thumb.outputs.saved_files }}
           ARTICLE_PATH: ${{ steps.article.outputs.article_path }}
           ARTICLE_IMAGE_URL: ${{ steps.article.outputs.image_url }}
+          ARTICLE_IMAGE_PATH: ${{ steps.article.outputs.image_path }}
           COMMIT_PERFORMED: ${{ steps.commit.outputs.commit_performed }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
