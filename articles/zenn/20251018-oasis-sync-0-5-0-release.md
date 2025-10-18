@@ -1,47 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】oasis-sync v0.5.0 - 記事とサムネイルの同時登録でコンテンツ管理を効率化
-  emoji: ✨
-  type: tech
-  topics:
-  - github
-  - github-actions
-  - automation
-  - python
-  - ci-cd
-  published: true
-qiita:
-  title: 【リリースノート】oasis-sync v0.5.0 - 記事とサムネイルの同時登録でコンテンツ管理を効率化
-  tags:
-  - GitHub
-  - GitHubActions
-  - Automation
-  - Python
-  - CI
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】oasis-sync v0.5.0 - 記事とサムネイルの同時登録でコンテンツ管理を効率化
-  post_status: publish
-  post_excerpt: oasis-sync v0.5.0をリリースしました。本バージョンでは、GitHub Issueから記事とサムネイルを同時に登録できる新ワークフローを導入し、コンテンツ管理を大幅に効率化しています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.5.0-20251018_170842/imagen-4-ultra_2025-10-18T17-09-42-828Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - release-note
-    - github-actions
-    - automation
-    post_tag:
-    - GitHub
-    - GitHubActions
-    - Automation
-    - Python
-    - CI
-  custom_fields:
-    lead: oasis-sync v0.5.0では、記事とサムネイルの同時登録ワークフローを導入し、コンテンツ管理のリードタイムを短縮しました。本記事では、新機能やドキュメント拡充などの技術的な詳細を解説します。
+title: 【リリースノート】oasis-sync v0.5.0 - 記事とサムネイルの同時登録でコンテンツ管理を効率化
+emoji: ✨
+type: tech
+topics:
+- github
+- github-actions
+- automation
+- python
+- ci-cd
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-18T17-09-42-828Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.5.0-20251018_170842/imagen-4-ultra_2025-10-18T17-09-42-828Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
