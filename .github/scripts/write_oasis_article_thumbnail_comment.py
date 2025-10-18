@@ -15,11 +15,16 @@ def build_comment() -> str:
     article_path = os.environ.get("ARTICLE_PATH", "")
     article_image_url = os.environ.get("ARTICLE_IMAGE_URL", "")
     commit_performed = os.environ.get("COMMIT_PERFORMED", "").lower() == "true"
+    article_image_path = os.environ.get("ARTICLE_IMAGE_PATH", "").strip()
     repository = os.environ.get("GITHUB_REPOSITORY", "")
     default_branch = os.environ.get("DEFAULT_BRANCH", "main")
     server_raw = "https://raw.githubusercontent.com"
 
     saved_paths = parse_saved_paths(saved_files_raw)
+    if article_image_path:
+        if article_image_path in saved_paths:
+            saved_paths.remove(article_image_path)
+        saved_paths.insert(0, article_image_path)
 
     comment_lines: list[str] = [
         "## ✅ Oasis記事とサムネイルを登録しました",

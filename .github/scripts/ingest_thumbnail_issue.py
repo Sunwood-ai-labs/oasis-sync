@@ -108,7 +108,7 @@ def save_png(
 
 def extract_all_urls(body: str, explicit_url: Optional[str]) -> List[str]:
     urls: List[str] = []
-    if explicit_url:
+    if explicit_url and not is_blank_or_no_response(explicit_url):
         urls.append(explicit_url.strip())
     urls.extend(USER_ATTACH_PATTERN.findall(body))
     for m in IMG_SRC_PATTERN.finditer(body):

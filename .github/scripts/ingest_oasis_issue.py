@@ -254,17 +254,31 @@ def main(argv: list[str] | None = None) -> int:
     if front_matter_text is None:
         raise IssuePayloadError("front matter (`---` ... `---`) が見つかりません。")
 
+    provided_header_path = (args.header_image_path or "").strip()
+    if provided_header_path:
+        header_candidate = Path(provided_header_path)
+        header_candidate_abs = header_candidate if header_candidate.is_absolute() else header_candidate
+        if header_candidate_abs.exists():
+            suffix = header_candidate_abs.suffix or ".png"
+            dest_path = header_candidate_abs.with_name(f"{slug}{suffix}")
+            if dest_path != header_candidate_abs:
+                dest_path.parent.mkdir(parents=True, exist_ok=True)
+                if dest_path.exists():
+                    dest_path.unlink()
+                header_candidate_abs.rename(dest_path)
+            provided_header_path = dest_path.as_posix()
+
     token = os.environ.get("GITHUB_TOKEN", "")
     images_dir = Path(args.images_root) / f"issue-{args.issue_number}-{datetime.now(tz=JST).strftime('%Y%m%d%H%M%S')}"
     if provided_header_path:
         image_rel_path = Path(provided_header_path).as_posix()
         raw_image_url = f"https://raw.githubusercontent.com/{args.repo}/{args.default_branch}/{image_rel_path}"
-        body = update_markdown_image(body, raw_image_url, Path(image_rel_path).stem)
+        body = update_markdown_image(body, raw_image_url, Path(image_rel_path).stem or slug)
     elif header_url:
         image_path = download_image(header_url, images_dir, token, slug)
         image_rel_path = image_path.as_posix()
         raw_image_url = f"https://raw.githubusercontent.com/{args.repo}/{args.default_branch}/{image_rel_path}"
-        body = update_markdown_image(body, raw_image_url, Path(image_rel_path).stem)
+        body = update_markdown_image(body, raw_image_url, Path(image_rel_path).stem or slug)
 
     rendered_front_matter, _ = merge_front_matter(front_matter_text, raw_image_url, publish_date)
     article_path = Path(args.oasis_dir) / f"{slug}.md"
