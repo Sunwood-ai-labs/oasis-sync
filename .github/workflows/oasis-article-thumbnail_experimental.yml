@@ -1,0 +1,209 @@
+name: "🧪 Oasis Article + Thumbnail Intake (Experimental)"
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  ensure_labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure experimental labels exist
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -euo pipefail
+          REPO="${{ github.repository }}"
+          ensure_label() {
+            local label="$1"
+            local color="$2"
+            local description="$3"
+            if ! gh label list --repo "$REPO" --limit 1000 | awk -F'\t' '{print $1}' | grep -Fxq "$label"; then
+              gh label create "$label" --repo "$REPO" --color "$color" --description "$description"
+            fi
+          }
+          ensure_label "oasis-article" "2E7D32" "Trigger Oasis article ingestion"
+          ensure_label "oasis-article-thumbnail-experimental" "1D72B8" "Experimental: ingest article & thumbnail together"
+
+  ingest:
+    needs: ensure_labels
+    if: |
+      contains(github.event.issue.labels.*.name, 'oasis-article-thumbnail-experimental') ||
+      contains(github.event.issue.title, '[Oasis+Thumb]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Ensure experimental label is present
+        if: |
+          contains(github.event.issue.title, '[Oasis+Thumb]') &&
+          !contains(github.event.issue.labels.*.name, 'oasis-article-thumbnail-experimental')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh issue edit "${{ github.event.issue.number }}" --add-label "oasis-article-thumbnail-experimental"
+
+      - name: Save issue body
+        run: |
+          cat <<'EOF' > issue_body.md
+          ${{ github.event.issue.body }}
+          EOF
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ingestion dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pillow requests pyyaml
+
+      - name: Ingest thumbnail assets
+        id: thumb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          python .github/scripts/ingest_thumbnail_issue.py \
+            --issue-number "${{ github.event.issue.number }}" \
+            --issue-title "${{ github.event.issue.title }}" \
+            --issue-body-path issue_body.md \
+            --repo "${{ github.repository }}" \
+            --default-branch "${{ github.event.repository.default_branch }}"
+
+      - name: Ingest Oasis article
+        id: article
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          python .github/scripts/ingest_oasis_issue.py \
+            --issue-number "${{ github.event.issue.number }}" \
+            --issue-title "${{ github.event.issue.title }}" \
+            --issue-body-path issue_body.md \
+            --oasis-dir articles/oasis \
+            --images-root generated-images \
+            --repo "${{ github.repository }}" \
+            --default-branch "${{ github.event.repository.default_branch }}"
+
+      - name: Commit generated files
+        id: commit
+        env:
+          DEST_DIR: ${{ steps.thumb.outputs.dest_dir }}
+        run: |
+          set -euo pipefail
+          git config user.name "oasis-sync[bot]"
+          git config user.email "oasis-sync[bot]@users.noreply.github.com"
+
+          if [[ -d "articles/oasis" ]]; then
+            git add articles/oasis
+          fi
+          if [[ -d "generated-images" ]]; then
+            git add generated-images
+          fi
+          if [[ -n "${DEST_DIR:-}" && -d "${DEST_DIR}" ]]; then
+            git add "${DEST_DIR}"
+          fi
+
+          if git diff --cached --quiet; then
+            echo "commit_performed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git commit -m "🧪 Add experimental Oasis article & thumbnail from issue #${{ github.event.issue.number }}"
+          git push origin HEAD:"${{ github.event.repository.default_branch }}"
+          echo "commit_performed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Build combined comment
+        id: comment_body
+        env:
+          SAVED_FILES: ${{ steps.thumb.outputs.saved_files }}
+          DEST_DIR: ${{ steps.thumb.outputs.dest_dir }}
+          ARTICLE_PATH: ${{ steps.article.outputs.article_path }}
+          ARTICLE_IMAGE_URL: ${{ steps.article.outputs.image_url }}
+          COMMIT_PERFORMED: ${{ steps.commit.outputs.commit_performed }}
+          REPOSITORY: ${{ github.repository }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          python <<'PY'
+import os
+from urllib.parse import quote
+
+def parse_saved(raw: str):
+    paths = []
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("-"):
+            line = line[1:].strip()
+        if line.startswith("`") and line.endswith("`") and len(line) >= 2:
+            line = line[1:-1].strip()
+        if line:
+            paths.append(line)
+    return paths
+
+saved_files_raw = os.environ.get("SAVED_FILES", "")
+paths = parse_saved(saved_files_raw)
+repo = os.environ["REPOSITORY"]
+branch = os.environ["DEFAULT_BRANCH"]
+article_path = os.environ.get("ARTICLE_PATH", "")
+article_image = os.environ.get("ARTICLE_IMAGE_URL", "")
+commit_performed = os.environ.get("COMMIT_PERFORMED", "false") == "true"
+server_raw = "https://raw.githubusercontent.com"
+
+links = []
+for path in paths:
+    encoded = "/".join(quote(part, safe="") for part in path.split("/"))
+    links.append((path, f"{server_raw}/{repo}/{branch}/{encoded}"))
+
+lines = []
+lines.append("## ✅ Oasis記事とサムネイルを登録しました")
+lines.append("")
+if article_path:
+    lines.append(f"- 記事ファイル: `{article_path}`")
+if article_image:
+    lines.append(f"- 記事ヘッダー画像: {article_image}")
+lines.append("- サムネイル:")
+if links:
+    for rel, url in links:
+        lines.append(f"  - [{rel}]({url})")
+else:
+    lines.append("  - (保存されたサムネイルはありません)")
+lines.append("")
+if commit_performed:
+    lines.append("変更をコミットし、デフォルトブランチへプッシュしました。")
+else:
+    lines.append("差分が検出されなかったためコミットはスキップしました。")
+
+with open("comment.md", "w", encoding="utf-8") as fh:
+    fh.write("\n".join(lines) + "\n")
+PY
+
+      - name: Comment and close issue
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          gh issue comment "${ISSUE_NUMBER}" --body-file comment.md
+          gh issue close "${ISSUE_NUMBER}"
+
+      - name: Comment on failure
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          gh issue comment "${ISSUE_NUMBER}" --body "⚠️ Experimental Oasis記事とサムネイルの自動登録でエラーが発生しました。Actions のログをご確認ください。"
