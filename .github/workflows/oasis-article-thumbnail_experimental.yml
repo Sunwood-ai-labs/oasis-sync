@@ -98,11 +98,13 @@ jobs:
           ARTICLE_PATH: ${{ steps.article.outputs.article_path }}
           ARTICLE_SLUG: ${{ steps.article.outputs.slug }}
         run: |
-          MESSAGE="📝 記事生成が完了しました: \`${ARTICLE_PATH}\`"
+          set -euo pipefail
           if [[ -n "${ARTICLE_SLUG}" ]]; then
-            MESSAGE="${MESSAGE}\nSlug: \`${ARTICLE_SLUG}\`"
+            BODY=$(printf '📝 記事生成が完了しました: `%s`\nSlug: `%s`\n' "${ARTICLE_PATH}" "${ARTICLE_SLUG}")
+          else
+            BODY=$(printf '📝 記事生成が完了しました: `%s`\n' "${ARTICLE_PATH}")
           fi
-          gh issue comment "${ISSUE_NUMBER}" --body "${MESSAGE}"
+          gh issue comment "${ISSUE_NUMBER}" --body "${BODY}"
 
       - name: Commit generated files
         id: commit
