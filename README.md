@@ -84,6 +84,8 @@
 
 ## 🔄 Workflows
 
+![](.github/workflows/architecture.svg)
+
 - Oasis 記事を分岐させる入口は `oasis-sync.yml` で、生成処理は `.github/scripts/process_oasis_articles.py` に実装されています。
 - 各プラットフォーム向け同期 (`oasis-zenn-sync.yml`, `oasis-qiita-sync.yml`, `oasis-wordpress-sync.yml`) は共通シェルスクリプトでターゲットリポジトリに反映します。
 - リリースノートと派生記事を扱う `gemini-release-*.yml` 系は Gemini Actions Labs モジュールとしてまとめています。
