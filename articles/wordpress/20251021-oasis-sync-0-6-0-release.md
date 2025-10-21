@@ -1,50 +1,22 @@
 ---
-zenn:
-  title: 【リリースノート】oasis-sync v0.6.0 - 外部リポジトリへの記事投稿機能とドキュメント改善
-  emoji: 🚀
-  type: tech
-  topics:
-  - github-actions
-  - ci-cd
-  - automation
-  - release-note
-  - github
-  published: true
-qiita:
-  title: 【リリースノート】oasis-sync v0.6.0 - 外部リポジトリへの記事投稿機能とドキュメント改善
-  tags:
+title: 【リリースノート】oasis-sync v0.6.0 - 外部リポジトリへの記事投稿機能とドキュメント改善
+post_status: publish
+post_excerpt: oasis-sync v0.6.0 がリリースされました。このバージョンでは、生成されたリリース記事を指定した外部リポジトリに直接プッシュする機能が追加され、記事管理と運用リポジトリの分離が可能になりました。また、プロジェクトの理解を深めるためのアーキテクチャ図もドキュメントに導入されています。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.6.0-20251021_150745/imagen-4-ultra_2025-10-21T15-08-57-125Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
+taxonomy:
+  category:
+  - リリースノート
+  - GitHub
+  - CI-CD
+  post_tag:
   - GitHubActions
   - CICD
   - Automation
   - ReleaseNote
   - GitHub
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】oasis-sync v0.6.0 - 外部リポジトリへの記事投稿機能とドキュメント改善
-  post_status: publish
-  post_excerpt: oasis-sync v0.6.0 がリリースされました。このバージョンでは、生成されたリリース記事を指定した外部リポジトリに直接プッシュする機能が追加され、記事管理と運用リポジトリの分離が可能になりました。また、プロジェクトの理解を深めるためのアーキテクチャ図もドキュメントに導入されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.6.0-20251021_150745/imagen-4-ultra_2025-10-21T15-08-57-125Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - GitHub
-    - CI-CD
-    post_tag:
-    - GitHubActions
-    - CICD
-    - Automation
-    - ReleaseNote
-    - GitHub
-  custom_fields:
-    lead: oasis-sync v0.6.0 では、リリース記事を外部リポジトリへ直接プッシュする新機能が導入されました。本記事では、この変更の詳細とドキュメント改善について解説します。
+custom_fields:
+  lead: oasis-sync v0.6.0 では、リリース記事を外部リポジトリへ直接プッシュする新機能が導入されました。本記事では、この変更の詳細とドキュメント改善について解説します。
 ---
-
-![imagen-4-ultra_2025-10-21T15-08-57-125Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/oasis-sync/main/generated-images/release-v0.6.0-20251021_150745/imagen-4-ultra_2025-10-21T15-08-57-125Z_A_mesmerizing_and_vivid_digital_painting_featuring_1.png)
 
 ## はじめに
 `oasis-sync` v0.6.0 がリリースされました。このバージョンでは、リリース記事の管理をより柔軟にするための外部リポジトリ連携機能が追加されたほか、プロジェクトの全体像を把握しやすくするためのドキュメント改善が行われています。
