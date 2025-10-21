@@ -1,47 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】gemini-actions-lab v0.8.1 - ワークフロー改善と技術記事自動生成の導入
-  emoji: 🚀
-  type: tech
-  topics:
-  - github-actions
-  - release-note
-  - automation
-  - python
-  - llm
-  published: true
-qiita:
-  title: 【リリースノート】gemini-actions-lab v0.8.1 - ワークフロー改善と技術記事自動生成の導入
-  tags:
-  - GitHubActions
-  - Python
-  - ReleaseNote
-  - 自動化
-  - LLM
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】gemini-actions-lab v0.8.1 - ワークフロー改善と技術記事自動生成の導入
-  post_status: publish
-  post_excerpt: gemini-actions-lab v0.8.1をリリースしました。本バージョンでは、技術記事を自動生成する新ワークフローを導入し、PyPIリリースプロセスを改善しました。また、LLMに渡すdiff情報のサイズを制御する機能も追加されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.8.1-20251021_152448/imagen-4-ultra_2025-10-21T15-25-51-700Z_Create_a_minimalist_typographic_illustration_displ_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - GitHub Actions
-    - 開発効率化
-    post_tag:
-    - GitHubActions
-    - Python
-    - 自動化
-    - LLM
-    - リリースノート
-  custom_fields:
-    lead: gemini-actions-labの最新バージョンv0.8.1がリリースされました！このアップデートでは、開発ワークフローを大幅に効率化する新機能が満載です。特に、リリースノートから技術記事を自動生成する仕組みは必見です。
+title: 【リリースノート】gemini-actions-lab v0.8.1 - ワークフロー改善と技術記事自動生成の導入
+tags:
+- GitHubActions
+- Python
+- ReleaseNote
+- 自動化
+- LLM
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-10-21T15-25-51-700Z_Create_a_minimalist_typographic_illustration_displ_1.png](https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.8.1-20251021_152448/imagen-4-ultra_2025-10-21T15-25-51-700Z_Create_a_minimalist_typographic_illustration_displ_1.png)
