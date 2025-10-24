@@ -1,47 +1,19 @@
 ---
-zenn:
-  title: 【リリースノート】gemini-actions-lab v0.9.0 - Discord Botの環境変数同期と開発ガイドラインの拡充
-  emoji: ✨
-  type: tech
-  topics:
-  - github-actions
-  - discord
-  - python
-  - cli
-  - solid
-  published: true
-qiita:
-  title: 【リリースノート】gemini-actions-lab v0.9.0 - Discord Botの環境変数同期と開発ガイドラインの拡充
-  tags:
-  - GitHubActions
+title: 【リリースノート】gemini-actions-lab v0.9.0 - Discord Botの環境変数同期と開発ガイドラインの拡充
+post_status: publish
+post_excerpt: gemini-actions-lab v0.9.0がリリースされました。本バージョンでは、Discord Botに.envファイルの内容をGitHub
+  Actionsのリポジトリ変数へ安全に同期する`/sync_env`コマンドが追加されたほか、SOLID原則を取り入れた新しい開発ガイドラインが導入され、開発体験が大幅に向上しています。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.9.0-20251024_190556/imagen-4-ultra_2025-10-24T19-06-58-057Z_Create_a_minimalist_typographic_illustration_displ_1.png
+taxonomy:
+  post_tag:
+  - GitHub Actions
   - Discord
   - Python
   - CLI
   - SOLID
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】gemini-actions-lab v0.9.0 - Discord Botの環境変数同期と開発ガイドラインの拡充
-  post_status: publish
-  post_excerpt: gemini-actions-lab v0.9.0がリリースされました。本バージョンでは、Discord Botに.envファイルの内容をGitHub
-    Actionsのリポジトリ変数へ安全に同期する`/sync_env`コマンドが追加されたほか、SOLID原則を取り入れた新しい開発ガイドラインが導入され、開発体験が大幅に向上しています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.9.0-20251024_190556/imagen-4-ultra_2025-10-24T19-06-58-057Z_Create_a_minimalist_typographic_illustration_displ_1.png
-  taxonomy:
-    post_tag:
-    - GitHub Actions
-    - Discord
-    - Python
-    - CLI
-    - SOLID
-  custom_fields:
-    lead: v0.9.0では、開発ワークフローを効率化する新機能と、チーム全体の品質を高めるためのガイドライン拡充が行われました。特にDiscord Botの`/sync_env`コマンドは、面倒な環境変数の同期作業を自動化し、開発者の負担を軽減します。
+custom_fields:
+  lead: v0.9.0では、開発ワークフローを効率化する新機能と、チーム全体の品質を高めるためのガイドライン拡充が行われました。特にDiscord Botの`/sync_env`コマンドは、面倒な環境変数の同期作業を自動化し、開発者の負担を軽減します。
 ---
-
-![imagen-4-ultra_2025-10-24T19-06-58-057Z_Create_a_minimalist_typographic_illustration_displ_1.png](https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.9.0-20251024_190556/imagen-4-ultra_2025-10-24T19-06-58-057Z_Create_a_minimalist_typographic_illustration_displ_1.png)
 
 ## はじめに
 gemini-actions-lab v0.9.0をリリースしました。このバージョンでは、開発ワークフローの効率化を目指し、Discord Botの機能を大幅に強化しました。また、コードの品質と一貫性を高めるため、SOLID原則などを盛り込んだ新しい開発ガイドラインを導入しています。
