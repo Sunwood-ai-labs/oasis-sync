@@ -1,47 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】go-cli-sample v0.1.0 - Go製CLIツールの誕生と開発環境の整備
-  emoji: 🎉
-  type: tech
-  topics:
-  - go
-  - golang
-  - cli
-  - docker
-  - githubactions
-  published: true
-qiita:
-  title: 【リリースノート】go-cli-sample v0.1.0 - Go製CLIツールの誕生と開発環境の整備
-  tags:
-  - Go
-  - Golang
-  - CLI
-  - Docker
-  - GitHubActions
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】go-cli-sample v0.1.0 - Go製CLIツールの誕生と開発環境の整備
-  post_status: publish
-  post_excerpt: Go言語製の新しいCLIツール「go-cli-sample」の記念すべき最初のバージョン v0.1.0 がリリースされました。このリリースには、Dockerによる開発環境の整備や、GitHub
-    Actionsを用いたCI/CDワークフローの導入など、今後の開発基盤となる重要な機能が含まれています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/go-cli-sample/main/generated-images/release-v0.1.0-20251024_125254/imagen-4-ultra_2025-10-24T12-53-51-410Z_a_minimalistic_line_art_of_a_sleepy_axolotl__illus_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - Go
-    post_tag:
-    - go-cli-sample
-    - Go
-    - CLI
-    - Docker
-    - CI/CD
-  custom_fields:
-    lead: Go言語製の新しいCLIツール `go-cli-sample` の記念すべき最初のバージョン v0.1.0 がリリースされました！本記事では、Docker対応や自動化されたCI/CDワークフローなど、このリリースに含まれる主要な変更点とその技術的な背景を詳しく解説します。
+title: 【リリースノート】go-cli-sample v0.1.0 - Go製CLIツールの誕生と開発環境の整備
+emoji: 🎉
+type: tech
+topics:
+- go
+- golang
+- cli
+- docker
+- githubactions
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-24T12-53-51-410Z_a_minimalistic_line_art_of_a_sleepy_axolotl__illus_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/go-cli-sample/main/generated-images/release-v0.1.0-20251024_125254/imagen-4-ultra_2025-10-24T12-53-51-410Z_a_minimalistic_line_art_of_a_sleepy_axolotl__illus_1.png)
