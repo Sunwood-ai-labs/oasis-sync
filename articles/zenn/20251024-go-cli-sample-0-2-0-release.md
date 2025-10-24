@@ -1,48 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】go-cli-sample v0.2.0 - Goによる実用的なCLIサンプル集へ大刷新！
-  emoji: ✨
-  type: tech
-  topics:
-  - go
-  - golang
-  - cli
-  - cobra
-  - tutorial
-  published: true
-qiita:
-  title: 【リリースノート】go-cli-sample v0.2.0 - Goによる実用的なCLIサンプル集へ大刷新！
-  tags:
-  - Go
-  - Golang
-  - CLI
-  - Cobra
-  - Tutorial
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】go-cli-sample v0.2.0 - Goによる実用的なCLIサンプル集へ大刷新！
-  post_status: publish
-  post_excerpt: go-cli-sample v0.2.0では、Go言語によるCLI開発を学ぶための実用的なサンプル集を10種類追加しました。基本的なHello
-    Worldから、Cobraを使ったサブコマンド、HTTP通信、プログレスバーまで、幅広いテクニックを網羅しています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/go-cli-sample/main/generated-images/release-v0.2.0-20251024_135157/imagen-4-ultra_2025-10-24T13-52-59-011Z_a_minimalistic_line_art_of_a_sleepy_axolotl__illus_1.png
-  taxonomy:
-    category:
-    - release-note
-    - go
-    - development
-    post_tag:
-    - Go
-    - Golang
-    - CLI
-    - Cobra
-    - Tutorial
-  custom_fields:
-    lead: Go言語でのCLIツール開発がもっと楽しくなる、実用的なサンプル集 v0.2.0 をリリースしました！本バージョンでは、基本的なコマンドからインタラクティブな操作、HTTP通信まで、開発現場で役立つ10種類のサンプルを追加し、リポジトリ構造も大幅に刷新しています。
+title: 【リリースノート】go-cli-sample v0.2.0 - Goによる実用的なCLIサンプル集へ大刷新！
+emoji: ✨
+type: tech
+topics:
+- go
+- golang
+- cli
+- cobra
+- tutorial
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-24T13-52-59-011Z_a_minimalistic_line_art_of_a_sleepy_axolotl__illus_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/go-cli-sample/main/generated-images/release-v0.2.0-20251024_135157/imagen-4-ultra_2025-10-24T13-52-59-011Z_a_minimalistic_line_art_of_a_sleepy_axolotl__illus_1.png)
