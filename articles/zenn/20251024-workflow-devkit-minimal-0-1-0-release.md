@@ -1,47 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】workflow-devkit-minimal v0.1.0 - 開発ワークフロー基盤の初回リリース
-  emoji: 🚀
-  type: tech
-  topics:
-  - github-actions
-  - nextjs
-  - typescript
-  - ai-agent
-  - ui-ux
-  published: true
-qiita:
-  title: 【リリースノート】workflow-devkit-minimal v0.1.0 - 開発ワークフロー基盤の初回リリース
-  tags:
-  - GitHubActions
-  - Next.js
-  - TypeScript
-  - AI
-  - DevKit
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】workflow-devkit-minimal v0.1.0 - 開発ワークフロー基盤の初回リリース
-  post_status: publish
-  post_excerpt: 開発ワークフロー基盤「workflow-devkit-minimal」の初回バージョンv0.1.0をリリースしました。本バージョンでは、インタラクティブなストリーミングUIのデモ、AIエージェントのペルソナ定義、多彩なGitHub
-    Actionsワークフローを含む開発の基盤を構築しています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/workflow-devkit-minimal/main/generated-images/release-v0.1.0-20251024_182418/imagen-4-ultra_2025-10-24T18-25-11-517Z_a_minimalistic_line_art_of_a_tiny_hedgehog__illust_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - 開発ツール
-    post_tag:
-    - GitHub Actions
-    - Next.js
-    - TypeScript
-    - AI Agent
-    - UI/UX
-  custom_fields:
-    lead: この度、開発ワークフローの基盤となる「workflow-devkit-minimal」の初回バージョン v0.1.0 をリリースしました。このリリースには、インタラクティブなUIデモやAIエージェントのペルソナ定義など、今後の開発を加速させるための基盤が含まれています。
+title: 【リリースノート】workflow-devkit-minimal v0.1.0 - 開発ワークフロー基盤の初回リリース
+emoji: 🚀
+type: tech
+topics:
+- github-actions
+- nextjs
+- typescript
+- ai-agent
+- ui-ux
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-24T18-25-11-517Z_a_minimalistic_line_art_of_a_tiny_hedgehog__illust_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/workflow-devkit-minimal/main/generated-images/release-v0.1.0-20251024_182418/imagen-4-ultra_2025-10-24T18-25-11-517Z_a_minimalistic_line_art_of_a_tiny_hedgehog__illust_1.png)
