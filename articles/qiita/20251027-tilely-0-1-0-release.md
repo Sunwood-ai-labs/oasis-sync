@@ -1,46 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】Tilely v0.1.0 - 直感的なUIでタイルベースのコラージュを作成できる「Tilelyコラージュスタジオ」誕生！
-  emoji: 🎉
-  type: tech
-  topics:
-  - react
-  - nextjs
-  - typescript
-  - tailwindcss
-  - canvas
-  published: true
-qiita:
-  title: 【リリースノート】Tilely v0.1.0 - 直感的なUIでタイルベースのコラージュを作成できる「Tilelyコラージュスタジオ」誕生！
-  tags:
-  - React
-  - Nextjs
-  - TypeScript
-  - Canvas
-  - UI
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Tilely v0.1.0 - 直感的なUIでタイルベースのコラージュを作成できる「Tilelyコラージュスタジオ」誕生！
-  post_status: publish
-  post_excerpt: Tilelyの最初のバージョンv0.1.0がリリースされました。このツールは、直感的なUIでタイルベースのユニークなコラージュを作成し、画像やMP4動画としてエクスポートできます。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.1.0-20251027_103255/imagen-4-ultra_2025-10-27T10-33-53-126Z_Minimalist_cartoon_line_art_character_reference_sh_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - フロントエンド
-    post_tag:
-    - Tilely
-    - React
-    - Next.js
-    - TypeScript
-    - Canvas
-  custom_fields:
-    lead: Tilelyの記念すべき最初のバージョンv0.1.0がリリースされました！この記事では、タイルベースのユニークなコラージュを作成・エクスポートできる新機能や改善点について、技術的な詳細を交えてご紹介します。
+title: 【リリースノート】Tilely v0.1.0 - 直感的なUIでタイルベースのコラージュを作成できる「Tilelyコラージュスタジオ」誕生！
+tags:
+- React
+- Nextjs
+- TypeScript
+- Canvas
+- UI
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-10-27T10-33-53-126Z_Minimalist_cartoon_line_art_character_reference_sh_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.1.0-20251027_103255/imagen-4-ultra_2025-10-27T10-33-53-126Z_Minimalist_cartoon_line_art_character_reference_sh_1.png)
