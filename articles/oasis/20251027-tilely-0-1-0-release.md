@@ -1,0 +1,105 @@
+---
+zenn:
+  title: "【リリースノート】Tilely v0.1.0 - 直感的なUIでタイルベースのコラージュを作成できる「Tilelyコラージュスタジオ」誕生！"
+  emoji: "🎉"
+  type: "tech"
+  topics:
+    - react
+    - nextjs
+    - typescript
+    - tailwindcss
+    - canvas
+  published: true
+qiita:
+  title: "【リリースノート】Tilely v0.1.0 - 直感的なUIでタイルベースのコラージュを作成できる「Tilelyコラージュスタジオ」誕生！"
+  tags:
+    - React
+    - Nextjs
+    - TypeScript
+    - Canvas
+    - UI
+  private: false
+  updated_at: null
+  id: null
+  organization_url_name: null
+  slide: false
+  ignorePublish: false
+wordpress:
+  title: "【リリースノート】Tilely v0.1.0 - 直感的なUIでタイルベースのコラージュを作成できる「Tilelyコラージュスタジオ」誕生！"
+  post_status: "publish"
+  post_excerpt: "Tilelyの最初のバージョンv0.1.0がリリースされました。このツールは、直感的なUIでタイルベースのユニークなコラージュを作成し、画像やMP4動画としてエクスポートできます。"
+  featured_image: "https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.1.0-20251027_103255/imagen-4-ultra_2025-10-27T10-33-53-126Z_Minimalist_cartoon_line_art_character_reference_sh_1.png"
+  taxonomy:
+    category:
+      - リリースノート
+      - フロントエンド
+    post_tag:
+      - Tilely
+      - React
+      - Next.js
+      - TypeScript
+      - Canvas
+  custom_fields:
+    lead: "Tilelyの記念すべき最初のバージョンv0.1.0がリリースされました！この記事では、タイルベースのユニークなコラージュを作成・エクスポートできる新機能や改善点について、技術的な詳細を交えてご紹介します。"
+---
+
+![imagen-4-ultra_2025-10-27T10-33-53-126Z_Minimalist_cartoon_line_art_character_reference_sh_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.1.0-20251027_103255/imagen-4-ultra_2025-10-27T10-33-53-126Z_Minimalist_cartoon_line_art_character_reference_sh_1.png)
+
+## はじめに
+Tilelyの記念すべき最初のバージョンv0.1.0がリリースされました！🎉 Tilelyは、タイルベースのユニークなコラージュを直感的に作成し、画像や動画としてエクスポートできる新しいツールです。
+この記事では、v0.1.0で導入された主な機能や改善点、そして技術的な詳細について解説します。
+
+## 主な変更点
+v0.1.0のハイライトは以下の通りです。
+
+- **🎨 コラージュスタジオ**: ドラッグ＆ドロップで直感的にタイルを配置し、あなただけのコラージュを作成できます。
+- **🎥 MP4動画エクスポート**: 作成したタイムラインをアニメーション動画（MP4）として書き出す機能を追加しました。静的なPNG画像のエクスポートも可能です。
+- **✨ 洗練されたUI**: カスタムマルチサムスライダーや整理されたパネルにより、スムーズな編集体験を提供します。
+- **🖼️ アセット管理**: アセットをデータURLとして扱うことで、プレビューの安定性とパフォーマンスを向上させました。
+
+## 技術的な詳細
+### ✨ 新機能
+#### Tilelyコラージュスタジオの初期実装 (ae933b8)
+本リリースの中心となる、コラージュ作成のための基本的なUIとロジックを実装しました。ユーザーはキャンバス上で自由にタイルを操作できます。
+
+#### MP4動画レンダリングのサポート (a1f9f85)
+静的なPNG画像のエクスポート機能に加え、タイムラインに基づいたアニメーションをMP4動画としてレンダリングする機能を導入しました。
+
+#### カスタムマルチサムスライダーとUI改善 (e83c726)
+タイムライン操作のUXを向上させるため、カスタムのマルチサムスライダーを実装しました。また、全体的なアプリシェルのレイアウトも改良されています。
+
+#### データURLによるアセット管理 (49f735d)
+画像などのアセットを`Data URL`として管理する方式に変更しました。これにより、プレビューの安定性が向上し、状態管理が簡素化されました。
+
+### 🚀 改善点
+#### UI/UXの調整
+- トップバーのエクスポートオプションを簡素化し、より直感的な操作が可能になりました (39027b9)。
+- プレビューと自動セル配置の挙動を改善し、より予測可能なレイアウト操作を実現しました (066cda6)。
+
+#### 開発体験の向上
+- ESLintの依存関係を追加し、コードベース全体のlint警告を解消しました (318806f)。
+- Radix UIのスロットコンポーネントを追加し、UIコンポーネントの再利用性と拡張性を高めました (fb434e3)。
+
+#### ドキュメント
+- READMEにプロジェクトを説明するヘッダー画像 (c3c97c2) と、技術スタックのバッジを追加しました (972d503)。
+
+### 🐛 バグ修正
+- スクロールレイアウトが不安定になる問題を修正し、プレビュー表示を拡大して視認性を向上させました (2f70bae)。
+- タイルの配置とタイムラインの表示が特定の条件下で不安定になる問題を修正しました (448cb9d)。
+- プレビューコンテナが閉じられない場合がある不具合を修正しました (940c339)。
+
+## 💥 破壊的変更 (Breaking Changes)
+- **プロジェクトタイトルの必須化**: プロジェクトの保存時に、既存のプロジェクト名との重複を避けるため、タイトルが必須項目となりました (bc91bb4)。
+- **自動ダウンロード機能の削除**: レンダリング完了後の自動ダウンロード機能は、ユーザー体験向上のため一旦削除されました。今後は手動でのダウンロードとなります (bc91bb4)。
+
+## まとめ
+Tilelyの最初のリリースとして、基本的なコラージュ作成から動画エクスポートまで、コアとなる機能を提供開始しました。ドラッグ＆ドロップによる直感的な操作性と、洗練されたUIで、誰でも簡単にクリエイティブな作品を生み出せます。
+
+ぜひ、新しいTilelyコラージュスタジオをお試しいただき、フィードバックをお寄せください！
+
+---
+
+### 📚 参考リンク
+- **GitHubリポジトリ**: [Sunwood-ai-labs/Tilely](https://github.com/Sunwood-ai-labs/Tilely)
+- **リリースノート**: [v0.1.0 Release Notes](https://github.com/Sunwood-ai-labs/Tilely/releases/tag/v0.1.0)
+- **比較URL**: [v0.1.0...v0.1.0](https://github.com/Sunwood-ai-labs/Tilely/compare/v0.1.0...v0.1.0)
