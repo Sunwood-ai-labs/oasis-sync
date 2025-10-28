@@ -1,0 +1,108 @@
+---
+zenn:
+  title: "【リリースノート】Harina-v3-WebUI v0.1.0 - レシート管理Web UIの初回リリース！"
+  emoji: "🚀"
+  type: "tech"
+  topics:
+    - "nextjs"
+    - "react"
+    - "typescript"
+    - "tailwindcss"
+    - "docker"
+  published: true
+qiita:
+  title: "【リリースノート】Harina-v3-WebUI v0.1.0 - レシート管理Web UIの初回リリース！"
+  tags:
+    - "Next.js"
+    - "React"
+    - "TypeScript"
+    - "Docker"
+    - "Chart.js"
+  private: false
+  updated_at: null
+  id: null
+  organization_url_name: null
+  slide: false
+  ignorePublish: false
+wordpress:
+  title: "【リリースノート】Harina-v3-WebUI v0.1.0 - レシート管理Web UIの初回リリース！"
+  post_status: "publish"
+  post_excerpt: "レシート管理を効率化するWeb UI「Harina-v3-WebUI」の初回バージョンv0.1.0がリリースされました。このバージョンでは、モダンなUIへの刷新、複数レシートの同時アップロード、ダッシュボードによるデータ可視化など、コア機能が実装されています。"
+  featured_image: "https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.1.0-20251028_033828/imagen-4-ultra_2025-28T03-39-23-896Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png"
+  taxonomy:
+    category:
+      - "リリースノート"
+      - "Web開発"
+  taxonomy:
+    post_tag:
+      - "Harina-v3-WebUI"
+      - "Next.js"
+      - "TypeScript"
+      - "レシート管理"
+      - "OSS"
+  custom_fields:
+    lead: "レシート管理を効率化するWeb UI「Harina-v3-WebUI」の記念すべき初回バージョンv0.1.0がリリースされました。本記事では、このバージョンで導入された主要な機能や技術的な変更点について詳しく解説します。"
+---
+
+![imagen-4-ultra_2025-10-28T03-39-23-896Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.1.0-20251028_033828/imagen-4-ultra_2025-10-28T03-39-23-896Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png)
+
+## はじめに
+レシート管理を効率化するWeb UI「Harina-v3-WebUI」の記念すべき初回バージョンv0.1.0がリリースされました。本記事では、このバージョンで導入された主要な機能や技術的な変更点について詳しく解説します。
+
+## 主な変更点
+v0.1.0は初回リリースとなり、プロジェクトの土台となる多くの機能が実装されました。
+
+- **モダンなUIデザイン**: 直感的で使いやすいインターフェースに全面刷新しました。
+- **複数ファイルアップロード**: 複数のレシート画像ファイルを一度にアップロードし、順次処理する機能を追加しました。
+- **ダッシュボード**: アップロードされたレシートデータをグラフで視覚化するダッシュボード機能を実装しました。
+- **CSVインポート**: CSVファイルからデータを一括でインポートする機能に対応しました。
+- **カメラ撮影**: デバイスのカメラでレシートを直接撮影し、登録する機能を追加しました。
+
+## 技術的な詳細
+### 新機能
+#### UI/UXの全面刷新
+従来の和風デザインから、モダンでクリーンなレイアウトに全面的に改修しました (`f658dec`)。これにより、ユーザーはより直感的に操作できるようになりました。
+また、主要な機能として以下のコンポーネントが実装されています。
+
+- **複数ファイル同時アップロード**: ドラッグ＆ドロップに対応したアップロードゾーンを設け、複数のレシート画像を一度に処理できるようになりました (`646a63b`, `4fe34b4`)。
+- **ダッシュボードと統計グラフ**: [Chart.js](https://www.chartjs.org/) を利用し、レシートデータを視覚的に分析できるダッシュボードを追加しました (`77d87e9`)。
+- **CSVインポート**: CSVファイルを選択し、データを一括で取り込むための専用UIを実装しました (`f0b2c4b`)。
+- **カメラ撮影による登録**: スマートフォンなどのデバイスカメラを起動し、直接レシートを撮影してアップロードする機能を追加しました (`788da13`)。
+- **アップロード者選択**: レシートをアップロードする際に、誰がアップロードしたかを記録する機能を追加しました (`f5adfe3`)。
+
+#### API & バックエンド
+フロントエンドの機能追加に伴い、バックエンド側でも複数のAPIエンドポイントが実装されました。
+
+- 複数ファイルアップロードに対応したAPI (`7c89ecd`)
+- CSVインポート処理用のAPI (`986a59e`)
+- アップロードされたレシート画像やアップローダー情報を保存するAPI (`eaa6bd6`)
+- 登録済みレシートの一覧を取得するAPI (`96e68ad`)
+
+#### データベース
+PostgreSQLデータベースとの統合が行われ、アプリケーションのデータを永続化するための基盤が整いました。
+
+- 初期スキーマの定義 (`71bf729`)
+- レシート画像のパスやアップローダー情報を格納するためのカラム追加 (`471fcb3`, `eaecfbd`)
+- CSVインポート機能に関連するデータベース処理の実装 (`7e563e0`)
+
+### 改善点
+初回リリースに伴い、今後の開発を見据えたリファクタリングやメンテナンス作業も実施されました。
+
+- **コンポーネント構成のリファクタリング**: プロジェクト全体のコンポーネントを再設計し、関心事を分離することで、保守性と再利用性を向上させました (`f3b44f1`, `ec47f75`)。
+- **不要なコードの削除**: 古いUIコンポーネントなど、不要になったコードを多数削除し、コードベースをクリーンに保ちました (`fd88e7e`, `138acd9`)。
+- **Docker環境の改善**: Dockerコンテナ起動時にデータベース接続を待機するスクリプト (`wait-for-db.js`) を追加し、コンテナの起動シーケンスを安定させました (`85cf3d2`)。
+- **ドキュメントの拡充**: 開発、インストール、トラブルシューティングに関するドキュメントを追加し、コントリビューターや利用者がスムーズにプロジェクトに参加できるようにしました (`87d9915`)。
+
+### バグ修正
+初回リリースのため、バグ修正に関する特筆すべき変更はありません。
+
+## まとめ
+Harina-v3-WebUI v0.1.0は、モダンな技術スタック（Next.js, TypeScript, Tailwind CSS）を採用し、レシート管理アプリケーションとしてのコア機能を提供する最初のバージョンです。直感的なUIと効率的なデータ処理機能により、日々のレシート管理をサポートします。
+今後の開発にご期待ください。
+
+---
+
+📚 **参考リンク**
+- **GitHubリポジトリ**: [Sunwood-ai-labs/harina-v3-webui](https://github.com/Sunwood-ai-labs/harina-v3-webui)
+- **リリースノート**: [v0.1.0 Release Notes](https://github.com/Sunwood-ai-labs/harina-v3-webui/releases/tag/v0.1.0)
+- **比較URL**: [v0.1.0...v0.1.0](https://github.com/Sunwood-ai-labs/harina-v3-webui/compare/v0.1.0...v0.1.0)
