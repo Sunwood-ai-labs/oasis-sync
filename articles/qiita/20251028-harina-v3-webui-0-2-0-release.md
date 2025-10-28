@@ -1,46 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】harina-v3-webui v0.2.0 - Discord連携とUI刷新、データ管理機能を強化
-  emoji: 🚀
-  type: tech
-  topics:
-  - nextjs
-  - discord
-  - docker
-  - nginx
-  - typescript
-  published: true
-qiita:
-  title: 【リリースノート】harina-v3-webui v0.2.0 - Discord連携とUI刷新、データ管理機能を強化
-  tags:
-  - Next.js
-  - Discord
-  - Docker
-  - Nginx
-  - TypeScript
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】harina-v3-webui v0.2.0 - Discord連携とUI刷新、データ管理機能を強化
-  post_status: publish
-  post_excerpt: harina-v3-webui v0.2.0がリリースされました。このバージョンでは、Discordボット連携によるレシート自動登録機能や、ダッシュボードを中心としたUIの大幅な刷新が行われています。また、データのエクスポート機能やHTTPS対応など、管理機能とセキュリティも強化されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.2.0-20251028_113412/imagen-4-ultra_2025-10-28T11-35-13-337Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - Web開発
-    post_tag:
-    - harina-v3-webui
-    - Discord
-    - Next.js
-    - UI/UX
-    - Docker
-  custom_fields:
-    lead: レシート管理をもっと手軽に、もっと便利に。harina-v3-webui v0.2.0では、Discordへの画像投稿だけでレシートを自動登録できる新機能が登場しました。UIも全面的に刷新され、データ管理機能も大幅に強化されています。本記事では、v0.2.0の注目の新機能や変更点を詳しく解説します。
+title: 【リリースノート】harina-v3-webui v0.2.0 - Discord連携とUI刷新、データ管理機能を強化
+tags:
+- Next.js
+- Discord
+- Docker
+- Nginx
+- TypeScript
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-10-28T11-35-13-337Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.2.0-20251028_113412/imagen-4-ultra_2025-10-28T11-35-13-337Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png)
