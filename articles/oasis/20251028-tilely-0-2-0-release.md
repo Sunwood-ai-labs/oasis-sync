@@ -1,0 +1,103 @@
+```---
+zenn:
+  title: "【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開"
+  emoji: "✨"
+  type: "tech"
+  topics:
+    - "nextjs"
+    - "react"
+    - "typescript"
+    - "webcodecs"
+    - "github-actions"
+  published: true
+qiita:
+  title: "【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開"
+  tags:
+    - "Next.js"
+    - "React"
+    - "TypeScript"
+    - "WebCodecs"
+    - "GitHubActions"
+  private: false
+  updated_at: null
+  id: null
+  organization_url_name: null
+  slide: false
+  ignorePublish: false
+wordpress:
+  title: "【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開"
+  post_status: "publish"
+  post_excerpt: "Tilely v0.2.0がリリースされました。このバージョンでは、WebCodecs APIを利用したクライアントサイドでの高速なMP4動画書き出し機能が追加され、詳細な設定が可能になりました。また、実際にアプリケーションを試せるデモサイトも公開されています。"
+  featured_image: "https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.2.0-20251028_105907/imagen-4-ultra_2025-10-28T11-00-01-091Z_Minimalist_cartoon_line_art_character_reference_sh_1.png"
+  taxonomy.category:
+    - "リリースノート"
+    - "フロントエンド"
+    - "動画編集"
+  taxonomy.post_tag:
+    - "Next.js"
+    - "React"
+    - "TypeScript"
+    - "WebCodecs"
+    - "GitHubActions"
+  custom_fields.lead: "Tilely v0.2.0では、ブラウザ上で完結する高速な動画書き出し機能が実装されました。本記事では、新しく追加された書き出し設定パネルや、デモサイトの公開など、v0.2.0の主要な変更点とその技術的背景を詳しく解説します。"
+---
+
+![imagen-4-ultra_2025-10-28T11-00-01-091Z_Minimalist_cartoon_line_art_character_reference_sh_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.2.0-20251028_105907/imagen-4-ultra_2025-10-28T11-00-01-091Z_Minimalist_cartoon_line_art_character_reference_sh_1.png)
+
+## はじめに
+Tilely v0.2.0がリリースされました。このバージョンでは、WebCodecs APIを活用したクライアントサイドでの高速なMP4動画書き出し機能が目玉となります。また、アプリケーションを実際に試せるデモサイトも公開されました。
+本記事では、v0.2.0での主要な変更点について、その技術的な詳細を交えて解説します。
+
+## 主な変更点
+- **高速な動画書き出し**: WebCodecs APIを利用し、ブラウザ上で高速に動作するMP4動画書き出し機能を追加しました。
+- **詳細な書き出し設定**: 解像度、FPS、アスペクト比、ビットレートなどを細かく調整できる、新しい書き出し設定パネルを実装しました。
+- **デモサイト公開**: アプリケーションを実際に試せるデモサイトをGitHub Pagesで公開しました。
+- **メタデータ自動検出**: 動画や音声ファイルを読み込む際に、FPSやビットレートなどのメタデータを自動で検出し、書き出し設定に反映するようになりました。
+
+## 技術的な詳細
+### 新機能
+#### クライアントサイド動画書き出し
+従来の動画処理はサーバーサイドで行うのが一般的でしたが、モダンブラウザでサポートされている **WebCodecs API** を利用することで、ユーザーのブラウザ上で直接エンコード・デコード処理が完結します。
+これにより、サーバーコストを必要とせず、プライバシーを保護しながら高速な動画生成を実現しました。
+
+#### 新しい書き出し設定パネル
+プロパティパネルに「書き出し設定」セクションを新設し、より専門的なカスタマイズが可能になりました。
+
+| 設定項目 | 内容 |
+|:---|:---|
+| **解像度（長辺）** | HD 720pから4K UHDまでのプリセット、またはカスタム値を設定可能 |
+| **アスペクト比** | プロジェクト設定と同じ比率、または16:9や1:1などのプリセットから選択 |
+| **フレームレート（FPS）** | 24fps (Cinema) から60fpsまでのプリセット、またはスライダーで調整 |
+| **その他** | 尺（秒）、動画ビットレート（Mbps）、音声ビットレート（kbps）も柔軟に設定 |
+
+#### メディアメタデータの自動検出
+アセット読み込み時に、クライアントサイドで動画のFPSや音声のビットレートを解析し、最適な書き出し設定を自動で提案します。これにより、ユーザーは専門知識がなくても、品質の高い動画を簡単に書き出すことができます。
+
+### 改善点
+#### プロジェクトデータの永続化と移行処理
+ローカルストレージに保存されるプロジェクトデータの形式が更新されました。v0.1.0以前のバージョンで保存したプロジェクトは自動的に新しい形式へ移行されますが、後方互換性はありません。この変更により、将来の機能拡張に対応しやすい堅牢なデータ構造となりました。
+
+#### CI/CDによるデモサイトの自動デプロイ
+Next.jsアプリケーションを静的サイトとしてビルドし、GitHub Pagesに自動でデプロイするGitHub Actionsワークフローを構築しました。これにより、`main`ブランチへのマージからデモサイトへの反映までがシームレスに行われます。
+
+#### リファクタリングによる責務の分離
+コードベースのメンテナンス性を向上させるため、関連する処理を専用のモジュールに分離しました。
+- 画像・動画の読み込み処理: `lib/media-loaders.ts`
+- Canvas描画関連のユーティリティ: `lib/canvas-utils.ts`
+
+このリファクタリングにより、各モジュールの責務が明確化され、今後の機能追加や修正が容易になりました。
+
+### バグ修正
+- プロジェクトデータの保存・復元処理を改善し、異なるバージョン間でのデータ移行をより安全に行えるようにしました。
+
+## まとめ
+v0.2.0では、クライアントサイドでの動画書き出しというコア機能が大幅に強化され、開発者やユーザーが気軽に試せるデモサイトも公開されました。WebCodecs APIの採用により、サーバーレスで高速な動画編集体験を提供します。
+
+今後のバージョンでは、更なるエフェクト機能の追加や、対応フォーマットの拡充が期待されます。ぜひ新しいバージョンをお試しください。
+
+---
+📚 参考リンク
+- **GitHubリポジトリ**: [Sunwood-ai-labs/Tilely](https://github.com/Sunwood-ai-labs/Tilely)
+- **v0.2.0 リリースページ**: [https://github.com/Sunwood-ai-labs/Tilely/releases/tag/v0.2.0](https://github.com/Sunwood-ai-labs/Tilely/releases/tag/v0.2.0)
+- **変更点の比較**: [v0.1.0...v0.2.0](https://github.com/Sunwood-ai-labs/Tilely/compare/v0.1.0...v0.2.0)
+```
