@@ -1,48 +1,20 @@
 ---
-zenn:
-  title: 【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開
-  emoji: ✨
-  type: tech
-  topics:
-  - nextjs
-  - react
-  - typescript
-  - webcodecs
-  - github-actions
-  published: true
-qiita:
-  title: 【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開
-  tags:
-  - Next.js
-  - React
-  - TypeScript
-  - WebCodecs
-  - GitHubActions
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開
-  post_status: publish
-  post_excerpt: Tilely v0.2.0がリリースされました。このバージョンでは、WebCodecs APIを利用したクライアントサイドでの高速なMP4動画書き出し機能が追加され、詳細な設定が可能になりました。また、実際にアプリケーションを試せるデモサイトも公開されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.2.0-20251028_105907/imagen-4-ultra_2025-10-28T11-00-01-091Z_Minimalist_cartoon_line_art_character_reference_sh_1.png
-  taxonomy.category:
-  - リリースノート
-  - フロントエンド
-  - 動画編集
-  taxonomy.post_tag:
-  - Next.js
-  - React
-  - TypeScript
-  - WebCodecs
-  - GitHubActions
-  custom_fields.lead: Tilely v0.2.0では、ブラウザ上で完結する高速な動画書き出し機能が実装されました。本記事では、新しく追加された書き出し設定パネルや、デモサイトの公開など、v0.2.0の主要な変更点とその技術的背景を詳しく解説します。
+title: 【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開
+post_status: publish
+post_excerpt: Tilely v0.2.0がリリースされました。このバージョンでは、WebCodecs APIを利用したクライアントサイドでの高速なMP4動画書き出し機能が追加され、詳細な設定が可能になりました。また、実際にアプリケーションを試せるデモサイトも公開されています。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.2.0-20251028_105907/imagen-4-ultra_2025-10-28T11-00-01-091Z_Minimalist_cartoon_line_art_character_reference_sh_1.png
+taxonomy.category:
+- リリースノート
+- フロントエンド
+- 動画編集
+taxonomy.post_tag:
+- Next.js
+- React
+- TypeScript
+- WebCodecs
+- GitHubActions
+custom_fields.lead: Tilely v0.2.0では、ブラウザ上で完結する高速な動画書き出し機能が実装されました。本記事では、新しく追加された書き出し設定パネルや、デモサイトの公開など、v0.2.0の主要な変更点とその技術的背景を詳しく解説します。
 ---
-
-![imagen-4-ultra_2025-10-28T11-00-01-091Z_Minimalist_cartoon_line_art_character_reference_sh_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/Tilely/main/generated-images/release-v0.2.0-20251028_105907/imagen-4-ultra_2025-10-28T11-00-01-091Z_Minimalist_cartoon_line_art_character_reference_sh_1.png)
 
 ## はじめに
 Tilely v0.2.0がリリースされました。このバージョンでは、WebCodecs APIを活用したクライアントサイドでの高速なMP4動画書き出し機能が目玉となります。また、アプリケーションを実際に試せるデモサイトも公開されました。
@@ -100,4 +72,3 @@ v0.2.0では、クライアントサイドでの動画書き出しというコ�
 - **GitHubリポジトリ**: [Sunwood-ai-labs/Tilely](https://github.com/Sunwood-ai-labs/Tilely)
 - **v0.2.0 リリースページ**: [https://github.com/Sunwood-ai-labs/Tilely/releases/tag/v0.2.0](https://github.com/Sunwood-ai-labs/Tilely/releases/tag/v0.2.0)
 - **変更点の比較**: [v0.1.0...v0.2.0](https://github.com/Sunwood-ai-labs/Tilely/compare/v0.1.0...v0.2.0)
-
