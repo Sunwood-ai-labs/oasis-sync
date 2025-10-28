@@ -1,43 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】Harina-v3-WebUI v0.1.0 - レシート管理Web UIの初回リリース！
-  emoji: 🚀
-  type: tech
-  topics:
-  - nextjs
-  - react
-  - typescript
-  - tailwindcss
-  - docker
-  published: true
-qiita:
-  title: 【リリースノート】Harina-v3-WebUI v0.1.0 - レシート管理Web UIの初回リリース！
-  tags:
-  - Next.js
-  - React
-  - TypeScript
-  - Docker
-  - Chart.js
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Harina-v3-WebUI v0.1.0 - レシート管理Web UIの初回リリース！
-  post_status: publish
-  post_excerpt: レシート管理を効率化するWeb UI「Harina-v3-WebUI」の初回バージョンv0.1.0がリリースされました。このバージョンでは、モダンなUIへの刷新、複数レシートの同時アップロード、ダッシュボードによるデータ可視化など、コア機能が実装されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.1.0-20251028_033828/imagen-4-ultra_2025-28T03-39-23-896Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png
-  taxonomy:
-    post_tag:
-    - Harina-v3-WebUI
-    - Next.js
-    - TypeScript
-    - レシート管理
-    - OSS
-  custom_fields:
-    lead: レシート管理を効率化するWeb UI「Harina-v3-WebUI」の記念すべき初回バージョンv0.1.0がリリースされました。本記事では、このバージョンで導入された主要な機能や技術的な変更点について詳しく解説します。
+title: 【リリースノート】Harina-v3-WebUI v0.1.0 - レシート管理Web UIの初回リリース！
+emoji: 🚀
+type: tech
+topics:
+- nextjs
+- react
+- typescript
+- tailwindcss
+- docker
+published: true
 ---
 
 ![imagen-4-ultra_2025-10-28T03-39-23-896Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.1.0-20251028_033828/imagen-4-ultra_2025-10-28T03-39-23-896Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png)
