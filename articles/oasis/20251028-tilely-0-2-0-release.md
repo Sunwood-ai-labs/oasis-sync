@@ -1,4 +1,4 @@
-```---
+---
 zenn:
   title: "【リリースノート】Tilely v0.2.0 - 動画書き出し機能の強化とデモサイト公開"
   emoji: "✨"
@@ -100,4 +100,4 @@ v0.2.0では、クライアントサイドでの動画書き出しというコ�
 - **GitHubリポジトリ**: [Sunwood-ai-labs/Tilely](https://github.com/Sunwood-ai-labs/Tilely)
 - **v0.2.0 リリースページ**: [https://github.com/Sunwood-ai-labs/Tilely/releases/tag/v0.2.0](https://github.com/Sunwood-ai-labs/Tilely/releases/tag/v0.2.0)
 - **変更点の比較**: [v0.1.0...v0.2.0](https://github.com/Sunwood-ai-labs/Tilely/compare/v0.1.0...v0.2.0)
-```
+
