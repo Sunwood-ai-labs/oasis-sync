@@ -1,0 +1,109 @@
+---
+zenn:
+  title: "【リリースノート】harina-v3-webui v0.2.0 - Discord連携とUI刷新、データ管理機能を強化"
+  emoji: "🚀"
+  type: "tech"
+  topics:
+    - "nextjs"
+    - "discord"
+    - "docker"
+    - "nginx"
+    - "typescript"
+  published: true
+qiita:
+  title: "【リリースノート】harina-v3-webui v0.2.0 - Discord連携とUI刷新、データ管理機能を強化"
+  tags:
+    - "Next.js"
+    - "Discord"
+    - "Docker"
+    - "Nginx"
+    - "TypeScript"
+  private: false
+  updated_at: null
+  id: null
+  organization_url_name: null
+  slide: false
+  ignorePublish: false
+wordpress:
+  title: "【リリースノート】harina-v3-webui v0.2.0 - Discord連携とUI刷新、データ管理機能を強化"
+  post_status: "publish"
+  post_excerpt: "harina-v3-webui v0.2.0がリリースされました。このバージョンでは、Discordボット連携によるレシート自動登録機能や、ダッシュボードを中心としたUIの大幅な刷新が行われています。また、データのエクスポート機能やHTTPS対応など、管理機能とセキュリティも強化されています。"
+  featured_image: "https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.2.0-20251028_113412/imagen-4-ultra_2025-10-28T11-35-13-337Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png"
+  taxonomy:
+    category:
+      - "リリースノート"
+      - "Web開発"
+    post_tag:
+      - "harina-v3-webui"
+      - "Discord"
+      - "Next.js"
+      - "UI/UX"
+      - "Docker"
+  custom_fields:
+    lead: "レシート管理をもっと手軽に、もっと便利に。harina-v3-webui v0.2.0では、Discordへの画像投稿だけでレシートを自動登録できる新機能が登場しました。UIも全面的に刷新され、データ管理機能も大幅に強化されています。本記事では、v0.2.0の注目の新機能や変更点を詳しく解説します。"
+---
+
+![imagen-4-ultra_2025-10-28T11-35-13-337Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.2.0-20251028_113412/imagen-4-ultra_2025-10-28T11-35-13-337Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png)
+
+## はじめに
+レシート管理ウェブアプリケーション「harina-v3-webui」のメジャーアップデートとなる v0.2.0 をリリースしました。
+このバージョンでは、Discordボットとの連携による画期的なレシート登録フローを実現したほか、ユーザーインターフェースを全面的に刷新し、より直感的で多機能な体験を提供します。さらに、データのエクスポート機能やHTTPS標準対応など、管理機能とセキュリティ面でも大幅な強化を行っています。
+本記事では、v0.2.0で実装された主要な変更点とその技術的な背景を詳しくご紹介します。
+
+## 主な変更点
+v0.2.0 の主なハイライトは以下の通りです。
+
+- **🚀 Discordボット連携**: Discordにレシート画像を投稿するだけで、自動で解析・登録が完了します。
+- **🎨 UIの大幅刷新**: 単一ページ構成から、ナビゲーションを備えたダッシュボード中心のマルチページ構成に進化しました。
+- **💾 データ管理機能の強化**: 登録データをCSVやJSON形式でエクスポートしたり、複数レシートを一括削除したりできます。
+- **🔒 HTTPS標準対応**: nginxリバースプロキシを導入し、通信を暗号化することでセキュリティを向上させました。
+- **🔗 レシート共有機能**: 各レシートに固有のURLが割り当てられ、直接アクセスや共有が可能になりました。
+
+## 技術的な詳細
+### 新機能
+#### Discordボット連携
+本リリースの目玉機能として、Discordボットによるレシート登録機能を追加しました。指定されたDiscordチャンネルにレシート画像を添付するだけで、バックエンドが画像を検知し、自動でレシート解析処理を実行します。
+処理が完了すると、解析結果（店舗名、合計金額、品目など）が元の投稿のスレッドに返信されるため、ユーザーはDiscord上でシームレスに登録結果を確認できます。また、チャンネル名に応じてアップロード者を自動で設定する機能も備えており、複数人での利用がよりスムーズになりました。
+
+#### UIの大幅刷新
+従来の単一ページ構成を全面的に見直し、Next.jsをベースとしたマルチページアプリケーションに刷新しました。
+- **ダッシュボード**: データを視覚化する中心的なページ。
+- **レシート一覧**: 登録済みレシートの検索や管理を行うページ。
+- **分析ページ**: 支出の傾向などを分析する機能（今後の拡張を予定）。
+- **設定ページ**: アプリケーションの設定を変更するページ。
+
+これにより、機能ごとの役割が明確になり、ユーザーはサイドバーナビゲーションを使って直感的に操作できます。また、レシートの一括選択・削除モードを追加し、大量のデータ管理を効率化しました。
+
+#### データ管理機能の強化
+ユーザーが蓄積したデータをより活用しやすくするため、以下のデータ管理機能を実装しました。
+- **データエクスポート**: 登録済みのレシートと品目データをCSV、JSON、または両方をまとめたZIP形式でダウンロードできます。
+- **一括削除**: レシート一覧ページで複数のレシートを選択し、一度に削除する機能を追加しました。
+
+#### HTTPS標準対応
+nginxをリバースプロキシとして導入し、デフォルトでHTTPS通信に対応しました。これにより、通信内容が暗号化され、セキュリティが大幅に向上します。特に、ブラウザからカメラ機能を利用する際にHTTPSが必須となるケースが多いため、機能の安定性向上にも寄与します。
+
+### 改善点
+#### コンポーネント構成の刷新
+UIの刷新に伴い、フロントエンドのコンポーネント構成を全面的に見直しました。ページごとにファイルを分割し、関心事を分離することで、コードの可読性とメンテナンス性を高めています。特に、グラフ表示を行うダッシュボードのコンポーネントはリファクタリングにより、今後の機能追加が容易になりました。
+
+#### 開発環境の整備
+コード品質を維持・向上させるため、新たにESLintを導入しました。これにより、コーディングスタイルが統一され、潜在的なバグを早期に発見しやすくなります。また、フロントエンドのDockerfileを更新し、Node.jsのバージョンを `18-alpine` から `20-bookworm-slim` へアップグレードしています。
+
+### バグ修正
+- **画像アップロード処理の安定化**: レシート解析APIへの画像ファイル送信処理を見直し、従来の方式からより安定したBlob形式を使用するように修正しました。これにより、アップロード時のエラーが減少し、信頼性が向上しました。
+
+## 破壊的変更 (Breaking Changes)
+v0.2.0へのアップデートに伴い、以下の破壊的変更点があります。
+
+- **UI構成の変更**: アプリケーションのUIが単一ページから複数ページの構成に変更されたため、URL構造が変わりました。例えば、トップページは `/` から `/dashboard` に変更されています。
+- **環境変数の変更**: フロントエンドが利用するAPIのURLを指定する環境変数が `REACT_APP_API_URL` から `NEXT_PUBLIC_API_URL` に変更されました。アップデートする際は、お使いの `.env` ファイルを修正する必要があります。
+
+## まとめ
+harina-v3-webui v0.2.0は、Discord連携という新たな利用体験を提供するとともに、UIの全面刷新と多数の機能強化によって、より実用的で使いやすいアプリケーションへと進化しました。
+今回のアップデートで、日々のレシート管理がさらにスマートになることを期待しています。ぜひ新しいバージョンをお試しください。
+
+---
+### 📚 参考リンク
+- **GitHubリポジトリ**: [https://github.com/Sunwood-ai-labs/harina-v3-webui](https://github.com/Sunwood-ai-labs/harina-v3-webui)
+- **リリースページ**: [https://github.com/Sunwood-ai-labs/harina-v3-webui/releases/tag/v0.2.0](https://github.com/Sunwood-ai-labs/harina-v3-webui/releases/tag/v0.2.0)
+- **変更点の比較**: [https://github.com/Sunwood-ai-labs/harina-v3-webui/compare/v0.1.0...v0.2.0](https://github.com/Sunwood-ai-labs/harina-v3-webui/compare/v0.1.0...v0.2.0)
