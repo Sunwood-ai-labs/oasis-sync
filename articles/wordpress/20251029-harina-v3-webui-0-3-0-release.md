@@ -1,49 +1,21 @@
 ---
-zenn:
-  title: 【リリースノート】harina-v3-webui v0.3.0 - 重複チェック機能と高度なフィルタリングを追加
-  emoji: ✨
-  type: tech
-  topics:
-  - nextjs
-  - react
-  - typescript
-  - docker
-  - ai
-  published: true
-qiita:
-  title: 【リリースノート】harina-v3-webui v0.3.0 - 重複チェック機能と高度なフィルタリングを追加
-  tags:
+title: 【リリースノート】harina-v3-webui v0.3.0 - 重複チェック機能と高度なフィルタリングを追加
+post_status: publish
+post_excerpt: v0.3.0では、レシートの重複チェック機能や一覧ページの高度なフィルタリングなど、データ管理を効率化する新機能を多数追加しました。設定ページも拡充され、カテゴリの動的同期やAIへのカスタム指示が可能になり、より柔軟な運用を実現します。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.3.0-20251029_081513/imagen-4-ultra_2025-10-29T08-16-14-819Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png
+taxonomy:
+  category:
+  - リリースノート
+  - Next.js
+  post_tag:
   - Next.js
   - React
   - TypeScript
   - Docker
   - AI
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】harina-v3-webui v0.3.0 - 重複チェック機能と高度なフィルタリングを追加
-  post_status: publish
-  post_excerpt: v0.3.0では、レシートの重複チェック機能や一覧ページの高度なフィルタリングなど、データ管理を効率化する新機能を多数追加しました。設定ページも拡充され、カテゴリの動的同期やAIへのカスタム指示が可能になり、より柔軟な運用を実現します。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.3.0-20251029_081513/imagen-4-ultra_2025-10-29T08-16-14-819Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - Next.js
-    post_tag:
-    - Next.js
-    - React
-    - TypeScript
-    - Docker
-    - AI
-  custom_fields:
-    lead: v0.3.0では、レシートの重複チェック機能や一覧ページの高度なフィルタリングなど、データ管理を効率化する新機能を多数追加しました。設定ページも拡充され、カテゴリの動的同期やAIへのカスタム指示が可能になり、より柔軟な運用を実現します。
+custom_fields:
+  lead: v0.3.0では、レシートの重複チェック機能や一覧ページの高度なフィルタリングなど、データ管理を効率化する新機能を多数追加しました。設定ページも拡充され、カテゴリの動的同期やAIへのカスタム指示が可能になり、より柔軟な運用を実現します。
 ---
-
-![imagen-4-ultra_2025-10-29T08-16-14-819Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/harina-v3-webui/main/generated-images/release-v0.3.0-20251029_081513/imagen-4-ultra_2025-10-29T08-16-14-819Z_A_clean__photorealistic_miniature_scene_inside_a_w_1.png)
 
 ## はじめに
 v0.3.0では、レシートの重複チェック機能や一覧ページの高度なフィルタリングなど、データ管理を効率化するための新機能を多数追加しました。また、設定ページを拡充し、カテゴリの動的同期やAIへのカスタム指示が可能になり、より柔軟な運用を実現します。
@@ -93,4 +65,3 @@ v0.3.0では、データ管理の効率性と柔軟性を大幅に向上させ�
 - **GitHubリポジトリ**: [https://github.com/Sunwood-ai-labs/harina-v3-webui](https://github.com/Sunwood-ai-labs/harina-v3-webui)
 - **リリースページ**: [https://github.com/Sunwood-ai-labs/harina-v3-webui/releases/tag/v0.3.0](https://github.com/Sunwood-ai-labs/harina-v3-webui/releases/tag/v0.3.0)
 - **比較URL**: [https://github.com/Sunwood-ai-labs/harina-v3-webui/compare/v0.2.0...v0.3.0](https://github.com/Sunwood-ai-labs/harina-v3-webui/compare/v0.2.0...v0.3.0)
-
