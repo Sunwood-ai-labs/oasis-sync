@@ -1,4 +1,3 @@
-```yaml
 ---
 zenn:
   title: "【リリースノート】harina-v3-webui v0.3.0 - 重複チェック機能と高度なフィルタリングを追加"
@@ -94,4 +93,4 @@ v0.3.0では、データ管理の効率性と柔軟性を大幅に向上させ�
 - **GitHubリポジトリ**: [https://github.com/Sunwood-ai-labs/harina-v3-webui](https://github.com/Sunwood-ai-labs/harina-v3-webui)
 - **リリースページ**: [https://github.com/Sunwood-ai-labs/harina-v3-webui/releases/tag/v0.3.0](https://github.com/Sunwood-ai-labs/harina-v3-webui/releases/tag/v0.3.0)
 - **比較URL**: [https://github.com/Sunwood-ai-labs/harina-v3-webui/compare/v0.2.0...v0.3.0](https://github.com/Sunwood-ai-labs/harina-v3-webui/compare/v0.2.0...v0.3.0)
-```
+
