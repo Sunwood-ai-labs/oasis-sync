@@ -1,49 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】gas-gemini-filesearch-api-webpdf v0.1.0 - Google Driveファイル検索APIの初期リリース
-  emoji: 🔍
-  type: tech
-  topics:
-  - google-apps-script
-  - gas
-  - gemini-api
-  - google-drive
-  - api
-  published: true
-qiita:
-  title: 【リリースノート】gas-gemini-filesearch-api-webpdf v0.1.0 - Google Driveファイル検索APIの初期リリース
-  tags:
-  - GAS
-  - GoogleAppsScript
-  - Gemini
-  - GoogleDrive
-  - API
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】gas-gemini-filesearch-api-webpdf v0.1.0 - Google Driveファイル検索APIの初期リリース
-  post_status: publish
-  post_excerpt: Google Drive内のファイルを横断的に検索するAPI「gas-gemini-filesearch-api-webpdf」の初期リリースv0.1.0を発表します。Google
-    Apps Scriptで実装され、Gemini Pro Visionと連携してPDFや画像ファイルの内容も検索対象にできる強力な検索機能を提供します。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/gas-gemini-filesearch-api-webpdf/main/generated-images/release-v0.1.0-20251111_173830/imagen-4-ultra_2025-11-11T17-39-36-555Z_A_soft_polymer_clay_cloud_dragon_figurine_with_rou_1.png
-  taxonomy:
-    category:
-    - google-apps-script
-    - release-note
-    - api
-    post_tag:
-    - GAS
-    - Gemini
-    - GoogleDrive
-    - API
-    - JavaScript
-  custom_fields:
-    lead: 本記事では、Google Drive内のファイルを横断的に検索できるAPI「gas-gemini-filesearch-api-webpdf」のv0.1.0リリースについて解説します。このバージョンでは、Gemini
-      Pro Visionと連携した高度なファイル内容検索機能が初めて提供されます。
+title: 【リリースノート】gas-gemini-filesearch-api-webpdf v0.1.0 - Google Driveファイル検索APIの初期リリース
+tags:
+- GAS
+- GoogleAppsScript
+- Gemini
+- GoogleDrive
+- API
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-11-11T17-39-36-555Z_A_soft_polymer_clay_cloud_dragon_figurine_with_rou_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/gas-gemini-filesearch-api-webpdf/main/generated-images/release-v0.1.0-20251111_173830/imagen-4-ultra_2025-11-11T17-39-36-555Z_A_soft_polymer_clay_cloud_dragon_figurine_with_rou_1.png)
