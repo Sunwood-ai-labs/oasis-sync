@@ -1,4 +1,3 @@
-```yaml
 ---
 zenn:
   title: "【リリースノート】gemini-actions-lab v0.10.3 - CI/CDワークフローとドキュメントの改善"
@@ -43,7 +42,6 @@ wordpress:
   custom_fields:
     lead: "gemini-actions-lab v0.10.3がリリースされました。このバージョンでは、開発プロセスの安定性を高めるため、GitHub Actionsのワークフロー改善とドキュメントの最新化を中心に行いました。"
 ---
-```
 
 ![imagen-4-ultra_2025-11-12T12-51-40-993Z_Create_a_minimalist_typographic_illustration_displ_1.png](https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.10.3-20251112_125030/imagen-4-ultra_2025-11-12T12-51-40-993Z_Create_a_minimalist_typographic_illustration_displ_1.png)
 
