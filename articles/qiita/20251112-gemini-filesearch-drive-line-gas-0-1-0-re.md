@@ -1,48 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】Gemini FileSearch Drive Line Gas v0.1.0 - Google Driveファイル検索LINE
-    Botの初回リリース
-  emoji: 🎉
-  type: tech
-  topics:
-  - google-apps-script
-  - line-bot
-  - google-drive
-  - gas
-  - flex-message
-  published: true
-qiita:
-  title: 【リリースノート】Gemini FileSearch Drive Line Gas v0.1.0 - Google Driveファイル検索LINE
-    Botの初回リリース
-  tags:
-  - GoogleAppsScript
-  - LINEBot
-  - GoogleDrive
-  - GAS
-  - FlexMessage
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Gemini FileSearch Drive Line Gas v0.1.0 - Google Driveファイル検索LINE
-    Botの初回リリース
-  post_status: publish
-  post_excerpt: v0.1.0では、Google Drive内のファイルを検索し、その結果をLINE Botを通じて通知するGoogle Apps Scriptプロジェクトの初期バージョンをリリースしました。ユーザーからのメッセージに応じてファイル検索を実行し、結果をLINEのFlex
-    Messageで分かりやすく表示します。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/gemini-filesearch-drive-line-gas/main/generated-images/release-v0.1.0-20251112_174831/imagen-4-ultra_2025-11-12T17-49-26-941Z_A_small_phoenix_sculpted_entirely_from_soft_polyme_1.png
-  taxonomy:
-    post_tag:
-    - GoogleAppsScript
-    - LINEBot
-    - GoogleDrive
-    - GAS
-    - FlexMessage
-  custom_fields:
-    lead: この度、Google Driveファイル検索LINE Botプロジェクト「Gemini FileSearch Drive Line Gas」の初回リリースとなるv0.1.0を公開しました。本バージョンでは、LINEから手軽にGoogle
-      Drive内のファイルを検索し、結果をリッチなUIで受け取れる基本機能を実装しています。
+title: 【リリースノート】Gemini FileSearch Drive Line Gas v0.1.0 - Google Driveファイル検索LINE Botの初回リリース
+tags:
+- GoogleAppsScript
+- LINEBot
+- GoogleDrive
+- GAS
+- FlexMessage
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-11-12T17-49-26-941Z_A_small_phoenix_sculpted_entirely_from_soft_polyme_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/gemini-filesearch-drive-line-gas/main/generated-images/release-v0.1.0-20251112_174831/imagen-4-ultra_2025-11-12T17-49-26-941Z_A_small_phoenix_sculpted_entirely_from_soft_polyme_1.png)
