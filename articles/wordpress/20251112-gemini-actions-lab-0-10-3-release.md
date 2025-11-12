@@ -1,49 +1,21 @@
 ---
-zenn:
-  title: 【リリースノート】gemini-actions-lab v0.10.3 - CI/CDワークフローとドキュメントの改善
-  emoji: 🚀
-  type: tech
-  topics:
-  - github-actions
-  - ci-cd
-  - discord
-  - python
-  - automation
-  published: true
-qiita:
-  title: 【リリースノート】gemini-actions-lab v0.10.3 - CI/CDワークフローとドキュメントの改善
-  tags:
-  - GitHubActions
-  - CICD
+title: 【リリースノート】gemini-actions-lab v0.10.3 - CI/CDワークフローとドキュメントの改善
+post_status: publish
+post_excerpt: gemini-actions-lab v0.10.3では、CI/CDワークフローの信頼性向上とドキュメントの更新に焦点を当てました。このリリースにより、開発プロセスの安定性が向上し、プロジェクトのメンテナンス性が強化されています。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.10.3-20251112_125030/imagen-4-ultra_2025-11-12T12-51-40-993Z_Create_a_minimalist_typographic_illustration_displ_1.png
+taxonomy:
+  category:
+  - リリースノート
+  - 技術情報
+  post_tag:
+  - GitHub Actions
+  - CI/CD
   - Discord
   - Python
-  - ReleaseNote
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】gemini-actions-lab v0.10.3 - CI/CDワークフローとドキュメントの改善
-  post_status: publish
-  post_excerpt: gemini-actions-lab v0.10.3では、CI/CDワークフローの信頼性向上とドキュメントの更新に焦点を当てました。このリリースにより、開発プロセスの安定性が向上し、プロジェクトのメンテナンス性が強化されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.10.3-20251112_125030/imagen-4-ultra_2025-11-12T12-51-40-993Z_Create_a_minimalist_typographic_illustration_displ_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - 技術情報
-    post_tag:
-    - GitHub Actions
-    - CI/CD
-    - Discord
-    - Python
-    - ドキュメント
-  custom_fields:
-    lead: gemini-actions-lab v0.10.3がリリースされました。このバージョンでは、開発プロセスの安定性を高めるため、GitHub Actionsのワークフロー改善とドキュメントの最新化を中心に行いました。
+  - ドキュメント
+custom_fields:
+  lead: gemini-actions-lab v0.10.3がリリースされました。このバージョンでは、開発プロセスの安定性を高めるため、GitHub Actionsのワークフロー改善とドキュメントの最新化を中心に行いました。
 ---
-
-![imagen-4-ultra_2025-11-12T12-51-40-993Z_Create_a_minimalist_typographic_illustration_displ_1.png](https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.10.3-20251112_125030/imagen-4-ultra_2025-11-12T12-51-40-993Z_Create_a_minimalist_typographic_illustration_displ_1.png)
 
 ## はじめに
 gemini-actions-lab v0.10.3へようこそ！このリリースでは、開発体験とプロジェクトの信頼性を向上させるため、継続的インテグレーション（CI/CD）のワークフロー改善と、各種ドキュメントの更新に注力しました。また、Discord Issue Botの安定性向上に関する修正も含まれています。
