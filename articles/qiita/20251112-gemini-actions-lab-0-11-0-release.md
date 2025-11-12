@@ -1,47 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】gemini-actions-lab v0.11.0 - Discord Botの機能強化とコマンド刷新
-  emoji: 🚀
-  type: tech
-  topics:
-  - github-actions
-  - discord
-  - python
-  - cicd
-  - automation
-  published: true
-qiita:
-  title: 【リリースノート】gemini-actions-lab v0.11.0 - Discord Botの機能強化とコマンド刷新
-  tags:
-  - GitHubActions
-  - Discord
-  - Python
-  - CI/CD
-  - Bot
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】gemini-actions-lab v0.11.0 - Discord Botの機能強化とコマンド刷新
-  post_status: publish
-  post_excerpt: gemini-actions-lab v0.11.0をリリースしました。本バージョンでは、Discord Botの機能が大幅に強化され、リポジトリの初期設定を効率化する新コマンドが追加されました。また、レガシーなテキストコマンドを廃止し、スラッシュコマンドへ統一しています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.11.0-20251112_165119/imagen-4-ultra_2025-11-12T16-52-17-481Z_Create_a_minimalist_typographic_illustration_displ_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - Discord
-    - CI/CD
-    post_tag:
-    - GitHub Actions
-    - Discord Bot
-    - Python
-    - 自動化
-    - v0.11.0
-  custom_fields:
-    lead: gemini-actions-labの最新バージョンv0.11.0がリリースされました。このアップデートでは、Discord Botにリポジトリ設定を自動化する新コマンドが追加され、開発体験が大きく向上しています。また、従来のテキストコマンドを廃止し、より直感的なスラッシュコマンド体系へと刷新されました。
+title: 【リリースノート】gemini-actions-lab v0.11.0 - Discord Botの機能強化とコマンド刷新
+tags:
+- GitHubActions
+- Discord
+- Python
+- CI/CD
+- Bot
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-11-12T16-52-17-481Z_Create_a_minimalist_typographic_illustration_displ_1.png](https://raw.githubusercontent.com/Sunwood-ai-labsII/gemini-actions-lab/main/generated-images/release-v0.11.0-20251112_165119/imagen-4-ultra_2025-11-12T16-52-17-481Z_Create_a_minimalist_typographic_illustration_displ_1.png)
