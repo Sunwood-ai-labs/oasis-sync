@@ -1,47 +1,14 @@
 ---
-zenn:
-  title: 【リリースノート】Slack GAS Simple Bot v0.1.0 - Slackオウム返しボットの初期リリース
-  emoji: 🤖
-  type: tech
-  topics:
-  - gas
-  - slack
-  - google-apps-script
-  - bot
-  - javascript
-  published: true
-qiita:
-  title: 【リリースノート】Slack GAS Simple Bot v0.1.0 - Slackオウム返しボットの初期リリース
-  tags:
-  - GAS
-  - Slack
-  - GoogleAppsScript
-  - Bot
-  - JavaScript
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Slack GAS Simple Bot v0.1.0 - Slackオウム返しボットの初期リリース
-  post_status: publish
-  post_excerpt: Google Apps Script（GAS）を利用したシンプルなSlackボットの初期バージョンv0.1.0がリリースされました。このバージョンでは、投稿されたメッセージをオウム返しする基本機能と、プロジェクトを紹介するランディングページが実装されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/slack-gas-simple-bot/main/generated-images/release-v0.1.0-20251113_162136/imagen-4-ultra_2025-11-13T16-22-36-320Z_A_Bioluminescent_Forest_Reverie_featuring_a_radian_1.png
-  taxonomy:
-    category:
-    - release-note
-    - gas
-    - slack
-    post_tag:
-    - GAS
-    - Slack
-    - GoogleAppsScript
-    - Bot
-    - JavaScript
-  custom_fields:
-    lead: この度、Google Apps Script（GAS）で動作するシンプルなSlackボット「Slack GAS Simple Bot」の最初のバージョンv0.1.0をリリースしました。本記事では、このリリースの主な変更点や技術的な詳細について解説します。
+title: 【リリースノート】Slack GAS Simple Bot v0.1.0 - Slackオウム返しボットの初期リリース
+emoji: 🤖
+type: tech
+topics:
+- gas
+- slack
+- google-apps-script
+- bot
+- javascript
+published: true
 ---
 
 ![imagen-4-ultra_2025-11-13T16-22-36-320Z_A_Bioluminescent_Forest_Reverie_featuring_a_radian_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/slack-gas-simple-bot/main/generated-images/release-v0.1.0-20251113_162136/imagen-4-ultra_2025-11-13T16-22-36-320Z_A_Bioluminescent_Forest_Reverie_featuring_a_radian_1.png)
