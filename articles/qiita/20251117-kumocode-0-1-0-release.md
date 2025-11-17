@@ -1,47 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】KumoCode v0.1.0 - Next.jsベースの静的サイトジェネレーターとして刷新
-  emoji: ✨
-  type: tech
-  topics:
-  - nextjs
-  - react
-  - ssg
-  - typescript
-  - markdown
-  published: true
-qiita:
-  title: 【リリースノート】KumoCode v0.1.0 - Next.jsベースの静的サイトジェネレーターとして刷新
-  tags:
-  - Next.js
-  - React
-  - SSG
-  - TypeScript
-  - Markdown
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】KumoCode v0.1.0 - Next.jsベースの静的サイトジェネレーターとして刷新
-  post_status: publish
-  post_excerpt: KumoCode v0.1.0がリリースされました。このバージョンでは、システム全体をNext.js (App Router + SSG)
-    ベースに刷新し、パフォーマンスと開発者体験を大幅に向上させています。また、動的なテーマシステムや豊富な埋め込み機能も導入されました。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/KumoCode/main/generated-images/release-v0.1.0-20251117_133650/imagen-4-ultra_2025-11-17T13-37-40-348Z_A_stylized_sculpture_of_a_drifting_cloud_woven_wit_1.png
-  taxonomy:
-    category:
-    - Release
-    - JavaScript
-    post_tag:
-    - Next.js
-    - React
-    - SSG
-    - TypeScript
-    - KumoCode
-  custom_fields:
-    lead: KumoCodeの最初のバージョンv0.1.0が公開されました。Next.jsへの移行によるパフォーマンス向上、動的テーマシステム、Mermaid.jsやURLカードなどの豊富な埋め込み機能が特徴です。本記事では、v0.1.0の主要な変更点とその技術的な詳細を解説します。
+title: 【リリースノート】KumoCode v0.1.0 - Next.jsベースの静的サイトジェネレーターとして刷新
+tags:
+- Next.js
+- React
+- SSG
+- TypeScript
+- Markdown
+private: false
+updated_at: null
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ![imagen-4-ultra_2025-11-17T13-37-40-348Z_A_stylized_sculpture_of_a_drifting_cloud_woven_wit_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/KumoCode/main/generated-images/release-v0.1.0-20251117_133650/imagen-4-ultra_2025-11-17T13-37-40-348Z_A_stylized_sculpture_of_a_drifting_cloud_woven_wit_1.png)
