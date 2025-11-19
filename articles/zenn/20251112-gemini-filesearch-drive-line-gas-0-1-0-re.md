@@ -1,5 +1,5 @@
 ---
-title: 【リリースノート】Gemini FileSearch Drive Line Gas v0.1.0 - Google Driveファイル検索LINE Botの初回リリース
+title: Gemini FileSearch Drive Line Gas v0.1.0 Botの初回リリース
 emoji: 🎉
 type: tech
 topics:

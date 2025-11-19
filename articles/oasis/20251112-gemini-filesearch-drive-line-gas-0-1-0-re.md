@@ -1,7 +1,6 @@
 ---
 zenn:
-  title: Gemini FileSearch Drive Line Gas v0.1.0
-    Botの初回リリース
+  title: Gemini FileSearch Drive Line Gas v0.1.0 Botの初回リリース
   emoji: 🎉
   type: tech
   topics:
