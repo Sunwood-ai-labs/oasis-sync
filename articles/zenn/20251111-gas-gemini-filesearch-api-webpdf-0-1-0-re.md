@@ -1,5 +1,5 @@
 ---
-title: 【リリースノート】gas-gemini-filesearch-api-webpdf v0.1.0 - Google Driveファイル検索APIの初期リリース
+title: gemini-filesearch-api - Google Driveファイル検索APIの初期リリース
 emoji: 🔍
 type: tech
 topics:
