@@ -1,5 +1,5 @@
 ---
-title: null
+title: 驚きの低コストとスピード - コーヒー数杯分の値段でAIを育てる nanochat
 emoji: 🤯
 type: tech
 topics:
