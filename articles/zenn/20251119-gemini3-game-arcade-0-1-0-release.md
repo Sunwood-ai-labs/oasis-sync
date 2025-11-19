@@ -1,47 +1,13 @@
 ---
-zenn:
-  title: 【リリースノート】Gemini3 Game Arcade v0.1.0 - ReactとViteでゲームアーケードが始動！
-  emoji: 🚀
-  type: tech
-  topics:
-  - react
-  - vite
-  - github-actions
-  - javascript
-  published: true
-qiita:
-  title: 【リリースノート】Gemini3 Game Arcade v0.1.0 - ReactとViteでゲームアーケードが始動！
-  tags:
-  - React
-  - Vite
-  - GitHubActions
-  - JavaScript
-  - Frontend
-  private: false
-  updated_at: '2025-11-20T05:09:03+09:00'
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Gemini3 Game Arcade v0.1.0 - ReactとViteでゲームアーケードが始動！
-  post_status: publish
-  post_excerpt: Gemini3 Game Arcadeの記念すべき最初のバージョンv0.1.0がリリースされました。このバージョンでは、ReactとViteを基盤としたモダンなフロントエンドの骨格が構築され、コンポーネントベースのUIやGitHub
-    Actionsによるゲーム追加の自動化ワークフローが導入されています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/gemini3-game-arcade/main/generated-images/release-v0.1.0-20251119_200412/imagen-4-ultra_2025-11-19T20-05-57-717Z_Header_image_for__Gemini3_Game_Arcade___v0_1_0_____1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - フロントエンド
-    post_tag:
-    - React
-    - Vite
-    - GitHubActions
-    - JavaScript
-    - Game
-  custom_fields:
-    lead: Gemini3 Game Arcadeの記念すべき最初のバージョンv0.1.0がリリースされました。このバージョンでは、ReactとViteを基盤としたモダンなフロントエンドの骨格が構築され、コンポーネントベースのUIやGitHub
-      Actionsによるゲーム追加の自動化ワークフローが導入されています。
+title: 【リリースノート】Gemini3 Game Arcade v0.1.0 - ReactとViteでゲームアーケードが始動！
+emoji: 🚀
+type: tech
+topics:
+- react
+- vite
+- github-actions
+- javascript
+published: true
 ---
 
 ```yaml
