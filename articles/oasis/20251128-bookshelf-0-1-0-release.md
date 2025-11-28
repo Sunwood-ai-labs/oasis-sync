@@ -1,0 +1,110 @@
+---
+zenn:
+  title: "【リリースノート】Bookshelf v0.1.0 - コア機能実装とUI刷新による初回リリース！"
+  emoji: "🎉"
+  type: "tech"
+  topics:
+    - react
+    - typescript
+    - vite
+    - huggingface
+    - github-pages
+  published: true
+qiita:
+  title: "【リリースノート】Bookshelf v0.1.0 - コア機能実装とUI刷新による初回リリース！"
+  tags:
+    - React
+    - TypeScript
+    - Vite
+    - HuggingFace
+    - GitHub
+  private: false
+  updated_at: null
+  id: null
+  organization_url_name: null
+  slide: false
+  ignorePublish: false
+wordpress:
+  title: "【リリースノート】Bookshelf v0.1.0 - コア機能実装とUI刷新による初回リリース！"
+  post_status: "publish"
+  post_excerpt: "デジタル本棚アプリ「Bookshelf」の記念すべき初回リリースv0.1.0が登場しました。本を追加、閲覧するコア機能や、使いやすい検索・フィルター機能を搭載。モダンなUIデザインとHugging Face連携によるメタデータ解析も特徴です。"
+  featured_image: "https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.1.0-20251128_191008/imagen-4-ultra_2025-11-28T19-11-16-144Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png"
+  taxonomy.category:
+    - リリースノート
+    - 技術記事
+  taxonomy.post_tag:
+    - React
+    - TypeScript
+    - Vite
+    - HuggingFace
+    - GitHub
+  custom_fields.lead: "デジタル本棚アプリ「Bookshelf」の記念すべき初回リリースv0.1.0が登場しました！本を追加して棚に並べ、快適に読むためのコア機能を搭載し、デザインもかわいく刷新。本記事では、v0.1.0の主な変更点や技術的な詳細をわかりやすく解説します。"
+---
+
+![imagen-4-ultra_2025-11-28T19-11-16-144Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.1.0-20251128_191008/imagen-4-ultra_2025-11-28T19-11-16-144Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png)
+
+## はじめに
+こんにちは！デジタル本棚アプリ「Bookshelf」開発チームです。この度、記念すべき最初のバージョンv0.1.0をリリースしました！🎉
+
+このバージョンでは、読書体験のコアとなる機能の実装と、直感的でかわいいUIデザインへの刷新を行いました。この記事では、v0.1.0で追加された主な機能や技術的な見どころについて、わかりやすくご紹介します。
+
+## 主な変更点
+v0.1.0のハイライトは以下の通りです。
+
+- **📖 読書体験のコア機能**: 本を追加し、本棚に並べ、閲覧するという基本的なサイクルをすべて実装しました。
+- **💖 モダンなUI/UX**: グラデーションヘッダーやサイドバーレイアウトを採用し、デザインを全面的に刷新。かわいくて使いやすいインターフェースを目指しました。
+- **🔍 検索＆フィルター機能**: 多数の蔵書から読みたい本を素早く見つけられる検索機能とフィルターを導入しました。
+- **🚀 簡単なデプロイ**: GitHub Pagesへのデプロイワークフローを整備し、常に最新版を体験できるようにしました。
+
+## 技術的な詳細
+本リリースの背景にある技術的な変更点を、新機能と改善点に分けて解説します。
+
+### 新機能
+#### 本の追加機能とメタデータ解析 (214e5da, 5d97e54)
+複数ファイルの一括アップロードに対応した本の追加ページを実装しました。
+さらに、Hugging Faceサービスと連携し、アップロードされた本のメタデータを自動で解析する機能を導入。これにより、手動での情報入力の手間を省きます。
+
+#### 読書ビューアとRTLサポート (5d97e54, b2cd5d9)
+本棚の本をクリックすると専用の読書ビューアが開くようになりました。縦書きの書籍などを考慮し、右から左へのページ送り（RTL）にも対応しています。
+
+#### 検索機能とUIコンポーネント (72bffca, b72baab)
+本棚にクライアントサイドの検索機能を追加し、書籍の絞り込みを容易にしました。
+また、新たにサイドバーレイアウトとフィルターコントロールを導入し、多くの本が並んでいても目的の本を探しやすいようUIを改善しました。ヘッダーにはグラデーションとテキストシャドウを適用し、デザイン性を高めています。
+
+```typescript
+// 書籍情報を管理する新しい型定義
+export interface BookEntry {
+  id: string;
+  title: string;
+  author?: string;
+  coverImage?: string;
+  totalPages: number;
+  files: File[];
+  // ...その他のメタデータ
+}
+```
+*書籍情報を管理する`BookEntry`型 (11bb40c)*
+
+#### GitHub Pagesへのデプロイ (f5fd612)
+リポジトリへのプッシュをトリガーに、ViteによるビルドとGitHub Pagesへのデプロイが自動的に実行されるGitHub Actionsワークフローを追加しました。これにより、常に最新のアプリケーションを提供します。
+
+### 改善点
+#### Viteビルド設定の最適化 (c579442)
+`/bookshelf`のサブディレクトリに正しくデプロイされるよう、Viteの`base`パス設定を調整しました。これにより、GitHub Pagesでの安定したホスティングを実現しています。
+
+#### UIデザインの全面的な刷新 (8f1e46c)
+アプリケーション全体のスタイルを見直し、コンポーネントデザインをモダンで一貫性のあるものにアップデートしました。ユーザーがより楽しく、直感的に操作できることを目指しています。
+
+#### プロジェクトのクリーンアップ (673de9b)
+開発初期段階の不要なファイルや古いモジュールを削除し、プロジェクト全体を整理しました。
+
+## まとめ
+Bookshelf v0.1.0は、アプリケーションの土台となる初めての公式リリースです。読書のためのコア機能と、それを支えるモダンなUI、そして自動化されたデプロイ基盤が整いました。
+
+まだまだ始まったばかりですが、これからもっと便利で楽しい機能を追加していく予定です。ぜひ、実際に触ってみてフィードバックをいただけると嬉しいです！
+
+---
+### 📚 参考リンク
+- **GitHubリポジトリ**: [Sunwood-ai-labs/bookshelf](https://github.com/Sunwood-ai-labs/bookshelf)
+- **リリースページ**: [v0.1.0 Release](https://github.com/Sunwood-ai-labs/bookshelf/releases/tag/v0.1.0)
+- **比較URL**: (最初のリリース)
