@@ -1,48 +1,20 @@
 ---
-zenn:
-  title: 【リリースノート】Bookshelf v0.1.0 - コア機能実装とUI刷新による初回リリース！
-  emoji: 🎉
-  type: tech
-  topics:
-  - react
-  - typescript
-  - vite
-  - huggingface
-  - github-pages
-  published: true
-qiita:
-  title: 【リリースノート】Bookshelf v0.1.0 - コア機能実装とUI刷新による初回リリース！
-  tags:
-  - React
-  - TypeScript
-  - Vite
-  - HuggingFace
-  - GitHub
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Bookshelf v0.1.0 - コア機能実装とUI刷新による初回リリース！
-  post_status: publish
-  post_excerpt: デジタル本棚アプリ「Bookshelf」の記念すべき初回リリースv0.1.0が登場しました。本を追加、閲覧するコア機能や、使いやすい検索・フィルター機能を搭載。モダンなUIデザインとHugging
-    Face連携によるメタデータ解析も特徴です。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.1.0-20251128_191008/imagen-4-ultra_2025-11-28T19-11-16-144Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png
-  taxonomy.category:
-  - リリースノート
-  - 技術記事
-  taxonomy.post_tag:
-  - React
-  - TypeScript
-  - Vite
-  - HuggingFace
-  - GitHub
-  custom_fields.lead: デジタル本棚アプリ「Bookshelf」の記念すべき初回リリースv0.1.0が登場しました！本を追加して棚に並べ、快適に読むためのコア機能を搭載し、デザインもかわいく刷新。本記事では、v0.1.0の主な変更点や技術的な詳細をわかりやすく解説します。
+title: 【リリースノート】Bookshelf v0.1.0 - コア機能実装とUI刷新による初回リリース！
+post_status: publish
+post_excerpt: デジタル本棚アプリ「Bookshelf」の記念すべき初回リリースv0.1.0が登場しました。本を追加、閲覧するコア機能や、使いやすい検索・フィルター機能を搭載。モダンなUIデザインとHugging
+  Face連携によるメタデータ解析も特徴です。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.1.0-20251128_191008/imagen-4-ultra_2025-11-28T19-11-16-144Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png
+taxonomy.category:
+- リリースノート
+- 技術記事
+taxonomy.post_tag:
+- React
+- TypeScript
+- Vite
+- HuggingFace
+- GitHub
+custom_fields.lead: デジタル本棚アプリ「Bookshelf」の記念すべき初回リリースv0.1.0が登場しました！本を追加して棚に並べ、快適に読むためのコア機能を搭載し、デザインもかわいく刷新。本記事では、v0.1.0の主な変更点や技術的な詳細をわかりやすく解説します。
 ---
-
-![imagen-4-ultra_2025-11-28T19-11-16-144Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.1.0-20251128_191008/imagen-4-ultra_2025-11-28T19-11-16-144Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png)
 
 ## はじめに
 こんにちは！デジタル本棚アプリ「Bookshelf」開発チームです。この度、記念すべき最初のバージョンv0.1.0をリリースしました！🎉
