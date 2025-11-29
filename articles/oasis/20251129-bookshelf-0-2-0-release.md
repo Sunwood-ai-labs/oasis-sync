@@ -1,0 +1,103 @@
+---
+zenn:
+  title: "【リリースノート】Bookshelf v0.2.0 - UI/UXの大幅刷新と機能強化"
+  emoji: "✨"
+  type: "tech"
+  topics:
+    - "react"
+    - "typescript"
+    - "vite"
+    - "huggingface"
+    - "ui-ux"
+  published: true
+qiita:
+  title: "【リリースノート】Bookshelf v0.2.0 - UI/UXの大幅刷新と機能強化"
+  tags:
+    - "React"
+    - "TypeScript"
+    - "Vite"
+    - "HuggingFace"
+    - "UIUX"
+  private: false
+  updated_at: null
+  id: null
+  organization_url_name: null
+  slide: false
+  ignorePublish: false
+wordpress:
+  title: "【リリースノート】Bookshelf v0.2.0 - UI/UXの大幅刷新と機能強化"
+  post_status: "publish"
+  post_excerpt: "Bookshelf v0.2.0がリリースされました。このバージョンでは、UI/UXの全面刷新、タグ機能の強化、Hugging Faceへのアップロード処理の改善など、多くの新機能と改善が含まれています。"
+  featured_image: "https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.2.0-20251129_192323/imagen-4-ultra_2025-11-29T19-24-15-010Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png"
+  taxonomy:
+    category:
+      - "release-note"
+      - "frontend"
+  taxonomy:
+    post_tag:
+      - "React"
+      - "TypeScript"
+      - "Vite"
+      - "HuggingFace"
+      - "UIUX"
+  custom_fields:
+    lead: "Bookshelf v0.2.0では、ユーザー体験を向上させるための大幅なUI/UX刷新が行われました。本記事では、テーマ切り替え機能やタグによる絞り込み検索、メタデータインポートなどの主要な変更点とその技術的な背景を詳しく解説します。"
+---
+
+![imagen-4-ultra_2025-11-29T19-24-15-010Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.2.0-20251129_192323/imagen-4-ultra_2025-11-29T19-24-15-010Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png)
+
+## はじめに
+Bookshelf v0.2.0では、ユーザー体験を向上させるための大幅なUI/UX刷新が行われました。本記事では、テーマ切り替え機能やタグによる絞り込み検索、メタデータインポートなどの主要な変更点とその技術的な背景を詳しく解説します。
+
+## 主な変更点
+本リリースにおける主なハイライトは以下の通りです。
+
+- **UI/UXの全面刷新**: 書籍投稿ページをモダンなデザインに一新し、ライト/ダークモードのテーマ切り替え機能を追加しました。
+- **タグ機能の強化**: 書籍にタグを付けて管理できるようになりました。一覧画面ではタグによる絞り込み検索が可能です。
+- **アップロード処理の改善**: Hugging Faceへのアップロード処理を公式SDKを利用した一括コミット方式に変更し、LFSに対応しました。
+- **メタデータインポート**: JSONファイルやテキスト入力から書籍情報を一括でインポートする機能を追加しました。
+- **セキュリティ向上**: Hugging Faceのトークンを環境変数で安全に管理できるようになりました。
+
+## 技術的な詳細
+今回のアップデートで行われた主要な変更について、技術的な観点から掘り下げていきます。
+
+### 新機能
+**1. UI/UXの全面刷新と専用投稿ページの導入**
+従来のモーダル形式 (`UploadBook.tsx`) を廃止し、新たに専用の書籍投稿ページ (`AddBookPage.tsx`) を導入しました。これにより、UIが整理され、より直感的な操作が可能になりました。
+
+**2. テーマ切り替え機能（ライト/ダークモード）**
+ユーザーの好みに合わせてUIのテーマを切り替えられる機能を追加しました。CSS変数を活用し、状態に応じて動的にカラースキームを適用しています。
+
+**3. タグによる絞り込み検索**
+書籍に複数のタグを付与し、一覧画面で特定のタグをクリックすることで、関連する書籍をフィルタリングできるようになりました。これにより、目的の書籍を探しやすさが向上しました。
+
+**4. メタデータの一括インポート**
+書籍情報をJSONファイルやテキスト入力から一括でインポートする機能が追加されました。手作業による入力の手間を大幅に削減し、登録作業を効率化します。
+
+**5. Toast通知機能**
+操作の成功や失敗をユーザーにフィードバックするため、画面上にToast通知を表示する機能を追加しました。非同期処理の結果を分かりやすく伝え、ユーザー体験を向上させます。
+
+### 改善点
+**1. Hugging Faceへのアップロード処理の刷新**
+従来の個別ファイルアップロード方式から、Hugging Faceの公式SDK (`huggingface.js`) の `commit` 関数を利用した一括コミット方式にリファクタリングしました。
+この変更により、複数のファイルを単一のトランザクションでアップロードできるようになり、処理の信頼性が向上しました。特に、Git LFS (Large File Storage) に正式に対応したことで、大きなカバー画像なども安定して扱えるようになりました。
+
+**2. セキュリティの強化**
+Hugging FaceのAPIトークンをソースコードから分離し、環境変数 (`VITE_HF_TOKEN`) を介して安全に読み込むように変更しました。これにより、機密情報がリポジトリにハードコードされるのを防ぎ、セキュリティを向上させています。
+
+### バグ修正
+**1. 画像アップロードの安定化**
+上記「改善点」で述べたアップロード処理の刷新により、これまで不安定だったHugging Faceへの画像アップロード処理が安定化しました。
+
+**2. アップロード先リポジトリの指定**
+書籍データのアップロード先リポジトリを任意で指定できるよう機能を追加し、デフォルト値を修正しました。
+
+## まとめ
+Bookshelf v0.2.0は、UI/UXを全面的に刷新し、タグ管理やメタデータインポートといった多数の新機能を追加することで、利便性を大幅に向上させました。また、Hugging Faceへのアップロード処理をLFS対応の一括コミット方式に改善し、セキュリティを強化するなど、技術的な基盤も大きく前進しました。ぜひ新しいBookshelfをお試しください。
+
+---
+
+📚 参考リンク
+- **GitHubリポジトリ**: [Sunwood-ai-labs/bookshelf](https://github.com/Sunwood-ai-labs/bookshelf)
+- **v0.2.0リリースページ**: [https://github.com/Sunwood-ai-labs/bookshelf/releases/tag/v0.2.0](https://github.com/Sunwood-ai-labs/bookshelf/releases/tag/v0.2.0)
+- **変更点の比較 (v0.1.0...v0.2.0)**: [https://github.com/Sunwood-ai-labs/bookshelf/compare/v0.1.0...v0.2.0](https://github.com/Sunwood-ai-labs/bookshelf/compare/v0.1.0...v0.2.0)
