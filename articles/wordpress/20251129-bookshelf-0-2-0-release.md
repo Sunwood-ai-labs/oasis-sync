@@ -1,46 +1,18 @@
 ---
-zenn:
-  title: 【リリースノート】Bookshelf v0.2.0 - UI/UXの大幅刷新と機能強化
-  emoji: ✨
-  type: tech
-  topics:
-  - react
-  - typescript
-  - vite
-  - huggingface
-  - ui-ux
-  published: true
-qiita:
-  title: 【リリースノート】Bookshelf v0.2.0 - UI/UXの大幅刷新と機能強化
-  tags:
+title: 【リリースノート】Bookshelf v0.2.0 - UI/UXの大幅刷新と機能強化
+post_status: publish
+post_excerpt: Bookshelf v0.2.0がリリースされました。このバージョンでは、UI/UXの全面刷新、タグ機能の強化、Hugging Faceへのアップロード処理の改善など、多くの新機能と改善が含まれています。
+featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.2.0-20251129_192323/imagen-4-ultra_2025-11-29T19-24-15-010Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png
+taxonomy:
+  post_tag:
   - React
   - TypeScript
   - Vite
   - HuggingFace
   - UIUX
-  private: false
-  updated_at: null
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Bookshelf v0.2.0 - UI/UXの大幅刷新と機能強化
-  post_status: publish
-  post_excerpt: Bookshelf v0.2.0がリリースされました。このバージョンでは、UI/UXの全面刷新、タグ機能の強化、Hugging Faceへのアップロード処理の改善など、多くの新機能と改善が含まれています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.2.0-20251129_192323/imagen-4-ultra_2025-11-29T19-24-15-010Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png
-  taxonomy:
-    post_tag:
-    - React
-    - TypeScript
-    - Vite
-    - HuggingFace
-    - UIUX
-  custom_fields:
-    lead: Bookshelf v0.2.0では、ユーザー体験を向上させるための大幅なUI/UX刷新が行われました。本記事では、テーマ切り替え機能やタグによる絞り込み検索、メタデータインポートなどの主要な変更点とその技術的な背景を詳しく解説します。
+custom_fields:
+  lead: Bookshelf v0.2.0では、ユーザー体験を向上させるための大幅なUI/UX刷新が行われました。本記事では、テーマ切り替え機能やタグによる絞り込み検索、メタデータインポートなどの主要な変更点とその技術的な背景を詳しく解説します。
 ---
-
-![imagen-4-ultra_2025-11-29T19-24-15-010Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png](https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.2.0-20251129_192323/imagen-4-ultra_2025-11-29T19-24-15-010Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png)
 
 ## はじめに
 Bookshelf v0.2.0では、ユーザー体験を向上させるための大幅なUI/UX刷新が行われました。本記事では、テーマ切り替え機能やタグによる絞り込み検索、メタデータインポートなどの主要な変更点とその技術的な背景を詳しく解説します。
