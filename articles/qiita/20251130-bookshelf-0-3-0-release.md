@@ -1,45 +1,17 @@
 ---
-zenn:
-  title: 【リリースノート】Bookshelf v0.3.0 - 漫画個別ページの追加とUI/UXの大幅改善
-  emoji: ✨
-  type: tech
-  topics:
-  - react
-  - typescript
-  - ui-ux
-  - vite
-  published: true
-qiita:
-  title: 【リリースノート】Bookshelf v0.3.0 - 漫画個別ページの追加とUI/UXの大幅改善
-  tags:
-  - React
-  - TypeScript
-  - UI
-  - UX
-  - HuggingFace
-  private: false
-  updated_at: '2025-11-30T12:00:00+09:00'
-  id: null
-  organization_url_name: null
-  slide: false
-  ignorePublish: false
-wordpress:
-  title: 【リリースノート】Bookshelf v0.3.0 - 漫画個別ページの追加とUI/UXの大幅改善
-  post_status: publish
-  post_excerpt: Bookshelf v0.3.0をリリースしました。本バージョンでは、待望の漫画個別ページ機能を追加し、UIデザインを全面的に刷新するなど、ユーザー体験を大幅に向上させるアップデートが含まれています。
-  featured_image: https://raw.githubusercontent.com/Sunwood-ai-labs/bookshelf/main/generated-images/release-v0.3.0-20251130_161323/imagen-4-ultra_2025-11-30T16-14-17-522Z_A_micro_book_terrarium_scene_featuring_a_tiny_clay_1.png
-  taxonomy:
-    category:
-    - リリースノート
-    - フロントエンド
-    post_tag:
-    - Bookshelf
-    - React
-    - TypeScript
-    - UI/UX
-    - HuggingFace
-  custom_fields:
-    lead: Bookshelf v0.3.0がついに登場！本バージョンでは、待望の漫画個別ページ機能の追加や、より直感的に使えるトップナビゲーションへのUI刷新など、使いやすさを大きく向上させる改善が満載です。この記事では、v0.3.0の技術的な詳細と変更のポイントを分かりやすく解説します。
+title: 【リリースノート】Bookshelf v0.3.0 - 漫画個別ページの追加とUI/UXの大幅改善
+tags:
+- React
+- TypeScript
+- UI
+- UX
+- HuggingFace
+private: false
+updated_at: '2025-11-30T12:00:00+09:00'
+id: null
+organization_url_name: null
+slide: false
+ignorePublish: false
 ---
 
 ```yaml
